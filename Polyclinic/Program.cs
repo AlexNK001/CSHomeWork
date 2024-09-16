@@ -15,7 +15,7 @@ namespace Polyclinic
 
             int allTimeInMinutes = numberPeople * receptionTime;
             int finalTimeInMinutes = allTimeInMinutes % numberMinutesInHour;
-            int finalTimeInHours = (allTimeInMinutes - finalTimeInMinutes) / numberMinutesInHour;
+            int finalTimeInHours = allTimeInMinutes / numberMinutesInHour;
 
             Console.WriteLine($"Время ожидания {finalTimeInHours} часа и {finalTimeInMinutes} минут.");
             Console.ReadKey();
