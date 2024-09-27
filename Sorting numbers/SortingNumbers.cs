@@ -8,7 +8,7 @@ namespace Sorting_numbers
         {
             Random random = new Random();
             int minRandom = 0;
-            int maxRandom = 11;
+            int maxRandom = 10;
             int[] numbers = new int[15];
             bool isProgramm = true;
             int maxValue = int.MaxValue;
@@ -18,7 +18,7 @@ namespace Sorting_numbers
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i] = random.Next(minRandom, maxRandom);
+                numbers[i] = random.Next(minRandom, maxRandom + 1);
                 Console.Write(numbers[i] + " ");
             }
 

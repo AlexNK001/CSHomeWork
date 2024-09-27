@@ -15,7 +15,7 @@ namespace Shifting_array_values
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i] = random.Next(minRandom, maxRandom);
+                numbers[i] = random.Next(minRandom, maxRandom + 1);
                 Console.Write(numbers[i] + " ");
             }
 

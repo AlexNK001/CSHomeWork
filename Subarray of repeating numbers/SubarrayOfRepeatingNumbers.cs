@@ -8,7 +8,7 @@ namespace Subarray_of_repeating_numbers
         {
             Random random = new Random();
             int minRandom = 0;
-            int maxRandom = 5;
+            int maxRandom = 4;
             int[] numbers = new int[30];
             int numberRepetitions = 0;
             bool isProgramm = true;
@@ -16,7 +16,7 @@ namespace Subarray_of_repeating_numbers
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i] = random.Next(minRandom, maxRandom);
+                numbers[i] = random.Next(minRandom, maxRandom + 1);
             }
 
             while (isProgramm)
