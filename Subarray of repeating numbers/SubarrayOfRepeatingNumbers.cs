@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Subarray_of_repeating_numbers
 {
-    class Program
+    internal class SubarrayOfRepeatingNumbers
     {
-        static void Main(string[] args)
+        private static void Main()
         {
         }
     }

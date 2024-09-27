@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shifting_array_values
 {
-    class Program
+    internal class ShiftingArrayValues
     {
-        static void Main(string[] args)
+        private static void Main()
         {
         }
     }
