@@ -5,21 +5,37 @@ namespace Dynamic_array
     internal class DynamicArray
     {
         private const string InputSum = "sum";
-        private const string InpurExit = "exit";
+        private const string InputExit = "exit";
 
         private static void Main()
         {
+            char separatorsymbol = ',';
+            char finalsymbol = ';';
             string userInput;
             bool isWorking = true;
             int[] numbers = new int[0];
             int sum = 0;
 
-            Console.WriteLine($"Для вывода суммы напишите: {InputSum}");
-            Console.WriteLine($"Для выхода из программы напишите: {InpurExit}");
-            Console.WriteLine("Введите целочисленные числа.");
-
             while (isWorking)
             {
+                Console.Clear();
+                Console.WriteLine($"Для вывода суммы напишите: {InputSum}");
+                Console.WriteLine($"Для выхода из программы напишите: {InputExit}");
+                Console.WriteLine("Введите целочисленные числа.");
+
+                if (numbers.Length > 0)
+                {
+                    string message = "";
+
+                    for (int i = 0; i < numbers.Length - 1; i++)
+                    {
+                        message += numbers[i].ToString() + separatorsymbol;
+                    }
+
+                    message += numbers[numbers.Length - 1].ToString() + finalsymbol;
+                    Console.WriteLine($"Ранее введенные числа: {message}");
+                }
+
                 userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -29,11 +45,10 @@ namespace Dynamic_array
                             sum += numbers[i];
 
                         Console.WriteLine($"Сумма чисел равна: {sum}");
-                        sum = 0;
-                        numbers = new int[0];
+                        Console.ReadKey();
                         break;
 
-                    case InpurExit:
+                    case InputExit:
                         isWorking = false;
                         break;
 
