@@ -7,7 +7,7 @@ namespace Maximum_element
         private static void Main()
         {
             int minRandomNumber = 0;
-            int maxRandomNumber = 101;
+            int maxRandomNumber = 100;
             int maxElement = int.MinValue;
             int replacementNumber = 0;
 
@@ -21,7 +21,7 @@ namespace Maximum_element
             {
                 for (int j = 0; j < numbers.GetLength(1); j++)
                 {
-                    numbers[i, j] = random.Next(minRandomNumber, maxRandomNumber);
+                    numbers[i, j] = random.Next(minRandomNumber, maxRandomNumber + 1);
                     Console.Write(numbers[i, j] + "\t");
                 }
 
