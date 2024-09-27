@@ -14,6 +14,10 @@ namespace Dynamic_array
             int[] numbers = new int[0];
             int sum = 0;
 
+            Console.WriteLine($"Для вывода суммы напишите: {InputSum}");
+            Console.WriteLine($"Для выхода из программы напишите: {InpurExit}");
+            Console.WriteLine("Введите целочисленные числа.");
+
             while (isWorking)
             {
                 userInput = Console.ReadLine();
@@ -24,7 +28,9 @@ namespace Dynamic_array
                         for (int i = 0; i < numbers.Length; i++)
                             sum += numbers[i];
 
-                        Console.WriteLine(sum);
+                        Console.WriteLine($"Сумма чисел равна: {sum}");
+                        sum = 0;
+                        numbers = new int[0];
                         break;
 
                     case InpurExit:
