@@ -22,6 +22,7 @@ namespace SubarrayOfRepeatingNumbersV2
             for (int i = 0; i < numbers.Length; i++)
             {
                 numbers[i] = random.Next(minRandom, maxRandom + 1);
+                Console.Write($"{numbers[i]} ");
             }
 
             for (int i = 0; i < numbers.Length - 1; i++)
@@ -42,13 +43,7 @@ namespace SubarrayOfRepeatingNumbersV2
                 }
             }
 
-            Console.WriteLine($"число {maxNumber} количество повторов {numberRepetitions + 1}");
-
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                Console.Write(numbers[i] + " ");
-            }
-
+            Console.WriteLine($"\nчисло {maxNumber} количество повторов {numberRepetitions + 1}");
             Console.ReadKey();
         }
     }

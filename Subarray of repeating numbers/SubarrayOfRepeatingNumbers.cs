@@ -22,7 +22,7 @@ namespace Subarray_of_repeating_numbers
             while (isWorking)
             {
                 isWorking = false;
-                Console.Clear();
+                //Console.Clear();
 
                 for (int i = 0; i < numbers.Length - 1; i++)
                 {
