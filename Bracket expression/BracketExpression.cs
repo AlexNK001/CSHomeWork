@@ -6,27 +6,31 @@ namespace Bracket_expression
     {
         private static void Main()
         {
-            char symbolLeftBrace = '(';
-            char symbolRightBrace = ')';
+            char openedBracket = '(';
+            char closedBracket = ')';
             int nestingDepth = 0;
             int currentNestingDepth = 0;
-            string braceString;
+            string bracket;
 
             Console.WriteLine("Введите скобочное выражение");
-            braceString = Console.ReadLine();
+            bracket = Console.ReadLine();
 
-            for (int i = 0; i < braceString.Length; i++)
+            for (int i = 0; i < bracket.Length; i++)
             {
-                if (braceString[i] == symbolRightBrace)
+                if (bracket[i] == closedBracket)
+                {
                     currentNestingDepth--;
-                else if (braceString[i] == symbolLeftBrace)
+
+                    if (currentNestingDepth < 0)
+                        break;
+                }
+                else if (bracket[i] == openedBracket)
+                {
                     currentNestingDepth++;
 
-                if (currentNestingDepth < 0)
-                    break;
-
-                if (currentNestingDepth > nestingDepth)
-                    nestingDepth = currentNestingDepth;
+                    if (currentNestingDepth > nestingDepth)
+                        nestingDepth = currentNestingDepth;
+                }
             }
 
             if (currentNestingDepth == 0)
