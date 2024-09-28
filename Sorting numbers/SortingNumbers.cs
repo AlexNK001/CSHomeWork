@@ -8,40 +8,33 @@ namespace Sorting_numbers
         {
             Random random = new Random();
             int minRandom = 0;
-            int maxRandom = 10;
+            int maxRandom = 11;
             int[] numbers = new int[15];
-            bool isWorking = true;
-            int maxValue = int.MaxValue;
-            int currentMaxValue;
-            int currentMinValue = int.MinValue;
-            int numberCycles = 0;
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i] = random.Next(minRandom, maxRandom + 1);
+                numbers[i] = random.Next(minRandom, maxRandom);
                 Console.Write($"{numbers[i]} ");
             }
 
             Console.WriteLine();
 
-            while (isWorking)
+            for (int i = 0; i < numbers.Length; i++)
             {
-                currentMaxValue = maxValue;
-
-                for (int i = 0; i < numbers.Length; i++)
+                for (int j = 0; j < numbers.Length - 1 - i; j++)
                 {
-                    if (numbers[i] > currentMinValue && numbers[i] < currentMaxValue)
-                        currentMaxValue = numbers[i];
-                    else if (numbers[i] == currentMinValue)
-                        Console.Write($"{numbers[i]} ");
+                    if (numbers[j] > numbers[j + 1])
+                    {
+                        int tempNumber = numbers[j];
+                        numbers[j] = numbers[j + 1];
+                        numbers[j + 1] = tempNumber;
+                    }
                 }
+            }
 
-                currentMinValue = currentMaxValue;
-
-                numberCycles++;
-
-                if (numberCycles == numbers.Length)
-                    isWorking = false;
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.Write($"{numbers[i]} ");
             }
         }
     }
