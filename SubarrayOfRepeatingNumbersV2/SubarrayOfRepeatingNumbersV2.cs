@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SubarrayOfRepeatingNumbersV2
+namespace SubarrayOfRepeatingNumbers
 {
-    internal class SubarrayOfRepeatingNumbersV2
+    internal class SubarrayOfRepeatingNumbers
     {
         private static void Main()
         {
@@ -44,3 +44,5 @@ namespace SubarrayOfRepeatingNumbersV2
         }
     }
 }
+
+
