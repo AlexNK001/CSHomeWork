@@ -14,7 +14,6 @@ namespace Dynamic_array
             string userInput;
             bool isWorking = true;
             int[] numbers = new int[0];
-            int sum = 0;
 
             while (isWorking)
             {
@@ -41,12 +40,13 @@ namespace Dynamic_array
                 switch (userInput)
                 {
                     case CommandInputSum:
+                        int sum = 0;
+
                         for (int i = 0; i < numbers.Length; i++)
                             sum += numbers[i];
 
                         Console.WriteLine($"Сумма чисел равна: {sum}");
                         Console.ReadKey();
-                        sum = 0;
                         break;
 
                     case CommandInputExit:
