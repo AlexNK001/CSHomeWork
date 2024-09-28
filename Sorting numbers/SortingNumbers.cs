@@ -19,7 +19,7 @@ namespace Sorting_numbers
             for (int i = 0; i < numbers.Length; i++)
             {
                 numbers[i] = random.Next(minRandom, maxRandom + 1);
-                Console.Write(numbers[i] + " ");
+                Console.Write($"{numbers[i]} ");
             }
 
             Console.WriteLine();
@@ -33,7 +33,7 @@ namespace Sorting_numbers
                     if (numbers[i] > currentMinValue && numbers[i] < currentMaxValue)
                         currentMaxValue = numbers[i];
                     else if (numbers[i] == currentMinValue)
-                        Console.Write(numbers[i] + " ");
+                        Console.Write($"{numbers[i]} ");
                 }
 
                 currentMinValue = currentMaxValue;

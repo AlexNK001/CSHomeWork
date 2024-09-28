@@ -16,7 +16,7 @@ namespace Shifting_array_values
             for (int i = 0; i < numbers.Length; i++)
             {
                 numbers[i] = random.Next(minRandom, maxRandom + 1);
-                Console.Write(numbers[i] + " ");
+                Console.Write($"{numbers[i]} ");
             }
 
             userInput = Convert.ToInt32(Console.ReadLine());
@@ -33,8 +33,8 @@ namespace Shifting_array_values
 
             Console.WriteLine();
 
-            foreach (int item in numbers)
-                Console.Write(item + " ");
+            foreach (int number in numbers)
+                Console.Write($"{number} ");
         }
     }
 }

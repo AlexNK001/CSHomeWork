@@ -10,7 +10,7 @@ namespace SubarrayOfRepeatingNumbersV2
             int minRandom = 0;
             int maxRandom = 4;
             int[] numbers = new int[30];
-            int numberRepetitions = 0;
+            int numberRepetitions = 1;
 
             int maxNumber = 0;
             int currentNumberRepetitions = 0;
@@ -39,7 +39,7 @@ namespace SubarrayOfRepeatingNumbersV2
                 }
             }
 
-            Console.WriteLine($"\nчисло {maxNumber} количество повторов {numberRepetitions + 1}");
+            Console.WriteLine($"\nчисло {maxNumber} количество повторов {numberRepetitions}.");
             Console.ReadKey();
         }
     }
