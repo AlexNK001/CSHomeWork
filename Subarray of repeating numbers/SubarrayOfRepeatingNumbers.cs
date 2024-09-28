@@ -11,7 +11,7 @@ namespace Subarray_of_repeating_numbers
             int maxRandom = 4;
             int[] numbers = new int[30];
             int numberRepetitions = 0;
-            bool isProgramm = true;
+            bool isWorking = true;
             int currentNumberRepetitions = 0;
 
             for (int i = 0; i < numbers.Length; i++)
@@ -19,9 +19,9 @@ namespace Subarray_of_repeating_numbers
                 numbers[i] = random.Next(minRandom, maxRandom + 1);
             }
 
-            while (isProgramm)
+            while (isWorking)
             {
-                isProgramm = false;
+                isWorking = false;
                 Console.Clear();
 
                 for (int i = 0; i < numbers.Length - 1; i++)
@@ -32,7 +32,7 @@ namespace Subarray_of_repeating_numbers
 
                         if (currentNumberRepetitions > numberRepetitions)
                         {
-                            isProgramm = true;
+                            isWorking = true;
                             numberRepetitions = currentNumberRepetitions;
                         }
                         else if (currentNumberRepetitions == numberRepetitions)
@@ -45,7 +45,6 @@ namespace Subarray_of_repeating_numbers
                         currentNumberRepetitions = 0;
                     }
                 }
-
             }
 
             for (int i = 0; i < numbers.Length; i++)

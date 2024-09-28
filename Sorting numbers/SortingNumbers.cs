@@ -10,7 +10,7 @@ namespace Sorting_numbers
             int minRandom = 0;
             int maxRandom = 10;
             int[] numbers = new int[15];
-            bool isProgramm = true;
+            bool isWorking = true;
             int maxValue = int.MaxValue;
             int currentMaxValue;
             int currentMinValue = int.MinValue;
@@ -24,7 +24,7 @@ namespace Sorting_numbers
 
             Console.WriteLine();
 
-            while (isProgramm)
+            while (isWorking)
             {
                 currentMaxValue = maxValue;
 
@@ -41,7 +41,7 @@ namespace Sorting_numbers
                 numberCycles++;
 
                 if (numberCycles == numbers.Length)
-                    isProgramm = false;
+                    isWorking = false;
             }
         }
     }
