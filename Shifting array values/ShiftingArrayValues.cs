@@ -10,8 +10,6 @@ namespace Shifting_array_values
             Random random = new Random();
             int minRandom = 0;
             int maxRandom = 10;
-            int userInput;
-            int firstIndex;
 
             for (int i = 0; i < numbers.Length; i++)
             {
@@ -19,22 +17,26 @@ namespace Shifting_array_values
                 Console.Write($"{numbers[i]} ");
             }
 
-            userInput = Convert.ToInt32(Console.ReadLine());
+            Console.Write($"\nВведите число на которое хотите сдвинуть массив ");
+            int userInput = Convert.ToInt32(Console.ReadLine()) % numbers.Length;
 
-            for (int i = 0; i < userInput; i++)
+            if (userInput == 0 == false)
             {
-                firstIndex = numbers[0];
+                int firstIndex = numbers[0];
 
-                for (int j = 0; j < numbers.Length - 1; j++)
-                    numbers[j] = numbers[j + 1];
+                for (int i = 0; i < userInput; i++)
+                {
+                    for (int j = 0; j < numbers.Length - 1; j++)
+                        numbers[j] = numbers[j + 1];
+                }
 
                 numbers[numbers.GetUpperBound(0)] = firstIndex;
             }
 
-            Console.WriteLine();
-
             foreach (int number in numbers)
                 Console.Write($"{number} ");
+
+            Console.WriteLine();
         }
     }
 }
