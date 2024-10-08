@@ -7,38 +7,35 @@ namespace UIElement
         static void Main()
         {
             int barLength = 18;
-            int maxValueForHealth = 100;
-            int currentHealth = 18;
-            int maxValueForMana = 70;
-            int currentMana = 54;
+            float currentHealth = 40f;
+            float currentMana = 54f;
 
-            DrawFullBar(barLength, maxValueForHealth, currentHealth);
-            DrawFullBar(barLength, maxValueForMana, currentMana, ConsoleColor.DarkBlue);
+            string health = GetBar(barLength, currentHealth);
+            Console.WriteLine(health);
+            string mana = GetBar(barLength, currentMana);
+            Console.WriteLine(mana);
         }
 
-        static void DrawFullBar(int barSizeInSymbol, int maximumPossibleValue, int presentValue, ConsoleColor color = ConsoleColor.DarkRed)
+        static string GetBar(int barLength, float currentPercent)
         {
-            float percent = Convert.ToSingle(presentValue) / maximumPossibleValue;
-            int firstHalfBar = Convert.ToInt32(barSizeInSymbol * percent);
-            int secondHalfBar = barSizeInSymbol - firstHalfBar;
+            char startSymbol = '[';
+            char presenceSymbol = '#';
+            char absenceSymbol = '_';
+            char endSymbol = ']';
+            float maxPercent = 100f;
 
-            Console.Write('[');
-            ConsoleColor defaultColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            string bar = string.Empty;
+            int numberSymbolAvailable = Convert.ToInt32(barLength / maxPercent * currentPercent);
 
-            DrawHalfBar(firstHalfBar, '#');
+            for (int i = 0; i < barLength; i++)
+            {
+                if (i < numberSymbolAvailable)
+                    bar += presenceSymbol;
+                else
+                    bar += absenceSymbol;
+            }
 
-            Console.BackgroundColor = defaultColor;
-
-            DrawHalfBar(secondHalfBar, '_');
-
-            Console.WriteLine(']');
-        }
-
-        static void DrawHalfBar(int numberSymbol, char symbolInBar)
-        {
-            for (int i = 0; i < numberSymbol; i++)
-                Console.Write(symbolInBar);
+            return $"{startSymbol}{bar}{endSymbol}";
         }
     }
 }
