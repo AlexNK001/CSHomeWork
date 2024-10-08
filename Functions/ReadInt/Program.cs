@@ -6,23 +6,19 @@ namespace ReadInt
     {
         static void Main()
         {
-            ReadInt();
+            int number = TryRequestNumber();
+            Console.WriteLine($"Выше число - {number}");
         }
 
-        static void ReadInt()
+        static int TryRequestNumber()
         {
-            bool isWork = true;
+            int result;
+            Console.WriteLine("Введите число: ");
 
-            while (isWork)
-            {
-                string userInput = Console.ReadLine();
+            while (int.TryParse(Console.ReadLine(), out result) == false)
+                Console.WriteLine("Неверно, попробуйте еще раз.");
 
-                if (int.TryParse(userInput, out int result))
-                {
-                    Console.WriteLine(result);
-                    isWork = false;
-                }
-            }
+            return result;
         }
     }
 }
