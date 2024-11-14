@@ -12,12 +12,25 @@ namespace Personnel_Records
             const string MenuSearchByName = "4";
             const string MenuExit = "5";
 
-            string[] names = new string[0];
-            string[] professions = new string[0];
-            string[] blockedMenu = { MenuWithdrawAllDossiers, MenuDeleteDossier, MenuSearchByName };
-            bool isWork = true;
+            string[] names = new string[] 
+            { 
+                "Козлов Петр Алексеевич", 
+                "Иванов Иван Иваныч", 
+                "Иванов Лёша Иваныч", 
+                "Иванов Федя Иваныч" 
+            };
 
-            while (isWork)
+            string[] professions = new string[] 
+            { 
+                "столяр", 
+                "маляр", 
+                "каменьщик", 
+                "водитель" 
+            };
+
+            bool isProgramm = true;
+
+            while (isProgramm)
             {
                 Console.WriteLine($"{MenuAddDosser} - добавить досье.");
                 Console.WriteLine($"{MenuWithdrawAllDossiers} - вывести все досье.");
@@ -27,18 +40,14 @@ namespace Personnel_Records
 
                 string userInput = Console.ReadLine();
 
-                bool isEmptyArray = CheckingEmptyArray(names);
-                userInput = BlockedUserInput(userInput, blockedMenu, isEmptyArray);
-
                 switch (userInput)
                 {
                     case MenuAddDosser:
-                        AddDosser(ref names, ref professions);
+                        AddDossier(ref names, ref professions);
                         break;
 
                     case MenuWithdrawAllDossiers:
                         WithdrawAllDossiers(names, professions);
-                        Console.ReadKey();
                         break;
 
                     case MenuDeleteDossier:
@@ -46,38 +55,57 @@ namespace Personnel_Records
                         break;
 
                     case MenuSearchByName:
-                        SearchByName(names, professions);
-                        Console.ReadKey();
+                        SearchByLastName(names, professions);
                         break;
 
                     case MenuExit:
-                        isWork = false;
+                        isProgramm = false;
                         break;
 
                     default:
                         break;
                 }
 
+                Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        static void AddDosser(ref string[] names, ref string[] professions)
+        static void AddDossier(ref string[] names, ref string[] professions)
         {
-            Console.WriteLine("Введите Ф.И.О.");
-            string name = Console.ReadLine();
-            Console.WriteLine("Введите должность");
-            string profession = Console.ReadLine();
-
-            if (name != "" && profession != "")
+            if (TryReadText("Введите Ф.И.О.", out string first))
             {
-                names = AddInfo(names, name);
-                professions = AddInfo(professions, profession);
+                if (TryReadText("Введите должность", out string second))
+                {
+                    names = AddInfo(names, first);
+                    professions = AddInfo(professions, second);
+                }
+                else
+                {
+                    WithdrawError("Некорректная должность");
+                    Console.ReadKey();
+                }
             }
             else
             {
-                WithdrawError();
+                WithdrawError("Некорректное Ф.И.О.");
+                Console.ReadKey();
             }
+        }
+
+        static bool TryReadText(string message, out string text)
+        {
+            Console.Write(message);
+            text = Console.ReadLine();
+            return text != string.Empty;
+        }
+
+        static bool TryReadIndex(string message, string[] names, out int number)
+        {
+            Console.Write(message);
+            bool isNumber = int.TryParse(Console.ReadLine(), out number);
+            bool isIndex = number > 0 && number <= names.Length;
+            return isNumber && isIndex;
         }
 
         static string[] AddInfo(string[] array, string info)
@@ -110,47 +138,19 @@ namespace Personnel_Records
 
         static void DeleteDossier(ref string[] names, ref string[] professions)
         {
-            bool isProgramm = true;
-            int menuDelete = 1;
-            int menuCancellation = 0;
+            Console.Clear();
 
-            while (isProgramm)
+            WithdrawAllDossiers(names, professions);
+
+            if (TryReadIndex("Введите номер досье которое хотите удалить:", names, out int index))
             {
-                Console.Clear();
-
-                Console.WriteLine($"Введите номер досье которое хотите удалить:");
-                Console.WriteLine($"{menuCancellation} - Выход из меню удаления досье.");
-
-                WithdrawAllDossiers(names, professions);
-
-                int firstUserInput = Convert.ToInt32(Console.ReadLine());
-
-                if (firstUserInput > 0 && firstUserInput <= names.Length)
-                {
-                    firstUserInput--;
-
-                    WithdrawOneDossier(firstUserInput, names, professions);
-                    Console.WriteLine($"Удалить данное досье? {menuDelete} - Удалить. {menuCancellation} - Отмена.");
-                    int secondUserInput = Convert.ToInt32(Console.ReadLine());
-
-                    if (secondUserInput == menuDelete)
-                    {
-                        names = DeleteElement(firstUserInput, names);
-                        professions = DeleteElement(firstUserInput, professions);
-                    }
-                    else if (secondUserInput == menuCancellation)
-                    {
-                        Console.WriteLine("Удаление отменено.");
-                        Console.ReadKey();
-                    }
-                }
-                else
-                {
-                    WithdrawError("Неверный номер досье.");
-                }
-
-                if (names.Length == 0 || firstUserInput == menuCancellation)
-                    isProgramm = false;
+                index--;
+                names = DeleteElement(index, names);
+                professions = DeleteElement(index, professions);
+            }
+            else
+            {
+                WithdrawError("Неверный номер досье.");
             }
         }
 
@@ -169,67 +169,32 @@ namespace Personnel_Records
             return array;
         }
 
-        static void WithdrawError(string message = "", bool canReadKey = false)
+        static void WithdrawError(string message)
         {
             ConsoleColor defaultColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Ошибка:{message}");
             Console.ForegroundColor = defaultColor;
-
-            if (canReadKey == false)
-                Console.ReadKey();
         }
 
-        static void SearchByName(string[] names, string[] professions)
+        static void SearchByLastName(string[] names, string[] professions)
         {
-            bool isNameFound = false;
-
-            Console.WriteLine("Введите имя для поиска:");
-            string text = Console.ReadLine();
-
-            for (int i = 0; i < names.Length; i++)
+            if (TryReadText("Введите фамилию для поиска:", out string lastName))
             {
-                string[] tempArray = names[i].Split();
-
-                text = text.ToLower();
-                tempArray[0] = tempArray[0].ToLower();
-
-                if (text == tempArray[0])
+                for (int i = 0; i < names.Length; i++)
                 {
-                    isNameFound = true;
-                    WithdrawOneDossier(i, names, professions);
-                }
-            }
+                    string[] fullName = names[i].Split();
 
-            if (isNameFound == false)
-                WithdrawError("Такого имени не найдено!", true);
-        }
-
-        static bool CheckingEmptyArray(string[] array)
-        {
-            bool isEmptyArray = false;
-
-            if (array.Length == 0)
-                isEmptyArray = true;
-
-            return isEmptyArray;
-        }
-
-        static string BlockedUserInput(string userInput, string[] blockedMenu, bool isBlocked)
-        {
-            if (isBlocked)
-            {
-                for (int i = 0; i < blockedMenu.Length; i++)
-                {
-                    if (userInput == blockedMenu[i])
+                    if (lastName.ToLower() == fullName[0].ToLower())
                     {
-                        userInput = null;
-                        WithdrawError("Не найдено ни одгого досье.");
+                        WithdrawOneDossier(i, names, professions);
                     }
                 }
             }
-
-            return userInput;
+            else
+            {
+                WithdrawError("Некорректная фамилия для поиска.");
+            }
         }
     }
 }
