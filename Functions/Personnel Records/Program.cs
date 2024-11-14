@@ -6,63 +6,60 @@ namespace Personnel_Records
     {
         static void Main()
         {
-            const string MenuAddDosser = "1";
-            const string MenuWithdrawAllDossiers = "2";
-            const string MenuDeleteDossier = "3";
-            const string MenuSearchByName = "4";
-            const string MenuExit = "5";
+            const string CommandAddDosser = "1";
+            const string CommandWithdrawAllDossiers = "2";
+            const string CommandDeleteDossier = "3";
+            const string CommandSearchByName = "4";
+            const string CommandExit = "5";
 
-            string[] names = new string[] 
-            { 
-                "Козлов Петр Алексеевич", 
-                "Иванов Иван Иваныч", 
-                "Иванов Лёша Иваныч", 
-                "Иванов Федя Иваныч" 
+            string[] names = new string[]
+            {
+                "Козлов Петр Алексеевич",
+                "Иванов Иван Иваныч",
+                "Иванов Лёша Иваныч",
+                "Иванов Федя Иваныч"
             };
 
-            string[] professions = new string[] 
-            { 
-                "столяр", 
-                "маляр", 
-                "каменьщик", 
-                "водитель" 
+            string[] professions = new string[]
+            {
+                "столяр",
+                "маляр",
+                "каменьщик",
+                "водитель"
             };
 
             bool isProgramm = true;
 
             while (isProgramm)
             {
-                Console.WriteLine($"{MenuAddDosser} - добавить досье.");
-                Console.WriteLine($"{MenuWithdrawAllDossiers} - вывести все досье.");
-                Console.WriteLine($"{MenuDeleteDossier} - удалить досье.");
-                Console.WriteLine($"{MenuSearchByName} - поиск по фамилии.");
-                Console.WriteLine($"{MenuExit} - выход.");
+                Console.WriteLine($"{CommandAddDosser} - добавить досье.");
+                Console.WriteLine($"{CommandWithdrawAllDossiers} - вывести все досье.");
+                Console.WriteLine($"{CommandDeleteDossier} - удалить досье.");
+                Console.WriteLine($"{CommandSearchByName} - поиск по фамилии.");
+                Console.WriteLine($"{CommandExit} - выход.");
 
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case MenuAddDosser:
+                    case CommandAddDosser:
                         AddDossier(ref names, ref professions);
                         break;
 
-                    case MenuWithdrawAllDossiers:
+                    case CommandWithdrawAllDossiers:
                         WithdrawAllDossiers(names, professions);
                         break;
 
-                    case MenuDeleteDossier:
+                    case CommandDeleteDossier:
                         DeleteDossier(ref names, ref professions);
                         break;
 
-                    case MenuSearchByName:
+                    case CommandSearchByName:
                         SearchByLastName(names, professions);
                         break;
 
-                    case MenuExit:
+                    case CommandExit:
                         isProgramm = false;
-                        break;
-
-                    default:
                         break;
                 }
 
@@ -73,12 +70,12 @@ namespace Personnel_Records
 
         static void AddDossier(ref string[] names, ref string[] professions)
         {
-            if (TryReadText("Введите Ф.И.О.", out string first))
+            if (TryReadText("Введите Ф.И.О.", out string fullName))
             {
-                if (TryReadText("Введите должность", out string second))
+                if (TryReadText("Введите должность", out string proffession))
                 {
-                    names = AddInfo(names, first);
-                    professions = AddInfo(professions, second);
+                    names = AddData(names, fullName);
+                    professions = AddData(professions, proffession);
                 }
                 else
                 {
@@ -108,7 +105,7 @@ namespace Personnel_Records
             return isNumber && isIndex;
         }
 
-        static string[] AddInfo(string[] array, string info)
+        static string[] AddData(string[] array, string info)
         {
             string[] tempArray = new string[array.Length + 1];
 
