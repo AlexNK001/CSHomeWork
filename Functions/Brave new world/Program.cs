@@ -5,16 +5,16 @@ namespace Brave_new_world
 {
     internal class Program
     {
+        const ConsoleKey UpArrowPressed = ConsoleKey.UpArrow;
+        const ConsoleKey DownArrowPressed = ConsoleKey.DownArrow;
+        const ConsoleKey LeftArrowPressed = ConsoleKey.LeftArrow;
+        const ConsoleKey RightArrowPressed = ConsoleKey.RightArrow;
+        const ConsoleKey CommandExit = ConsoleKey.Escape;
+
+        const int FrameDuration = 200;
+
         static void Main()
         {
-            const ConsoleKey UpArrowPressed = ConsoleKey.UpArrow;
-            const ConsoleKey DownArrowPressed = ConsoleKey.DownArrow;
-            const ConsoleKey LeftArrowPressed = ConsoleKey.LeftArrow;
-            const ConsoleKey RightArrowPressed = ConsoleKey.RightArrow;
-            const ConsoleKey CommandExit = ConsoleKey.Escape;
-
-            const int FrameDuration = 200;
-
             bool isPlaying = true;
             char playerSymbol = '@';
             char wallSymbol = '#';
@@ -39,47 +39,35 @@ namespace Brave_new_world
             Console.CursorVisible = false;
 
             DrawMap(map);
-            FindPlayer(map, out int verticalPosition, out int horizontalPosition, playerSymbol);
+            FindPlayer(map, out int verticalPlayerPosition, out int horizontalPlayerPosition, playerSymbol);
 
             while (isPlaying)
             {
-                int nextVerticalPosition = verticalPosition;
-                int nextHorizontalPosition = horizontalPosition;
+                int nextVerticalPlayerPosition = verticalPlayerPosition;
+                int nextHorizontalPlayerPosition = horizontalPlayerPosition;
 
                 Console.SetCursorPosition(0, map.GetLength(0));
                 Console.WriteLine($"Для выхода нажмите {CommandExit}");
                 Console.SetCursorPosition(0, 0);
 
-                switch (Console.ReadKey(true).Key)
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                isPlaying = key != CommandExit;
+
+                GetNextPlayerPosition(ref nextVerticalPlayerPosition, ref nextHorizontalPlayerPosition, key);
+
+                if (IsBorders(nextVerticalPlayerPosition, nextHorizontalPlayerPosition, map))
                 {
-                    case UpArrowPressed:
-                        nextVerticalPosition--;
-                        break;
-
-                    case DownArrowPressed:
-                        nextVerticalPosition++;
-                        break;
-
-                    case LeftArrowPressed:
-                        nextHorizontalPosition--;
-                        break;
-
-                    case RightArrowPressed:
-                        nextHorizontalPosition++;
-                        break;
-
-                    case CommandExit:
-                        isPlaying = false;
-                        break;
-                }
-
-                if (CheckBorders(nextVerticalPosition, nextHorizontalPosition, map))
-                {
-                    if (map[nextVerticalPosition, nextHorizontalPosition] != wallSymbol)
+                    if (map[nextVerticalPlayerPosition, nextHorizontalPlayerPosition] != wallSymbol)
                     {
-                        DrawOldSymbol(verticalPosition, horizontalPosition, map, wallSymbol, voidSymbol);
-                        Move(ref verticalPosition, ref horizontalPosition, nextVerticalPosition, nextHorizontalPosition);
-                        DrawSymbol(verticalPosition, horizontalPosition, playerSymbol);
+                        DrawOldSymbol(verticalPlayerPosition, horizontalPlayerPosition, map, wallSymbol, voidSymbol);
+
+                        Move(ref verticalPlayerPosition,
+                             ref horizontalPlayerPosition,
+                             nextVerticalPlayerPosition,
+                             nextHorizontalPlayerPosition);
+
+                        DrawPlayer(verticalPlayerPosition, horizontalPlayerPosition, playerSymbol);
                     }
                 }
 
@@ -87,27 +75,64 @@ namespace Brave_new_world
             }
         }
 
-        static bool CheckBorders(int verticalDirection, int horizontalDirection, char[,] map)
+        private static void GetNextPlayerPosition(
+            ref int nextVerticalPlayerPosition,
+            ref int nextHorizontalPlayerPosition,
+            ConsoleKey key)
         {
-            bool canVerticalMove = verticalDirection < map.GetLength(0) && verticalDirection >= 0;
-            bool canHorizontalMove = horizontalDirection < map.GetLength(1) && horizontalDirection >= 0;
+            switch (key)
+            {
+                case UpArrowPressed:
+                    nextVerticalPlayerPosition--;
+                    break;
+
+                case DownArrowPressed:
+                    nextVerticalPlayerPosition++;
+                    break;
+
+                case LeftArrowPressed:
+                    nextHorizontalPlayerPosition--;
+                    break;
+
+                case RightArrowPressed:
+                    nextHorizontalPlayerPosition++;
+                    break;
+            }
+        }
+
+        static bool IsBorders(int verticalPlayerDirection, int horizontalPlayerDirection, char[,] map)
+        {
+            bool canVerticalMove = verticalPlayerDirection < map.GetLength(0) && verticalPlayerDirection >= 0;
+            bool canHorizontalMove = horizontalPlayerDirection < map.GetLength(1) && horizontalPlayerDirection >= 0;
 
             return canVerticalMove && canHorizontalMove;
         }
 
-        static void Move(ref int nextVerticalPosition, ref int playerY, int directionX, int directionY)
+        static void Move(
+            ref int nextVerticalPlayerPosition,
+            ref int nextHorizontalPlayerPosition,
+            int verticalDirection,
+            int horizontalDirection)
         {
-            nextVerticalPosition = directionX;
-            playerY = directionY;
+            nextVerticalPlayerPosition = verticalDirection;
+            nextHorizontalPlayerPosition = horizontalDirection;
         }
 
-        static void DrawSymbol(int playerX, int playerY, char symbol)
+        static void DrawPlayer(
+            int verticalPlayerPosition,
+            int horizontalPlayerPosition,
+            char playerSymbol)
         {
-            Console.SetCursorPosition(playerY, playerX);
-            Console.Write(symbol);
+            Console.SetCursorPosition(horizontalPlayerPosition, verticalPlayerPosition);
+            Console.Write(playerSymbol);
         }
 
-        static void DrawOldSymbol(int playerX, int playerY, char[,] map, char symbolWall, char symbolVoid)
+        static void DrawOldSymbol(
+            int playerX,
+            int playerY,
+            char[,] map,
+            char symbolWall,
+            char symbolVoid)
         {
             Console.SetCursorPosition(playerY, playerX);
 
