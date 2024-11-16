@@ -5,16 +5,11 @@ namespace Brave_new_world
 {
     internal class Program
     {
-        const ConsoleKey UpArrowPressed = ConsoleKey.UpArrow;
-        const ConsoleKey DownArrowPressed = ConsoleKey.DownArrow;
-        const ConsoleKey LeftArrowPressed = ConsoleKey.LeftArrow;
-        const ConsoleKey RightArrowPressed = ConsoleKey.RightArrow;
-        const ConsoleKey CommandExit = ConsoleKey.Escape;
-
-        const int FrameDuration = 200;
-
         static void Main()
         {
+            const ConsoleKey CommandExit = ConsoleKey.Escape;
+            const int FrameDuration = 200;
+
             bool isPlaying = true;
             char playerSymbol = '@';
             char wallSymbol = '#';
@@ -43,9 +38,6 @@ namespace Brave_new_world
 
             while (isPlaying)
             {
-                int nextVerticalPlayerPosition = verticalPlayerPosition;
-                int nextHorizontalPlayerPosition = horizontalPlayerPosition;
-
                 Console.SetCursorPosition(0, map.GetLength(0));
                 Console.WriteLine($"Для выхода нажмите {CommandExit}");
                 Console.SetCursorPosition(0, 0);
@@ -54,58 +46,77 @@ namespace Brave_new_world
 
                 isPlaying = key != CommandExit;
 
-                GetNextPlayerPosition(ref nextVerticalPlayerPosition, ref nextHorizontalPlayerPosition, key);
+                GetNextPlayerPosition(
+                    verticalPlayerPosition,
+                    horizontalPlayerPosition,
+                    out int nextVerticalPlayerPosition,
+                    out int nextHorizontalPlayerPosition,
+                    key);
 
-                if (IsBorders(nextVerticalPlayerPosition, nextHorizontalPlayerPosition, map))
+                if (TryMove(nextVerticalPlayerPosition, nextHorizontalPlayerPosition, map, wallSymbol))
                 {
-                    if (map[nextVerticalPlayerPosition, nextHorizontalPlayerPosition] != wallSymbol)
-                    {
-                        DrawOldSymbol(verticalPlayerPosition, horizontalPlayerPosition, map, wallSymbol, voidSymbol);
+                    DrawOldSymbol(verticalPlayerPosition, horizontalPlayerPosition, map, wallSymbol, voidSymbol);
 
-                        Move(ref verticalPlayerPosition,
-                             ref horizontalPlayerPosition,
-                             nextVerticalPlayerPosition,
-                             nextHorizontalPlayerPosition);
+                    Move(ref verticalPlayerPosition,
+                         ref horizontalPlayerPosition,
+                         nextVerticalPlayerPosition,
+                         nextHorizontalPlayerPosition);
 
-                        DrawPlayer(verticalPlayerPosition, horizontalPlayerPosition, playerSymbol);
-                    }
+                    DrawPlayer(verticalPlayerPosition, horizontalPlayerPosition, playerSymbol);
                 }
 
                 Thread.Sleep(FrameDuration);
             }
         }
 
-        private static void GetNextPlayerPosition(
-            ref int nextVerticalPlayerPosition,
-            ref int nextHorizontalPlayerPosition,
-            ConsoleKey key)
+        private static bool TryMove(int nextVerticalPlayerPosition, int nextHorizontalPlayerDirection, char[,] map, char wallSymbol)
         {
-            switch (key)
+            bool canVerticalMove = nextVerticalPlayerPosition < map.GetLength(0) && nextVerticalPlayerPosition >= 0;
+            bool canHorizontalMove = nextHorizontalPlayerDirection < map.GetLength(1) && nextHorizontalPlayerDirection >= 0;
+
+            if (canVerticalMove && canHorizontalMove)
             {
-                case UpArrowPressed:
-                    nextVerticalPlayerPosition--;
-                    break;
-
-                case DownArrowPressed:
-                    nextVerticalPlayerPosition++;
-                    break;
-
-                case LeftArrowPressed:
-                    nextHorizontalPlayerPosition--;
-                    break;
-
-                case RightArrowPressed:
-                    nextHorizontalPlayerPosition++;
-                    break;
+                return map[nextVerticalPlayerPosition, nextHorizontalPlayerDirection] != wallSymbol;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        static bool IsBorders(int verticalPlayerDirection, int horizontalPlayerDirection, char[,] map)
+        private static void GetNextPlayerPosition(
+            int currentVerticalPlayerPosition,
+            int currentHorizontalPlayerPosition,
+            out int nextVerticalPlayerPosition,
+            out int nextHorizontalPlayerPosition,
+            ConsoleKey key)
         {
-            bool canVerticalMove = verticalPlayerDirection < map.GetLength(0) && verticalPlayerDirection >= 0;
-            bool canHorizontalMove = horizontalPlayerDirection < map.GetLength(1) && horizontalPlayerDirection >= 0;
+            const ConsoleKey UpArrowPressed = ConsoleKey.UpArrow;
+            const ConsoleKey DownArrowPressed = ConsoleKey.DownArrow;
+            const ConsoleKey LeftArrowPressed = ConsoleKey.LeftArrow;
+            const ConsoleKey RightArrowPressed = ConsoleKey.RightArrow;
 
-            return canVerticalMove && canHorizontalMove;
+            nextVerticalPlayerPosition = currentVerticalPlayerPosition;
+            nextHorizontalPlayerPosition = currentHorizontalPlayerPosition;
+
+            switch (key)
+            {
+                case UpArrowPressed:
+                    nextVerticalPlayerPosition = --currentVerticalPlayerPosition;
+                    break;
+
+                case DownArrowPressed:
+                    nextVerticalPlayerPosition = ++currentVerticalPlayerPosition;
+                    break;
+
+                case LeftArrowPressed:
+                    nextHorizontalPlayerPosition = --currentHorizontalPlayerPosition;
+                    break;
+
+                case RightArrowPressed:
+                    nextHorizontalPlayerPosition = ++currentHorizontalPlayerPosition;
+                    break;
+            }
         }
 
         static void Move(
