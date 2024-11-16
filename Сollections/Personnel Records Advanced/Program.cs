@@ -12,7 +12,31 @@ namespace Personnel_Records_Advanced
             const string MenuDeleteDossier = "3";
             const string MenuExit = "4";
 
-            Dictionary<string, string> dossiers = new Dictionary<string, string>();
+            List<string> firstGroupNames = new List<string>()
+            {
+                "Витя",
+                "Петя",
+                "Коля",
+                "Саша",
+                "Паша"
+            };
+
+            List<string> secondGroupNames = new List<string>()
+            {
+                "Оля",
+                "Толя",
+                "Игорь",
+                "Даша",
+                "Каша"
+            };
+
+            Dictionary<string, List<string>> newDossiers = new Dictionary<string, List<string>>()
+            {
+                { "Водитель", firstGroupNames },
+                { "Маляр", secondGroupNames },
+                { "Кондитер", new List<string>{ "Женя"} }
+            };
+
             bool isRunning = true;
 
             while (isRunning)
@@ -27,15 +51,15 @@ namespace Personnel_Records_Advanced
                 switch (userInput)
                 {
                     case MenuAddDosser:
-                        AddDosser(dossiers);
+                        AddDosser(newDossiers);
                         break;
 
                     case MenuWithdrawAllDossiers:
-                        WithdrawAllDossiers(dossiers);
+                        WithdrawAllDossiers(newDossiers);
                         break;
 
                     case MenuDeleteDossier:
-                        DeleteDossier(dossiers);
+                        DeleteDossier(newDossiers);
                         break;
 
                     case MenuExit:
@@ -47,94 +71,94 @@ namespace Personnel_Records_Advanced
                         break;
                 }
 
+                Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        static void WithdrawDossiers(Dictionary<string, string> dossiers)
+        private static void AddDosser(Dictionary<string, List<string>> dossiers)
         {
-            foreach (KeyValuePair<string, string> dossier in dossiers)
-                Console.WriteLine($"{dossier.Key} - {dossier.Value}");
-        }
+            string fullName = ReadData("Введите Ф.И.О.");
+            string profession = ReadData("Введите должность.");
+            List<string> names;
 
-        static string ReadData(out string value, string message)
-        {
-            Console.WriteLine(message);
-            value = Console.ReadLine();
-
-            return value;
-        }
-
-
-        static void AddDosser(Dictionary<string, string> dossiers)
-        {
-            Console.Clear();
-
-            ReadData(out string currentName, "Введите Ф.И.О.");
-            ReadData(out string currentProfession, "Введите должность.");
-
-            if (dossiers.ContainsKey(currentName))
-                Console.WriteLine("Такое имя уже есть");
-            else
-                dossiers.Add(currentName, currentProfession);
-        }
-
-        static void WithdrawAllDossiers(Dictionary<string, string> dossiers)
-        {
-            Console.Clear();
-
-            if (dossiers.Count == 0)
-                Console.WriteLine("Не одного досье ни найдено.");
-            else
-                WithdrawDossiers(dossiers);
-
-            Console.ReadKey();
-        }
-
-        static void DeleteDossier(Dictionary<string, string> dossiers)
-        {
-            string commandExit = "0";
-            bool isDelete = true;
-
-            Console.Clear();
-
-            while (isDelete)
+            if (dossiers.ContainsKey(profession))
             {
-                if (dossiers.Count == 0)
+                names = dossiers[profession];
+            }
+            else
+            {
+                names = new List<string>();
+                dossiers.Add(profession, names);
+            }
+
+            names.Add(fullName);
+        }
+
+        private static void WithdrawAllDossiers(Dictionary<string, List<string>> dossiers)
+        {
+            Console.WriteLine($"Количество должностей {dossiers.Count}");
+
+            foreach (string profession in dossiers.Keys)
+            {
+                List<string> names = dossiers[profession];
+
+                for (int i = 0; i < names.Count; i++)
                 {
-                    isDelete = false;
-                    Console.WriteLine("Не одного досье ни найдено.");
-                    Console.ReadKey();
-                }
-                else
-                {
-                    Console.SetCursorPosition(0, 3);
-
-                    WithdrawDossiers(dossiers);
-
-                    Console.SetCursorPosition(0, 0);
-
-                    Console.WriteLine("Введите Ф.И.О сотрудника, которого хотите удалить.");
-                    Console.Write($"Введите {commandExit} для выхода из меню удаления:");
-                    string userInput = Console.ReadLine();
-
-                    if (userInput == commandExit)
-                    {
-                        isDelete = false;
-                    }
-                    else if (dossiers.ContainsKey(userInput))
-                    {
-                        dossiers.Remove(userInput);
-                    }
-                    else
-                    {
-                        Console.Write("Данный сотрудник не найден.");
-                        Console.ReadKey();
-                    }
-
-                    Console.Clear();
+                    Console.WriteLine($"{profession} {names[i]}");
                 }
             }
+        }
+
+        private static void DeleteDossier(Dictionary<string, List<string>> dossiers)
+        {
+            Console.Clear();
+
+            if (TryGetName(dossiers, out string profession, out string name))
+            {
+                List<string> currentNames = dossiers[profession];
+                currentNames.Remove(name);
+
+                if (currentNames.Count == 0)
+                {
+                    dossiers.Remove(profession);
+                }
+            }
+        }
+
+        private static bool TryGetName(Dictionary<string, List<string>> dossier, out string profession, out string names)
+        {
+            profession = string.Empty;
+            names = string.Empty;
+
+            if (dossier.Count == 0)
+            {
+                Console.WriteLine("Не одного досье ни найдено.");
+                return false;
+            }
+
+            string name = ReadData("Введите Ф.И.О сотрудника, которого хотите удалить.");
+
+            foreach (string currentProffesion in dossier.Keys)
+            {
+                List<string> currentNames = dossier[currentProffesion];
+
+                if (currentNames.Contains(name))
+                {
+                    profession = currentProffesion;
+                    names = name;
+                    return true;
+                }
+            }
+
+            Console.WriteLine("Такой сотрудник не найден.");
+            return false;
+        }
+
+        private static string ReadData(string message)
+        {
+            Console.WriteLine(message);
+            return Console.ReadLine();
         }
     }
 }
