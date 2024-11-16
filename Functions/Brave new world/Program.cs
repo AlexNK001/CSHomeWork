@@ -53,7 +53,7 @@ namespace Brave_new_world
                     out int nextHorizontalPlayerPosition,
                     key);
 
-                if (TryMove(nextVerticalPlayerPosition, nextHorizontalPlayerPosition, map, wallSymbol))
+                if (CanMove(nextVerticalPlayerPosition, nextHorizontalPlayerPosition, map, wallSymbol))
                 {
                     DrawOldSymbol(verticalPlayerPosition, horizontalPlayerPosition, map, wallSymbol, voidSymbol);
 
@@ -69,7 +69,7 @@ namespace Brave_new_world
             }
         }
 
-        private static bool TryMove(int nextVerticalPlayerPosition, int nextHorizontalPlayerDirection, char[,] map, char wallSymbol)
+        private static bool CanMove(int nextVerticalPlayerPosition, int nextHorizontalPlayerDirection, char[,] map, char wallSymbol)
         {
             bool canVerticalMove = nextVerticalPlayerPosition < map.GetLength(0) && nextVerticalPlayerPosition >= 0;
             bool canHorizontalMove = nextHorizontalPlayerDirection < map.GetLength(1) && nextHorizontalPlayerDirection >= 0;
