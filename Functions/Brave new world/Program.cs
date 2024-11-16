@@ -30,7 +30,6 @@ namespace Brave_new_world
             { wallSymbol, voidSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, voidSymbol, wallSymbol },
             { wallSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, voidSymbol, wallSymbol },
             { wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol, wallSymbol }};
-
             Console.CursorVisible = false;
 
             DrawMap(map);
@@ -44,7 +43,11 @@ namespace Brave_new_world
 
                 ConsoleKey key = Console.ReadKey(true).Key;
 
-                isPlaying = key != CommandExit;
+                if(key == CommandExit)
+                {
+                    isPlaying = false;
+                    continue;
+                }
 
                 GetNextPlayerPosition(
                     verticalPlayerPosition,
@@ -102,19 +105,19 @@ namespace Brave_new_world
             switch (key)
             {
                 case UpArrowPressed:
-                    nextVerticalPlayerPosition = --currentVerticalPlayerPosition;
+                    --nextVerticalPlayerPosition;
                     break;
 
                 case DownArrowPressed:
-                    nextVerticalPlayerPosition = ++currentVerticalPlayerPosition;
+                    ++nextVerticalPlayerPosition;
                     break;
 
                 case LeftArrowPressed:
-                    nextHorizontalPlayerPosition = --currentHorizontalPlayerPosition;
+                    --nextHorizontalPlayerPosition;
                     break;
 
                 case RightArrowPressed:
-                    nextHorizontalPlayerPosition = ++currentHorizontalPlayerPosition;
+                    ++nextHorizontalPlayerPosition;
                     break;
             }
         }
@@ -139,15 +142,15 @@ namespace Brave_new_world
         }
 
         static void DrawOldSymbol(
-            int playerX,
-            int playerY,
+            int playerVerticalPosition,
+            int playerHorizontalPosition,
             char[,] map,
             char symbolWall,
             char symbolVoid)
         {
-            Console.SetCursorPosition(playerY, playerX);
+            Console.SetCursorPosition(playerHorizontalPosition, playerVerticalPosition);
 
-            if (map[playerX, playerY] == symbolWall)
+            if (map[playerVerticalPosition, playerHorizontalPosition] == symbolWall)
                 Console.Write(symbolWall);
             else
                 Console.Write(symbolVoid);
@@ -168,10 +171,10 @@ namespace Brave_new_world
             }
         }
 
-        static void FindPlayer(char[,] map, out int playerX, out int playerY, char symbolPlayer)
+        static void FindPlayer(char[,] map, out int verticalPlayerPosition, out int horizontalPlayerPosition, char symbolPlayer)
         {
-            playerX = 0;
-            playerY = 0;
+            verticalPlayerPosition = 0;
+            horizontalPlayerPosition = 0;
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -179,8 +182,8 @@ namespace Brave_new_world
                 {
                     if (map[i, j] == symbolPlayer)
                     {
-                        playerX = i;
-                        playerY = j;
+                        verticalPlayerPosition = i;
+                        horizontalPlayerPosition = j;
                     }
                 }
             }
