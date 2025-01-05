@@ -132,25 +132,25 @@ namespace _3_Player_database
         {
             if (_players.Count > 0)
             {
-                WriteColorLine($"NAME{new string(' ', 6)}|ID |LVL|BANED |");
+                ColorLine.Write($"NAME{new string(' ', 6)}|ID |LVL|BANED |", ConsoleColor.Green);
 
                 foreach (Player player in _players)
                     player.ShowStats();
             }
             else
             {
-                WriteColorLine("Список игроков пуст.");
+                ColorLine.Write("Список игроков пуст.", ConsoleColor.Blue);
             }
         }
 
         public void AddPlayer()
         {
             Console.Clear();
-            WriteColorLine("Введите имя игрока:");
+            ColorLine.Write("Введите имя игрока:", ConsoleColor.Blue);
             string userInput = Console.ReadLine();
 
             if (userInput == "")
-                WriteColorLine("Имя игрока должно содержать символы.", true);
+                ColorLine.Write("Имя игрока должно содержать символы.", ConsoleColor.DarkYellow, true);
             else
                 _players.Add(new Player($"{userInput}"));
         }
@@ -163,7 +163,7 @@ namespace _3_Player_database
             {
                 int countPlayers = 0;
 
-                WriteColorLine($"NAME{new string(' ', 6)}|ID |LVL|BANED |");
+                ColorLine.Write($"NAME{new string(' ', 6)}|ID |LVL|BANED |", ConsoleColor.Green);
 
                 foreach (Player player in _players)
                 {
@@ -172,30 +172,26 @@ namespace _3_Player_database
                         player.ShowStats();
                         ++countPlayers;
                     }
-                    else
-                    {
-                        continue;
-                    }
                 }
 
                 if (countPlayers > 0)
                 {
-                    WriteColorLine("Введите ID игрока, которого хотите забанить.");
+                    ColorLine.Write("Введите ID игрока, которого хотите забанить.", ConsoleColor.Blue);
 
                     if (TryFindePlayer(out Player player))
                         player.Ban();
                     else
-                        WriteColorLine("Игрок с таким ID не найден", true);
+                        ColorLine.Write("Игрок с таким ID не найден", ConsoleColor.Red, true);
                 }
                 else
                 {
                     Console.Clear();
-                    WriteColorLine("Забаненных игроков нет.", true);
+                    ColorLine.Write("Забаненных игроков нет.", ConsoleColor.DarkYellow, true);
                 }
             }
             else
             {
-                WriteColorLine("Список игроков пуст.", true);
+                ColorLine.Write("Список игроков пуст.", ConsoleColor.DarkYellow, true);
             }
         }
 
@@ -207,7 +203,7 @@ namespace _3_Player_database
             {
                 int countPlayers = 0;
 
-                WriteColorLine($"NAME{new string(' ', 6)}|ID |LVL|BANED |");
+                ColorLine.Write($"NAME{new string(' ', 6)}|ID |LVL|BANED |", ConsoleColor.Blue);
 
                 foreach (Player player in _players)
                 {
@@ -216,30 +212,26 @@ namespace _3_Player_database
                         player.ShowStats();
                         ++countPlayers;
                     }
-                    else
-                    {
-                        continue;
-                    }
                 }
 
                 if (countPlayers > 0)
                 {
-                    WriteColorLine("Введите ID игрока, которого хотите разбанить.");
+                    ColorLine.Write("Введите ID игрока, которого хотите разбанить.", ConsoleColor.Blue);
 
                     if (TryFindePlayer(out Player player))
                         player.Unban();
                     else
-                        WriteColorLine("Игрок с таким ID не найден", true);
+                        ColorLine.Write("Игрок с таким ID не найден", ConsoleColor.DarkYellow, true);
                 }
                 else
                 {
                     Console.Clear();
-                    WriteColorLine("Забаненых игроков нет.", true);
+                    ColorLine.Write("Забаненых игроков нет.", ConsoleColor.DarkYellow, true);
                 }
             }
             else
             {
-                WriteColorLine("Список игроков пуст.", true);
+                ColorLine.Write("Список игроков пуст.", ConsoleColor.DarkYellow, true);
             }
         }
 
@@ -251,27 +243,17 @@ namespace _3_Player_database
             {
                 ShowPlayers();
 
-                WriteColorLine("Введите ID игрока, которого хотите удалить.");
+                ColorLine.Write("Введите ID игрока, которого хотите удалить.", ConsoleColor.Blue);
 
                 if (TryFindePlayer(out Player player))
                     _players.Remove(player);
                 else
-                    WriteColorLine("Игрок с таким ID не найден", true);
+                    ColorLine.Write("Игрок с таким ID не найден", ConsoleColor.DarkYellow, true);
             }
             else
             {
-                WriteColorLine("Список игроков пуст.", true);
+                ColorLine.Write("Список игроков пуст.", ConsoleColor.DarkYellow, true);
             }
-        }
-
-        private void WriteColorLine(string text, bool isPause = false)
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(text);
-            Console.ResetColor();
-
-            if (isPause)
-                Console.ReadKey();
         }
 
         private bool TryFindePlayer(out Player player)
@@ -289,6 +271,19 @@ namespace _3_Player_database
             }
 
             return result >= 0 && player != null;
+        }
+    }
+
+    public static class ColorLine
+    {
+        public static void Write(string text, ConsoleColor foregroundColor, bool isPause = false)
+        {
+            Console.ForegroundColor = foregroundColor;
+            Console.WriteLine(text);
+            Console.ResetColor();
+
+            if (isPause)
+                Console.ReadKey();
         }
     }
 }

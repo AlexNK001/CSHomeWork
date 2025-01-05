@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\bin\Debug\3_Player database.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\bin\Debug\3_Player database.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\bin\Debug\3_Player database.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\obj\Debug\03_Player database.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\obj\Debug\03_Player database.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\obj\Debug\3_Player database.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\3_Player database\obj\Debug\3_Player database.pdb
