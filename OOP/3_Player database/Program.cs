@@ -5,7 +5,7 @@ namespace _3_Player_database
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             const string CommandAddPlayer = "1";
             const string CommandBan = "2";
@@ -59,7 +59,7 @@ namespace _3_Player_database
 
     public class Player
     {
-        private static int _identifications;
+        private int _identifications;
         private string _name;
         private int _level;
 

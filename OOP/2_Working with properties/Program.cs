@@ -9,7 +9,7 @@ namespace _2_Working_with_properties
             Player player = new Player(4, 5, '@');
             Renderer renderer = new Renderer();
 
-            renderer.Draw(player.PositionX, player.PositionY);
+            renderer.Draw(player);
 
             Console.ReadKey();
         }
@@ -17,8 +17,6 @@ namespace _2_Working_with_properties
 
     public class Player
     {
-        public char Symbol { get; private set; }
-
         public Player(int positionX, int positionY, char symbolPersonage)
         {
             Symbol = symbolPersonage;
@@ -26,17 +24,18 @@ namespace _2_Working_with_properties
             PositionY = positionY;
         }
 
+        public char Symbol { get; private set; }
         public int PositionX { get; private set; }
         public int PositionY { get; private set; }
     }
 
     public class Renderer
     {
-        public void Draw(int positionX, int positionY, char character = '@')
+        public void Draw(Player player)
         {
             Console.CursorVisible = false;
-            Console.SetCursorPosition(positionX, positionY);
-            Console.Write(character);
+            Console.SetCursorPosition(player.PositionX, player.PositionY);
+            Console.Write(player.Symbol);
             Console.ReadKey(true);
         }
     }

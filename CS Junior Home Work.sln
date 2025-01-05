@@ -94,6 +94,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brave new world", "Function
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OOP", "OOP", "{F9E96028-0312-4358-B48B-2A8AE3ABDCE2}"
 	ProjectSection(SolutionItems) = preProject
+		comments.txt = comments.txt
 		OOP - table of contents.txt = OOP - table of contents.txt
 	EndProjectSection
 EndProject
