@@ -12,11 +12,11 @@ namespace CSLight_6
 
             List<int> numbers = new List<int>();
 
-            WithDrawArray(firstNumbers, "Первый массив");
-            WithDrawArray(secondNumbers, "Второй массив");
+            Show(firstNumbers, "Первый массив");
+            Show(secondNumbers, "Второй массив");
 
-            Merging(firstNumbers, ref numbers);
-            Merging(secondNumbers, ref numbers);
+            Merge(firstNumbers,  numbers);
+            Merge(secondNumbers,  numbers);
 
             Console.WriteLine("Лист");
 
@@ -37,7 +37,7 @@ namespace CSLight_6
             return array;
         }
 
-        static void Merging(int[] array, ref List<int> list)
+        static void Merge(int[] array,  List<int> list)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -46,7 +46,7 @@ namespace CSLight_6
             }
         }
 
-        static void WithDrawArray(int[] array, string message)
+        static void Show(int[] array, string message)
         {
             Console.WriteLine(message);
 
