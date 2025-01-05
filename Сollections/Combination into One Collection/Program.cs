@@ -7,16 +7,18 @@ namespace CSLight_6
     {
         static void Main(string[] args)
         {
-            int[] firstNumbers = FillArray(14);
-            int[] secondNumbers = FillArray(18);
+            Random random = new Random();
+
+            int[] firstNumbers = FillArray(14, random);
+            int[] secondNumbers = FillArray(18, random);
 
             List<int> numbers = new List<int>();
 
             Show(firstNumbers, "Первый массив");
             Show(secondNumbers, "Второй массив");
 
-            Merge(firstNumbers,  numbers);
-            Merge(secondNumbers,  numbers);
+            Merge(firstNumbers, numbers);
+            Merge(secondNumbers, numbers);
 
             Console.WriteLine("Лист");
 
@@ -26,10 +28,9 @@ namespace CSLight_6
             Console.ReadKey();
         }
 
-        static int[] FillArray(int length, int minRandom = 0, int maxRandom = 15)
+        static int[] FillArray(int length, Random random, int minRandom = 0, int maxRandom = 15)
         {
             int[] array = new int[length];
-            Random random = new Random();
 
             for (int i = 0; i < length; i++)
                 array[i] = random.Next(minRandom, maxRandom);
@@ -37,11 +38,11 @@ namespace CSLight_6
             return array;
         }
 
-        static void Merge(int[] array,  List<int> list)
+        static void Merge(int[] array, List<int> list)
         {
             for (int i = 0; i < array.Length; i++)
             {
-                if (!list.Contains(array[i]))
+                if (list.Contains(array[i]) == false)
                     list.Add(array[i]);
             }
         }
