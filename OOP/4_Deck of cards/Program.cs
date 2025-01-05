@@ -204,7 +204,7 @@ namespace _4_Deck_of_cards
 
         public bool TryGiveCards(out List<Card> card, int count)
         {
-            if (CheakCardEntry(count))
+            if (TrySpend(count))
             {
                 card = _cards.GetRange(0, count);
                 _cards.RemoveRange(0, count);
@@ -222,7 +222,7 @@ namespace _4_Deck_of_cards
             }
         }
 
-        private bool CheakCardEntry(int number)
+        private bool TrySpend(int number)
         {
             return number > 0 && number <= _cards.Count;
         }
