@@ -7,10 +7,10 @@ namespace Personnel_Records_Advanced
     {
         static void Main()
         {
-            const string MenuAddDosser = "1";
-            const string MenuWithdrawAllDossiers = "2";
-            const string MenuDeleteDossier = "3";
-            const string MenuExit = "4";
+            const string CommandAddDosser = "1";
+            const string CommandShowAllDossiers = "2";
+            const string CommandDeleteDossier = "3";
+            const string CommandExit = "4";
 
             List<string> firstGroupNames = new List<string>()
             {
@@ -41,28 +41,28 @@ namespace Personnel_Records_Advanced
 
             while (isRunning)
             {
-                Console.WriteLine($"{MenuAddDosser} - добавить досье.");
-                Console.WriteLine($"{MenuWithdrawAllDossiers} - вывести все досье.");
-                Console.WriteLine($"{MenuDeleteDossier} - удалить досье.");
-                Console.WriteLine($"{MenuExit} - выход.");
+                Console.WriteLine($"{CommandAddDosser} - добавить досье.");
+                Console.WriteLine($"{CommandShowAllDossiers} - вывести все досье.");
+                Console.WriteLine($"{CommandDeleteDossier} - удалить досье.");
+                Console.WriteLine($"{CommandExit} - выход.");
 
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case MenuAddDosser:
+                    case CommandAddDosser:
                         AddDosser(newDossiers);
                         break;
 
-                    case MenuWithdrawAllDossiers:
+                    case CommandShowAllDossiers:
                         ShowAllDossiers(newDossiers);
                         break;
 
-                    case MenuDeleteDossier:
+                    case CommandDeleteDossier:
                         DeleteDossier(newDossiers);
                         break;
 
-                    case MenuExit:
+                    case CommandExit:
                         isRunning = false;
                         break;
 
@@ -80,19 +80,14 @@ namespace Personnel_Records_Advanced
         {
             string fullName = ReadData("Введите Ф.И.О.");
             string profession = ReadData("Введите должность.");
-            List<string> names;
 
-            if (dossiers.ContainsKey(profession))
+            if (dossiers.ContainsKey(profession) == false)
             {
-                names = dossiers[profession];
-            }
-            else
-            {
-                names = new List<string>();
+                List<string> names = new List<string>();
                 dossiers.Add(profession, names);
             }
 
-            names.Add(fullName);
+            dossiers[profession].Add(fullName);
         }
 
         private static void ShowAllDossiers(Dictionary<string, List<string>> dossiers)
@@ -102,7 +97,7 @@ namespace Personnel_Records_Advanced
             foreach (string profession in dossiers.Keys)
             {
                 Console.WriteLine(profession);
-                ShowNames(dossiers[profession]);
+                ShowCollection(dossiers[profession]);
                 Console.WriteLine();
             }
         }
@@ -110,19 +105,19 @@ namespace Personnel_Records_Advanced
         private static void DeleteDossier(Dictionary<string, List<string>> dossier)
         {
             Console.WriteLine("Выберите профессию");
-            ShowProffesions(dossier);
+            ShowCollection(dossier.Keys);
 
             if (TrySelectProffesion(dossier, out string proffesion))
             {
                 List<string> names = dossier[proffesion];
-                ShowNames(names);
+                ShowCollection(names);
 
                 if (TryGetIndex(names.Count, out int result))
                 {
                     Console.WriteLine($"{proffesion} {names[result]} - успешно удалён");
                     names.RemoveAt(result);
 
-                    if(names.Count == 0)
+                    if (names.Count == 0)
                     {
                         dossier.Remove(proffesion);
                     }
@@ -144,24 +139,13 @@ namespace Personnel_Records_Advanced
             return Console.ReadLine();
         }
 
-        private static void ShowNames(List<string> names)
+        private static void ShowCollection(IEnumerable<string> names)
         {
             int number = 1;
 
             foreach (string name in names)
             {
                 Console.WriteLine($"{number} - {name}");
-                number++;
-            }
-        }
-
-        private static void ShowProffesions(Dictionary<string, List<string>> collection)
-        {
-            int number = 1;
-
-            foreach (string item in collection.Keys)
-            {
-                Console.WriteLine($"{number} - {item}");
                 number++;
             }
         }
