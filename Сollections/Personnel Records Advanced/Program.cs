@@ -55,7 +55,7 @@ namespace Personnel_Records_Advanced
                         break;
 
                     case MenuWithdrawAllDossiers:
-                        WithdrawAllDossiers(newDossiers);
+                        ShowAllDossiers(newDossiers);
                         break;
 
                     case MenuDeleteDossier:
@@ -95,70 +95,109 @@ namespace Personnel_Records_Advanced
             names.Add(fullName);
         }
 
-        private static void WithdrawAllDossiers(Dictionary<string, List<string>> dossiers)
+        private static void ShowAllDossiers(Dictionary<string, List<string>> dossiers)
         {
             Console.WriteLine($"Количество должностей {dossiers.Count}");
 
             foreach (string profession in dossiers.Keys)
             {
-                List<string> names = dossiers[profession];
-
-                for (int i = 0; i < names.Count; i++)
-                {
-                    Console.WriteLine($"{profession} {names[i]}");
-                }
+                Console.WriteLine(profession);
+                ShowNames(dossiers[profession]);
+                Console.WriteLine();
             }
         }
 
-        private static void DeleteDossier(Dictionary<string, List<string>> dossiers)
+        private static void DeleteDossier(Dictionary<string, List<string>> dossier)
         {
-            Console.Clear();
+            Console.WriteLine("Выберите профессию");
+            ShowProffesions(dossier);
 
-            if (TryGetName(dossiers, out string profession, out string name))
+            if (TrySelectProffesion(dossier, out string proffesion))
             {
-                List<string> currentNames = dossiers[profession];
-                currentNames.Remove(name);
+                List<string> names = dossier[proffesion];
+                ShowNames(names);
 
-                if (currentNames.Count == 0)
+                if (TryGetIndex(names.Count, out int result))
                 {
-                    dossiers.Remove(profession);
+                    Console.WriteLine($"{proffesion} {names[result]} - успешно удалён");
+                    names.RemoveAt(result);
+
+                    if(names.Count == 0)
+                    {
+                        dossier.Remove(proffesion);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Неверно выбран номер проффесии");
                 }
             }
-        }
-
-        private static bool TryGetName(Dictionary<string, List<string>> dossier, out string profession, out string names)
-        {
-            profession = string.Empty;
-            names = string.Empty;
-
-            if (dossier.Count == 0)
+            else
             {
-                Console.WriteLine("Не одного досье ни найдено.");
-                return false;
+                Console.WriteLine("Неверно выбрана проффесия");
             }
-
-            string name = ReadData("Введите Ф.И.О сотрудника, которого хотите удалить.");
-
-            foreach (string currentProffesion in dossier.Keys)
-            {
-                List<string> currentNames = dossier[currentProffesion];
-
-                if (currentNames.Contains(name))
-                {
-                    profession = currentProffesion;
-                    names = name;
-                    return true;
-                }
-            }
-
-            Console.WriteLine("Такой сотрудник не найден.");
-            return false;
         }
 
         private static string ReadData(string message)
         {
             Console.WriteLine(message);
             return Console.ReadLine();
+        }
+
+        private static void ShowNames(List<string> names)
+        {
+            int number = 1;
+
+            foreach (string name in names)
+            {
+                Console.WriteLine($"{number} - {name}");
+                number++;
+            }
+        }
+
+        private static void ShowProffesions(Dictionary<string, List<string>> collection)
+        {
+            int number = 1;
+
+            foreach (string item in collection.Keys)
+            {
+                Console.WriteLine($"{number} - {item}");
+                number++;
+            }
+        }
+
+        private static bool TrySelectProffesion(Dictionary<string, List<string>> dossier, out string proffesion)
+        {
+            proffesion = string.Empty;
+
+            if (TryGetIndex(dossier.Count, out int index))
+            {
+                int currentIndex = 0;
+
+                foreach (string currentProffesion in dossier.Keys)
+                {
+                    if (currentIndex == index)
+                    {
+                        proffesion = currentProffesion;
+                        return true;
+                    }
+
+                    currentIndex++;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool TryGetIndex(int count, out int result)
+        {
+            if (int.TryParse(Console.ReadLine(), out result))
+            {
+                result--;
+                return result >= 0 && result < count;
+            }
+
+            return false;
         }
     }
 }
