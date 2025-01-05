@@ -104,13 +104,11 @@ namespace _5_Book_storage
 
     public class Library
     {
-        private List<Book> _books;
-        private char[] _charsToSplit;
+        private readonly List<Book> _books;
 
         public Library(List<Book> books)
         {
             _books = books;
-            _charsToSplit = new char[] { ' ', '.', '-' };
         }
 
         public void AddBook()
@@ -222,19 +220,10 @@ namespace _5_Book_storage
 
         private bool SearchMatches(string wordToSearch, string wordToFind)
         {
-            string[] wordsToFind = wordToFind.Split(_charsToSplit, StringSplitOptions.RemoveEmptyEntries);
-            string[] wordsToSearch = wordToSearch.Split(_charsToSplit, StringSplitOptions.RemoveEmptyEntries);
+            wordToSearch = wordToSearch.ToLower();
+            wordToFind = wordToFind.ToLower();
 
-            for (int i = 0; i < wordsToFind.Length; i++)
-            {
-                for (int j = 0; j < wordsToSearch.Length; j++)
-                {
-                    if (wordsToSearch[j].ToLower() == wordsToFind[i].ToLower())
-                        return true;
-                }
-            }
-
-            return false;
+            return wordToSearch.Contains(wordToFind);
         }
     }
 }

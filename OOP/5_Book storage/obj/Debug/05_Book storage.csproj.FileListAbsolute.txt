@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\bin\Debug\_5_Book_storage.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\bin\Debug\_5_Book_storage.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\bin\Debug\_5_Book_storage.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\obj\Debug\05_Book storage.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\obj\Debug\05_Book storage.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\obj\Debug\_5_Book_storage.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\5_Book storage\obj\Debug\_5_Book_storage.pdb
