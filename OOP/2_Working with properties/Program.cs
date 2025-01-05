@@ -1,15 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _2_Working_with_properties
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            Player player = new Player(4, 5, '@');
+            Renderer renderer = new Renderer();
+
+            renderer.Draw(player.PositionX, player.PositionY);
+
+            Console.ReadKey();
+        }
+    }
+
+    public class Player
+    {
+        public char Symbol { get; private set; }
+
+        public Player(int positionX, int positionY, char symbolPersonage)
+        {
+            Symbol = symbolPersonage;
+            PositionX = positionX;
+            PositionY = positionY;
+        }
+
+        public int PositionX { get; private set; }
+        public int PositionY { get; private set; }
+    }
+
+    public class Renderer
+    {
+        public void Draw(int positionX, int positionY, char character = '@')
+        {
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(positionX, positionY);
+            Console.Write(character);
+            Console.ReadKey(true);
         }
     }
 }
