@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\bin\Debug\power of two.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\bin\Debug\power of two.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\bin\Debug\power of two.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\obj\Debug\power of two.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\obj\Debug\power of two.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\obj\Debug\power of two.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\power of two\obj\Debug\power of two.pdb

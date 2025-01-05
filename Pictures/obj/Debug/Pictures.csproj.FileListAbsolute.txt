@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\bin\Debug\Pictures.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\bin\Debug\Pictures.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\bin\Debug\Pictures.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\obj\Debug\Pictures.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\obj\Debug\Pictures.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\obj\Debug\Pictures.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Pictures\obj\Debug\Pictures.csproj.AssemblyReference.cache

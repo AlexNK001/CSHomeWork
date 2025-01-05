@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\obj\Debug\Multiples.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\obj\Debug\Multiples.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp2\obj\Debug\ConsoleApp2.pdb

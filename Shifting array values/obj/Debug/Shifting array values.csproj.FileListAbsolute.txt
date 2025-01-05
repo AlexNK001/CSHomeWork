@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\bin\Debug\Shifting array values.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\bin\Debug\Shifting array values.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\bin\Debug\Shifting array values.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\obj\Debug\Shifting array values.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\obj\Debug\Shifting array values.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\obj\Debug\Shifting array values.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Shifting array values\obj\Debug\Shifting array values.csproj.AssemblyReference.cache

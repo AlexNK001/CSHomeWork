@@ -1,0 +1,13 @@
+Работа с классами					Working with classes
+Работа со свойствами				Working with properties
+База данных игроков					Player database
+Колода карт							Deck of cards
+Хранилище книг						Book storage
+Магазин								Shop
+Конфигуратор пассажирских поездов	Passenger train configurator
+Гладиаторские бои					Gladiator fights
+Супермаркет							Supermarket
+Война								War
+Аквариум							Aquarium
+Зоопарк								Zoo
+Автосервис							Car service

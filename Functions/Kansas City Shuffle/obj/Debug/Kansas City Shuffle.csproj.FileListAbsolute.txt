@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\bin\Debug\Kansas City Shuffle.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\bin\Debug\Kansas City Shuffle.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\bin\Debug\Kansas City Shuffle.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\obj\Debug\Kansas City Shuffle.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\obj\Debug\Kansas City Shuffle.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Kansas City Shuffle\obj\Debug\Kansas City Shuffle.pdb

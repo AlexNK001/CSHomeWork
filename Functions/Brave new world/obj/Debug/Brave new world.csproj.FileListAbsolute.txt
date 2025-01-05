@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\bin\Debug\Brave new world.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\bin\Debug\Brave new world.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\bin\Debug\Brave new world.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\obj\Debug\Brave new world.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\obj\Debug\Brave new world.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\obj\Debug\Brave new world.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Brave new world\obj\Debug\Brave new world.pdb

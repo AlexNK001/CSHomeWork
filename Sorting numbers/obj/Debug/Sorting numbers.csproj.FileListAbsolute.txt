@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\bin\Debug\Sorting numbers.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\bin\Debug\Sorting numbers.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\bin\Debug\Sorting numbers.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\obj\Debug\Sorting numbers.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\obj\Debug\Sorting numbers.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\obj\Debug\Sorting numbers.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sorting numbers\obj\Debug\Sorting numbers.pdb

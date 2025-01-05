@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\bin\Debug\Personnel Records.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\bin\Debug\Personnel Records.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\bin\Debug\Personnel Records.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\obj\Debug\Personnel Records.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\obj\Debug\Personnel Records.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\obj\Debug\Personnel Records.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\Personnel Records\obj\Debug\Personnel Records.csproj.AssemblyReference.cache

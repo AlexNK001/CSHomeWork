@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\bin\Debug\ReadInt.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\bin\Debug\ReadInt.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\bin\Debug\ReadInt.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\obj\Debug\ReadInt.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\obj\Debug\ReadInt.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\obj\Debug\ReadInt.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\ReadInt\obj\Debug\ReadInt.pdb

@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\bin\Debug\Split.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\bin\Debug\Split.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\bin\Debug\Split.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\obj\Debug\Split.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\obj\Debug\Split.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\obj\Debug\Split.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Split\obj\Debug\Split.pdb

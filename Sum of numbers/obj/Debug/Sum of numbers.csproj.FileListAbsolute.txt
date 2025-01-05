@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\bin\Debug\Sum of numbers.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\bin\Debug\Sum of numbers.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\bin\Debug\Sum of numbers.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\obj\Debug\Sum of numbers.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\obj\Debug\Sum of numbers.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\obj\Debug\Sum of numbers.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sum of numbers\obj\Debug\Sum of numbers.csproj.AssemblyReference.cache

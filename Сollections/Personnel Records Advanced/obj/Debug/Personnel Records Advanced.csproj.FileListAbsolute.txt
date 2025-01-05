@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\bin\Debug\Personnel Records Advanced.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\bin\Debug\Personnel Records Advanced.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\bin\Debug\Personnel Records Advanced.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\obj\Debug\Personnel Records Advanced.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\obj\Debug\Personnel Records Advanced.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\obj\Debug\Personnel Records Advanced.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Сollections\Personnel Records Advanced\obj\Debug\Personnel Records Advanced.pdb

@@ -1,0 +1,12 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\bin\Debug\ConsoleApp1.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\bin\Debug\ConsoleApp1.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\bin\Debug\ConsoleApp1.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\obj\Debug\Working with strings.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\obj\Debug\ConsoleApp1.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1test\obj\Debug\ConsoleApp1.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\obj\Debug\Working with strings.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

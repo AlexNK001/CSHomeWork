@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\bin\Debug\SubarrayOfRepeatingNumbersV2.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\bin\Debug\SubarrayOfRepeatingNumbersV2.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\bin\Debug\SubarrayOfRepeatingNumbersV2.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\obj\Debug\SubarrayOfRepeatingNumbersV2.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\obj\Debug\SubarrayOfRepeatingNumbersV2.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\obj\Debug\SubarrayOfRepeatingNumbersV2.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\SubarrayOfRepeatingNumbersV2\obj\Debug\SubarrayOfRepeatingNumbersV2.pdb

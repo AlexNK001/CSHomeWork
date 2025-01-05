@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\bin\Debug\UIElement.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\bin\Debug\UIElement.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\bin\Debug\UIElement.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\obj\Debug\UIElement.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\obj\Debug\UIElement.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\obj\Debug\UIElement.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Functions\UIElement\obj\Debug\UIElement.pdb

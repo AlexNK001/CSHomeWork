@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\bin\Debug\Exit control.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\bin\Debug\Exit control.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\bin\Debug\Exit control.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\obj\Debug\Exit control.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\obj\Debug\Exit control.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\obj\Debug\Exit control.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Exit control\obj\Debug\Exit control.csproj.AssemblyReference.cache

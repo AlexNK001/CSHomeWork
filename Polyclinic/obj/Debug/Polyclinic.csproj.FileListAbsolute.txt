@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\bin\Debug\Polyclinic.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\bin\Debug\Polyclinic.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\bin\Debug\Polyclinic.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\obj\Debug\Polyclinic.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\obj\Debug\Polyclinic.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\obj\Debug\Polyclinic.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Polyclinic\obj\Debug\Polyclinic.pdb

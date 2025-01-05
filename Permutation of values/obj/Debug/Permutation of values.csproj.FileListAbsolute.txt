@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\bin\Debug\Permutation of values.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\bin\Debug\Permutation of values.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\bin\Debug\Permutation of values.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\obj\Debug\Permutation of values.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\obj\Debug\Permutation of values.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\obj\Debug\Permutation of values.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Permutation of values\obj\Debug\Permutation of values.csproj.AssemblyReference.cache

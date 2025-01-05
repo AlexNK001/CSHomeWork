@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\bin\Debug\ConsoleApp3.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\bin\Debug\ConsoleApp3.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\bin\Debug\ConsoleApp3.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\obj\Debug\ConsoleApp3.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\obj\Debug\ConsoleApp3.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\ConsoleApp3\obj\Debug\ConsoleApp3.pdb

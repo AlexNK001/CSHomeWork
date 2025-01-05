@@ -1,0 +1,5 @@
+1 - Толковый словарь					Explanatory Dictionary
+2 - Очередь в магазине					Queue in a Store
+3 - Динамический массив продвинутый		Dynamic Array Advanced
+4 - Кадровый учет продвинутый			Personnel Records Advanced
+5 - Объединение в одну коллекцию		Combination into One Collection

@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\bin\Debug\Sequence.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\bin\Debug\Sequence.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\bin\Debug\Sequence.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\obj\Debug\Sequence.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\obj\Debug\Sequence.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Sequence\obj\Debug\Sequence.pdb

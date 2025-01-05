@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\bin\Debug\Bracket expression.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\bin\Debug\Bracket expression.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\bin\Debug\Bracket expression.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\obj\Debug\Bracket expression.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\obj\Debug\Bracket expression.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\obj\Debug\Bracket expression.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Bracket expression\obj\Debug\Bracket expression.pdb

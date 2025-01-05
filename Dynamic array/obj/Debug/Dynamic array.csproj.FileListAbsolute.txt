@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\bin\Debug\Dynamic array.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\bin\Debug\Dynamic array.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\bin\Debug\Dynamic array.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\obj\Debug\Dynamic array.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\obj\Debug\Dynamic array.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\obj\Debug\Dynamic array.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Dynamic array\obj\Debug\Dynamic array.pdb

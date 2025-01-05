@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\bin\Debug\Mastering Cycles.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\bin\Debug\Mastering Cycles.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\bin\Debug\Mastering Cycles.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\obj\Debug\Mastering Cycles.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\obj\Debug\Mastering Cycles.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\obj\Debug\Mastering Cycles.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Mastering Cycles\obj\Debug\Mastering Cycles.pdb

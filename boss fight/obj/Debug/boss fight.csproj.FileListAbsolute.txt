@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\bin\Debug\boss fight.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\bin\Debug\boss fight.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\bin\Debug\boss fight.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\obj\Debug\boss fight.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\obj\Debug\boss fight.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\boss fight\obj\Debug\boss fight.pdb

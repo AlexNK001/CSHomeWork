@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\bin\Debug\Maximum element.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\bin\Debug\Maximum element.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\bin\Debug\Maximum element.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\obj\Debug\Maximum element.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\obj\Debug\Maximum element.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\obj\Debug\Maximum element.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Maximum element\obj\Debug\Maximum element.pdb

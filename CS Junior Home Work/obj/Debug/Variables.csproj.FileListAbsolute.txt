@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\bin\Debug\CS Junior Home Work.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\bin\Debug\CS Junior Home Work.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\bin\Debug\CS Junior Home Work.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\obj\Debug\Variables.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\obj\Debug\Variables.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\obj\Debug\CS Junior Home Work.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\CS Junior Home Work\obj\Debug\CS Junior Home Work.pdb

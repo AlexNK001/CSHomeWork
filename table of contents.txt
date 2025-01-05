@@ -1,0 +1,17 @@
+1 - Working with rows/columns			WorkingWithRows					Работа с конкретными строками/столбцами		ок
+
+2 - Maximum element						MaximumElement					Наибольший элемент							ок
+
+3 - Local maxima						LocalMaxima						Локальные максимумы							ок
+
+4 - Dynamic array						DynamicArray					Динамический массив							ok
+
+5 - Subarray of repeating numbers		SubarrayOfRepeatingNumbers		Подмассив повторений чисел					ok
+
+6 - Sorting numbers						SortingNumbers					Сортировка чисел							ok
+
+7 - Split								Split							Split										ok
+
+8 - Shifting array values				ShiftingArrayValues				Сдвиг значений массива						ok
+
+9 - Bracket expression					BracketExpression				Скобочное выражение							ok

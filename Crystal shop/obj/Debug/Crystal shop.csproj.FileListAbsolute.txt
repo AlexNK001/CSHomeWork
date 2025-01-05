@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\bin\Debug\Crystal shop.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\bin\Debug\Crystal shop.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\bin\Debug\Crystal shop.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\obj\Debug\Crystal shop.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\obj\Debug\Crystal shop.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\obj\Debug\Crystal shop.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Crystal shop\obj\Debug\Crystal shop.pdb
