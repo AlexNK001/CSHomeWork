@@ -43,10 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Citys.cs" />
+    <Compile Include="CitiesStorage.cs" />
+    <Compile Include="Сreating\CreatorHandler.cs" />
+    <Compile Include="Station.cs" />
+    <Compile Include="UserUtils.cs" />
+    <Compile Include="Сreating\DirectionCreator.cs" />
+    <Compile Include="Structs\Direction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\TextStation.cs" />
+    <Compile Include="Structs\Train.cs" />
+    <Compile Include="Structs\TrainCar.cs" />
+    <Compile Include="Сreating\TrainCarCreator.cs" />
+    <Compile Include="Сreating\TrainsCreator.cs" />
+    <Compile Include="View\TextStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
