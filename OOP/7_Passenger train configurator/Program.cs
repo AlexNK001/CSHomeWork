@@ -7,63 +7,46 @@ namespace _7_Passenger_train_configurator
     {
         static void Main()
         {
-            Station station = new Station();
-            station.Work();
+            Citys citys = new Citys("Москва", "Пермь", "Омск", "Казань", "Уфа", "Владивосток", "Рязань");
+
+            //Station station = new Station();
+            //station.Work();
+            Trains trains = new Trains();
+            Train train = trains.Create();
+            TextStorage.ShowFullInfo(train);
+            TextStorage.TestShow(train);
+
+
+            //Directions directions = new Directions();
+            //Direction direction = directions.Create();
+            //Console.WriteLine($"Направление создано {direction.StartPoint} {direction.EndPoint}");
         }
     }
 
     public class Station
     {
-        static private Random s_random;
-
-        private List<Train> _trains;
-        private List<int> _trainsName;
+        private readonly List<Train> _trains;
 
         public Station()
         {
-            s_random = new Random();
             _trains = new List<Train>();
-            _trainsName = new List<int>();
         }
 
         public void Work()
         {
-            const string CommandAddTrain = "1";
-            const string CommandShowSelectedTrain = "2";
-            const string CommandExit = "3";
-
             bool isWork = true;
 
             while (isWork)
             {
-                Console.WriteLine($"Количество созданных поездов {_trains.Count}.\n");
-
-                Console.WriteLine($"{CommandAddTrain} - Создать маршрут.");
-                Console.WriteLine($"{CommandShowSelectedTrain} - Показать подробную информацию по выбранному маршруту.");
-                Console.WriteLine($"{CommandExit} - Выход из программы.\n");
-
-                if (_trains.Count > 0)
-                {
-                    foreach (Train train in _trains)
-                    {
-                        train.ShowBriefInfo();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Поездов на станции пока нет.");
-                }
+                TextStation.ShowMainMenu(_trains.Count);
 
                 switch (Console.ReadLine())
                 {
-                    case CommandAddTrain:
-                        AddTrain();
+                    case TextStation.CommandAddTrain:
+                        //AddTrain();
                         break;
 
-                    case CommandShowSelectedTrain:
-                        break;
-
-                    case CommandExit:
+                    case TextStation.CommandExit:
                         isWork = false;
                         break;
 
@@ -75,264 +58,216 @@ namespace _7_Passenger_train_configurator
                 Console.Clear();
             }
         }
+    }
 
-        private void AddTrain()
+    public struct Train
+    {
+        public readonly int Number;
+        public readonly Direction Direction;
+        public readonly IReadOnlyList<TrainCar> TrainCars;
+
+        public Train(int number, Direction direction, IReadOnlyList<TrainCar> trainCars)
         {
-            int minRandom = 50;
-            int maxRandom = 550;
-
-            int trainName = GetTrainName();
-
-            int countPassanger = s_random.Next(minRandom, maxRandom);
-
-            Directions directions = new Directions();
-
-            _trains.Add(new Train(trainName, countPassanger, directions));
+            Number = number;
+            Direction = direction;
+            TrainCars = trainCars;
         }
 
-        private int GetTrainName()
+        public int GetCountPassanger()
         {
-            int minRandom = 100;
-            int maxRandom = 1000;
-            bool isWork = true;
-            int number = 0;
+            int result = 0;
 
-            if (_trainsName.Count >= maxRandom - minRandom)
-            {
-                int tempNumber = minRandom;
-                minRandom = maxRandom;
-                maxRandom += tempNumber;
-            }
+            for (int i = 0; i < TrainCars.Count; i++)
+                result += TrainCars[i].CountPassengers;
 
-            while (isWork)
-            {
-                number = s_random.Next(minRandom, maxRandom);
-
-                if (_trainsName.Contains(number) == false)
-                {
-                    _trainsName.Add(number);
-                    isWork = false;
-                }
-            }
-
-            return number;
+            return result;
         }
     }
 
-    public class Train
+    public struct TrainCar
     {
-        static private Random s_random;
+        public readonly int Capacity;
+        public readonly int CountPassengers;
 
-        private int _name;
-        private int _countPassanger;
-        private Directions _directions;
-        private List<TrainCar> _cars;
-
-        public Train(int name, int countPassanger, Directions directions)
+        public TrainCar(int capacity, int countPassengers)
         {
-            s_random = new Random();
-            _name = name;
-            _countPassanger = countPassanger;
-            _cars = AddCars(countPassanger);
-            _directions = directions;
-        }
-
-        private int[] CapacityCars => new int[] { 10, 20, 30, 100 };
-
-        public void ShowFullInfo()
-        {
-            Console.Write($"Поезд под номером {_name} ");
-            Console.Write($"Маршрут {_directions.Name} ");
-            Console.WriteLine($"Количество вагонов {_cars.Count}");
-
-            foreach (TrainCar cars in _cars)
-            {
-                cars.ShowInfo();
-            }
-        }
-
-        public void ShowBriefInfo()
-        {
-            int firstIndentation = 35;
-            int secondIndentation = 17;
-            int thirdIndenttation = 17;
-
-            string trainName = $"Поезд под номером: {_name} |";
-            string direction = GetIndentation($"Маршрут: {_directions.Name} |", firstIndentation);
-            string carsCount = GetIndentation($"Вагонов: {_cars.Count} |", secondIndentation);
-            string countPassanger = GetIndentation($"Пасажиров: {_countPassanger} |", thirdIndenttation);
-
-            Console.WriteLine($"{trainName}{direction}{carsCount}{countPassanger}");
-
-            string GetIndentation(string text, int indentation)
-            {
-                if (text.Length > indentation)
-                {
-                    indentation = text.Length;
-                }
-
-                return new string(' ', indentation - text.Length) + text;
-            }
-        }
-
-        private List<TrainCar> AddCars(int countPassengers)
-        {
-            List<TrainCar> cars = new List<TrainCar>();
-            int carNumber = 1;
-
-            while (countPassengers > 0)
-            {
-                int capacity = GetRandomCapacity();
-                TrainCar trainCar = new TrainCar(carNumber, countPassengers, capacity);
-                carNumber++;
-
-                countPassengers -= trainCar.CountPassengers;
-
-                cars.Add(trainCar);
-            }
-
-            return cars;
-        }
-
-        private int GetRandomCapacity()
-        {
-            int index = s_random.Next(CapacityCars.Length);
-            return CapacityCars[index];
+            Capacity = capacity;
+            CountPassengers = countPassengers;
         }
     }
 
-    public class TrainCar
+    public struct Direction
     {
-        private int _name;
-        private int _capacity;
-        private int _countPassengers;
+        public readonly string StartPoint;
+        public readonly string EndPoint;
 
-        public TrainCar(int name, int countPassengers, int capacity)
+        public Direction(string startPoint, string endPoint)
         {
-            _name = name;
-            _capacity = capacity;
-            _countPassengers = BoardPassengers(countPassengers);
+            StartPoint = startPoint;
+            EndPoint = endPoint;
+        }
+    }
+
+    public class Trains
+    {
+        private Random s_random;
+        private int _currentName;
+        private readonly int[] _capacityCars;
+
+        public Trains(Random random)
+        {
+            s_random = random;
+            _currentName = 0;
+            _capacityCars = new int[] { 10, 20, 30, 100 };
         }
 
-        public int CountPassengers => _countPassengers;
-
-        public void ShowInfo()
+        public Train Create()
         {
-            Console.WriteLine($"Номер вагона - {_name}. Вместимость - {_capacity}/{_countPassengers}");
+            int number = ++_currentName;
+            int countPassanger = s_random.Next(100, 500);
+
+            List<TrainCar> trainCars = new List<TrainCar>();
+            TrainCars trainCreator = new TrainCars();
+            Directions directions = new Directions(new Citys());//
+
+            for (int i = 0; i < countPassanger; i++)
+            {
+                int capacityCars = _capacityCars[s_random.Next(0, _capacityCars.Length)];
+                TrainCar trainCar = trainCreator.Create(capacityCars, countPassanger);
+                countPassanger -= trainCar.CountPassengers;
+                trainCars.Add(trainCar);
+            }
+
+            Direction direction = directions.Create();
+
+            return new Train(number, direction, trainCars);
         }
+    }
 
-        private int BoardPassengers(int countPassanger)
+    public class TrainCars
+    {
+        public TrainCar Create(int capacity, int countPassanger)
         {
-            return countPassanger >= _capacity ? _capacity : countPassanger;
+            if (countPassanger > capacity)
+                countPassanger = capacity;
+
+            return new TrainCar(capacity, countPassanger);
         }
     }
 
     public class Directions
     {
-        private string[] _citys;
+        //private readonly string[] _citys;
 
-        public Directions()
+        private Citys _citys1;
+        public Directions(Citys citys)
         {
-            _citys = GetCitys();
-            Name = GetName();
+            _citys1 = citys;
+            //_citys = GetCitys();
         }
 
-        public string Name { get; private set; }
+        //private void ShowCitys()
+        //{
+        //    int enumerator = 1;
 
-        private void ShowCitys()
+        //    foreach (var city in _citys)
+        //    {
+        //        Console.WriteLine($"{enumerator}) {city}");
+        //        enumerator++;
+        //    }
+        //}
+
+        public Direction Create()
         {
-            int enumerator = 1;
-
-            foreach (var city in _citys)
-            {
-                Console.WriteLine($"{enumerator}) {city}");
-                enumerator++;
-            }
-        }
-
-        private string GetName()
-        {
+            string startPoint = string.Empty;
+            string endPoint = string.Empty;
             bool isWork = true;
-            string result = null;
 
             while (isWork)
             {
-                ShowCitys();
+                Console.Clear();
+                //ShowCitys();
                 Console.WriteLine("Выберите первый город.");
 
-                if (TrySelect(out string startPoint, out int firstIndex))
+                if (TrySelect(out startPoint) == false)
                 {
-                    Console.WriteLine("Выберите второй город.");
+                    Console.WriteLine("Неверно выбран первый город.");
+                    continue;
+                }
 
-                    if (TrySelect(out string endPoint, out int secondIndex))
-                    {
-                        if (firstIndex != secondIndex)
-                        {
-                            result = $"{startPoint} / {endPoint}";
-                            isWork = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Маршрут должен быть из разных городов!");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Неверно выбран второй город.");
-                    }
+                Console.WriteLine("Выберите второй город.");
+
+                if (TrySelect(out endPoint) == false)
+                {
+                    Console.WriteLine("Неверно выбран второй город.");
+                    continue;
+                }
+
+                if (startPoint != endPoint)
+                {
+                    isWork = false;
                 }
                 else
                 {
-                    Console.WriteLine("Неверно выбран первый город.");
+                    Console.WriteLine("Маршрут должен быть из разных городов!");
                 }
 
                 Console.ReadKey();
-                Console.Clear();
             }
 
-            return result;
+            return new Direction(startPoint, endPoint);
         }
 
-        private bool TrySelect(out string point, out int index)
+        private bool TrySelect(out string point)
         {
-            point = null;
-            index = 0;
-
             if (int.TryParse(Console.ReadLine(), out int value))
             {
-                index = value;
                 value--;
-
-                if (value >= 0 && value < _citys.Length)
-                {
-                    point = _citys[value];
-                    index = value;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                bool isIndex = value >= 0 && value < _citys1.Length;
+                point = isIndex ? _citys1[value] : string.Empty;
+                return isIndex;
             }
             else
             {
+                point = string.Empty;
                 return false;
             }
         }
 
-        private string[] GetCitys()
-        {
-            string[] citys = {
-            "Москва",
-            "Пермь",
-            "Омск",
-            "Казань",
-            "Уфа",
-            "Владивосток",
-            "Рязань",
-            };
+        //private string[] GetCitys()
+        //{
+        //    string[] citys = {
+        //    "Москва",
+        //    "Пермь",
+        //    "Омск",
+        //    "Казань",
+        //    "Уфа",
+        //    "Владивосток",
+        //    "Рязань",
+        //    };
 
-            return citys;
+        //    return citys;
+        //}
+    }
+
+    public static class TextStorage
+    {
+        public static void ShowFullInfo(Train train)
+        {
+            Console.WriteLine($"" +
+                $"train.Number:{train.Number} " +
+                $"train.GetCountPassanger():{train.GetCountPassanger()} " +
+                $"train.Direction.StartPoint:{train.Direction.StartPoint} " +
+                $"train.Direction.EndPoint:{train.Direction.EndPoint} " +
+                $"train.TrainCars.Count:{train.TrainCars.Count}");
+        }
+
+        public static void TestShow(Train train)
+        {
+            for (int i = 0; i < train.TrainCars.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {train.TrainCars[i].Capacity}/{train.TrainCars[i].CountPassengers}");
+            }
         }
     }
 }

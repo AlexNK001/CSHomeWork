@@ -2,7 +2,6 @@
 
 namespace Kansas_City_Shuffle
 {
-
     internal class Program
     {
         static void Main()

@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\bin\Debug\_7_Passenger_train_configurator.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\bin\Debug\_7_Passenger_train_configurator.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\bin\Debug\_7_Passenger_train_configurator.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\obj\Debug\07_Passenger train configurator.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\obj\Debug\07_Passenger train configurator.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\obj\Debug\_7_Passenger_train_configurator.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\7_Passenger train configurator\obj\Debug\_7_Passenger_train_configurator.pdb
