@@ -6,9 +6,9 @@ namespace _7_Passenger_train_configurator
     public class Station
     {
         private readonly List<Train> _trains;
-        private readonly CreatorHandler _creatorHandler;
+        private readonly TrainFactory _creatorHandler;
 
-        public Station(CreatorHandler creator)
+        public Station(TrainFactory creator)
         {
             _creatorHandler = creator;
             _trains = new List<Train>();

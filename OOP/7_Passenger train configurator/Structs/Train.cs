@@ -2,7 +2,7 @@
 
 namespace _7_Passenger_train_configurator
 {
-    public struct Train
+    public class Train
     {
         public readonly int Number;
         public readonly Direction Direction;

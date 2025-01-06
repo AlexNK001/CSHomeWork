@@ -2,7 +2,7 @@
 
 namespace _7_Passenger_train_configurator
 {
-    public class CreatorHandler
+    public class TrainFactory
     {
         private readonly int _minCoutPassanger;
         private readonly int _maxCoutPassanger;
@@ -11,7 +11,7 @@ namespace _7_Passenger_train_configurator
         private readonly TrainCarCreator _trainCarCreator;
         private readonly TrainsCreator _trainCreator;
 
-        public CreatorHandler(CitiesStorage citys, int minCoutPassanger = 100, int maxCoutPassanger = 500)
+        public TrainFactory(CitiesStorage citys, int minCoutPassanger = 100, int maxCoutPassanger = 500)
         {
             _directionCreator = new DirectionCreator (citys);
             _trainCarCreator = new TrainCarCreator();

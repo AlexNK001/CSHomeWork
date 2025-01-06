@@ -4,8 +4,8 @@ namespace _7_Passenger_train_configurator
 {
     public static class TextStorage
     {
-        public const string CommandAddTrain = "1";//station
-        public const string CommandExit = "2";//station
+        public const string CommandAddTrain = "1";
+        public const string CommandExit = "2";
 
         private static readonly string _period = ".";
         private static readonly string _comma = ", ";
@@ -13,23 +13,23 @@ namespace _7_Passenger_train_configurator
         private static readonly string _slash = "/";
         private static readonly string _bracket = ")";
 
-        public enum NumberCity//DirectionCreator
+        public enum NumberCity
         {
             First,
             Second
         }
 
-        public static void ShowCitySelection(NumberCity numberCity)//DirectionCreator
+        public static void ShowCitySelection(NumberCity numberCity)
         {
             Console.WriteLine($"Выберите {GetNumberCity(numberCity)} город{_period}");
         }
 
-        public static void ShowWrongCitySelection(NumberCity numberCity)//DirectionCreator
+        public static void ShowWrongCitySelection(NumberCity numberCity)
         {
             Console.WriteLine($"Неверно выбран {GetNumberCity(numberCity)} город{_period}");
         }
 
-        private static string GetNumberCity(NumberCity numberCity)//DirectionCreator
+        private static string GetNumberCity(NumberCity numberCity)
         {
             switch (numberCity)
             {
@@ -44,12 +44,12 @@ namespace _7_Passenger_train_configurator
             }
         }
 
-        public static void ShowCountTrains(int trainsCount)//station
+        public static void ShowCountTrains(int trainsCount)
         {
             Console.WriteLine($"Количество созданных поездов {trainsCount}{_nextLine}");
         }
 
-        public static void ShowMainMenu()//station
+        public static void ShowMainMenu()
         {
             string finalMessage = $"{CommandAddTrain} - Создать маршрут{_nextLine}";
             finalMessage += $"{CommandExit} - Выход из программы{_period}";
@@ -57,12 +57,12 @@ namespace _7_Passenger_train_configurator
             Console.WriteLine(finalMessage);
         }
 
-        public static void ReportIncorrectInput()//station
+        public static void ReportIncorrectInput()
         {
             Console.WriteLine($"Неверный ввод{_period}");
         }
 
-        public static void ShowFullInformation(Train train)//station
+        public static void ShowFullInformation(Train train)
         {
             string finalMessage = GetBriefInformation(train, _nextLine);
             finalMessage += $"Колличество вагонов:{train.Count}{_nextLine}";
@@ -75,13 +75,13 @@ namespace _7_Passenger_train_configurator
             Console.WriteLine(finalMessage);
         }
 
-        public static void ShowBriefInformation(Train train)//station
+        public static void ShowBriefInformation(Train train)
         {
             string finalMessage = GetBriefInformation(train, _comma);
             Console.WriteLine(finalMessage);
         }
 
-        private static string GetBriefInformation(Train train, string separator)//station
+        private static string GetBriefInformation(Train train, string separator)
         {
             string briefInformation = $"Номер поезда:{train.Number}{separator}";
             briefInformation += $"Направление:{train.Direction.StartPoint}{_slash}";
@@ -91,7 +91,7 @@ namespace _7_Passenger_train_configurator
             return briefInformation;
         }
 
-        public static void ShowCities(CitiesStorage cities)//DirectionCreator
+        public static void ShowCities(CitiesStorage cities)
         {
             string finalMessage = string.Empty;
 

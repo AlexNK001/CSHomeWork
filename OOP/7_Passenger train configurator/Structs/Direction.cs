@@ -1,7 +1,7 @@
 ﻿
 namespace _7_Passenger_train_configurator
 {
-    public struct Direction
+    public class Direction
     {
         public readonly string StartPoint;
         public readonly string EndPoint;

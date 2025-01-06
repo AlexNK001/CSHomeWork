@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CitiesStorage.cs" />
-    <Compile Include="Сreating\CreatorHandler.cs" />
+    <Compile Include="Сreating\TrainFactory.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="UserUtils.cs" />
     <Compile Include="Сreating\DirectionCreator.cs" />

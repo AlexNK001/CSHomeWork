@@ -1,7 +1,7 @@
 ﻿
 namespace _7_Passenger_train_configurator
 {
-    public struct TrainCar
+    public class TrainCar
     {
         public readonly int Capacity;
         public readonly int CountPassengers;

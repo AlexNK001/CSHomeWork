@@ -16,7 +16,7 @@ namespace _7_Passenger_train_configurator
         {
             List<TrainCar> cars = new List<TrainCar>();
 
-            for (int i = 0; i < countPassanger; i++)
+            while (countPassanger > 0)
             {
                 int capacityCars = _capacityCars[UserUtils.GenerateRandomNumber(_capacityCars.Length)];
                 int currentCountPassanger = countPassanger > capacityCars ? capacityCars : countPassanger;
