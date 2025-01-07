@@ -15,21 +15,24 @@ namespace _8_Gladiator_fights
             _healthThresholdTreatment = 60;
         }
 
-        public override Warrior Clone() => new Archer();
+        public override Warrior Clone()
+        {
+            return new Archer();
+        }
 
         public override void Attack(Warrior enemy)
         {
             int minCountDistanceAttack = 0;
+            float damage = Damage;
 
             if (_countDistanseAttak > minCountDistanceAttack)
             {
                 _countDistanseAttak--;
-                enemy.TakeDamage(Damage + _bonusDistantDamage);
+                damage += _bonusDistantDamage;
             }
-            else
-            {
-                enemy.TakeDamage(Damage);
-            }
+            
+
+            enemy.TakeDamage(damage);
         }
 
         public override void TakeDamage(float damage)
@@ -37,7 +40,9 @@ namespace _8_Gladiator_fights
             int minCountDistanceAttack = 0;
 
             if (IsHealthLess(_healthThresholdTreatment) && WasWhereCanse)
-                DrinkHealingPotion();
+            {
+                DrinkHealingPotions();
+            }
 
             if (_countDistanseAttak > minCountDistanceAttack)
             {

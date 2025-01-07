@@ -4,8 +4,6 @@ namespace _8_Gladiator_fights
 {
     public abstract class Warrior
     {
-        protected static Random s_random = new Random();
-
         protected float Health;
         protected float MaxHealth;
         protected float AttackPower;
@@ -41,9 +39,9 @@ namespace _8_Gladiator_fights
         }
 
         public bool IsALive => Health > 0;
-        protected bool WasWhereCanse => Luck > s_random.Next(_maxRandom);
-        protected float Damage => s_random.Next((int)AttackPower, (int)AttackPower + Luck);
-        private float HealthPercentage => Health / MaxHealth * _percent;
+        public bool WasWhereCanse => Luck > UserUtils.GenerateRandomNumber(_maxRandom);
+        public float Damage => UserUtils.GenerateRandomNumber((int)AttackPower, (int)AttackPower + Luck);
+
         public abstract Warrior Clone();
 
         public virtual void Attack(Warrior enemy)
@@ -78,34 +76,37 @@ namespace _8_Gladiator_fights
         public void ShowInfo(ConsoleColor color)
         {
             Console.BackgroundColor = color;
-            Console.WriteLine($"{Name} {Health:F0}/{MaxHealth:F0}({HealthPercentage:F0}%)");
+            Console.WriteLine($"{Name} {Health:F0}/{MaxHealth:F0}({GetHealthPercentage():F0}%)");
             Console.ResetColor();
         }
 
         public bool IsHealthLess(int healthPercent)
         {
-            if (healthPercent > HealthPercentage)
+            if (healthPercent > GetHealthPercentage())
             {
                 Console.WriteLine($"{Name}: Уровень здоровья меньше {healthPercent}%");
             }
 
-            return healthPercent > HealthPercentage;
+            return healthPercent > GetHealthPercentage();
         }
 
-        protected void DrinkHealingPotion()
+        protected void DrinkHealingPotions(int countHealingPotion = 1)
         {
-            if (CountHealingPotion > 0)
+            while (countHealingPotion > 0)
             {
                 CountHealingPotion--;
                 Health += PotionPower;
+                Health = Math.Min(Health, MaxHealth);
 
                 Console.WriteLine($"У {Name} произошло лечение на {PotionPower:F0} едениц. ХП банок/{CountHealingPotion}");
 
-                if (Health >= MaxHealth)
-                {
-                    Health = MaxHealth;
-                }
+                countHealingPotion--;
             }
+        }
+
+        private float GetHealthPercentage()
+        {
+            return Health / MaxHealth * _percent; 
         }
     }
 }

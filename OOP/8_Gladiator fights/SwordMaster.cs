@@ -11,18 +11,21 @@
             if (WasWhereCanse)
             {
                 int coifficent = 2;
-                int bonusDamage = s_random.Next(Luck, Luck * coifficent);
+                int bonusDamage = UserUtils.GenerateRandomNumber(Luck, Luck * coifficent);
                 damage = AttackPower + bonusDamage;
             }
 
             enemy.TakeDamage(damage);
         }
 
-        public override Warrior Clone() => new SwordMaster();
+        public override Warrior Clone()
+        {
+            return new SwordMaster();
+        }
 
         public override void TakeDamage(float damage)
         {
-            int number = s_random.Next((int)Health);
+            int number = UserUtils.GenerateRandomNumber((int)Health);
 
             if (number < damage)
             {
@@ -32,7 +35,7 @@
 
             if (WasWhereCanse)
             {
-                DrinkHealingPotion();
+                DrinkHealingPotions();
             }
 
             base.TakeDamage(damage);

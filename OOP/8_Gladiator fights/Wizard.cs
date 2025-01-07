@@ -1,10 +1,14 @@
-﻿namespace _8_Gladiator_fights
+﻿using System;
+
+namespace _8_Gladiator_fights
 {
     public class Wizard : Warrior
     {
-        private int _mana;
         private readonly int _firstHealthThresholdTreatment;
         private readonly int _secondHealthThresholdTreatment;
+        private readonly int _maxSpellCount;
+        private int _currentSpellCount;
+        private int _mana;
         private float _refractDamage;
 
         public Wizard() : base(750f, 80f, 39f, 32, "Волшебник")
@@ -13,55 +17,46 @@
             _firstHealthThresholdTreatment = 60;
             _secondHealthThresholdTreatment = 40;
             _refractDamage = 0;
+            _maxSpellCount = 2;
+            _currentSpellCount = _maxSpellCount;
         }
 
-        public override Warrior Clone() => new Wizard();
+        public override Warrior Clone()
+        {
+            return new Wizard();
+        }
 
         public override void Attack(Warrior enemy)
         {
-            int spellCount = 2;
-            float bonusDamage = 0;
+            _currentSpellCount = _maxSpellCount;
+            float finalDamage = Damage;
 
             if (TryCast())
             {
-                bonusDamage += UseIncreasedDamage();
+                finalDamage += UseIncreasedDamage();
             }
 
             if (TryCast() && IsHealthLess(_firstHealthThresholdTreatment))
             {
-                DrinkHealingPotion();
+                DrinkHealingPotions();
             }
 
             if (TryCast())
             {
-                bonusDamage += UseRefractDamage();
+                finalDamage += UseRefractDamage();
             }
 
             if (TryCast() && IsHealthLess(_secondHealthThresholdTreatment))
             {
-                DrinkHealingPotion();
-                DrinkHealingPotion();
+                DrinkHealingPotions(2);
             }
 
             if (TryCast())
             {
-                bonusDamage += UseDamageReturn();
+                finalDamage += UseDamageReturn();
             }
 
-            enemy.TakeDamage(Damage + bonusDamage);
-
-            bool TryCast()
-            {
-                if (WasWhereCanse && spellCount > 0)
-                {
-                    spellCount--;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            enemy.TakeDamage(finalDamage);
         }
 
         public override void TakeDamage(float damage)
@@ -71,47 +66,30 @@
             base.TakeDamage(damage);
 
             float currentDamage = currentHealt - Health;
-
-            if (currentDamage > _refractDamage)
-            {
-                _refractDamage = currentDamage;
-            }
+            _refractDamage = Math.Max(currentDamage, _refractDamage);
         }
 
         private float UseDamageReturn()
         {
             int manaCoast = 40;
-            float maxDamageCoificent = 1.5f;
-            float minDamageCoificent = 4f;
+            float maxDamageCoefficient = 1.5f;
+            float minDamageCoefficient = 4f;
 
-            if (_mana >= manaCoast)
-            {
-                _mana -= manaCoast;
-                return (MaxHealth - Health) / maxDamageCoificent;
-            }
-            else
-            {
-                return (MaxHealth - Health) / minDamageCoificent;
-            }
+            float damageCoefficient = TrySpendMana(manaCoast) ? maxDamageCoefficient : minDamageCoefficient;
+
+            return (MaxHealth - Health) / damageCoefficient;
         }
 
         private float UseRefractDamage()
         {
             int manaCoast = 19;
-            float coifficent = 4f;
+            float coefficient = 4f;
             float minRefractDamage = 0;
 
-            if (_mana >= manaCoast)
-            {
-                _refractDamage = minRefractDamage;
-                _mana -= manaCoast;
-                return _refractDamage;
-            }
-            else
-            {
-                _refractDamage = minRefractDamage;
-                return _refractDamage / coifficent;
-            }
+            float damage = TrySpendMana(manaCoast) ? _refractDamage : _refractDamage / coefficient;
+            _refractDamage = minRefractDamage;
+
+            return damage;
         }
 
         private float UseIncreasedDamage()
@@ -120,15 +98,27 @@
             int minBonus = 30;
             int maxBonus = 80;
 
-            if (_mana >= manaCoast)
-            {
+            return TrySpendMana(manaCoast) ? maxBonus : minBonus;
+        }
+
+        private bool TrySpendMana(int manaCoast)
+        {
+            bool haveMana = _mana >= manaCoast;
+
+            if (haveMana)
                 _mana -= manaCoast;
-                return maxBonus;
-            }
-            else
-            {
-                return minBonus;
-            }
+
+            return haveMana;
+        }
+
+        private bool TryCast()
+        {
+            bool haveCast = WasWhereCanse && _currentSpellCount > 0;
+
+            if (haveCast)
+                _currentSpellCount--;
+
+            return haveCast;
         }
     }
 }

@@ -5,37 +5,36 @@ namespace _8_Gladiator_fights
     public class Paladin : Warrior
     {
         private readonly int _luckGain;
-        private readonly int _firstHealthThresholdTreatment;
-        private readonly int _secondHealthThresholdTreatment;
-        private readonly int _thirdHealthThresholdTreatment;
         private readonly int _healthThresholdRaisingArmor;
         private readonly int _healthThresholdRaisingDamage;
+        private readonly int[] _healthMultipleTreatments;
 
         public Paladin() : base(950f, 120f, 50f, 18, "Паладин")
         {
             _luckGain = 2;
-            _firstHealthThresholdTreatment = 70;
-            _secondHealthThresholdTreatment = 50;
-            _thirdHealthThresholdTreatment = 30;
             _healthThresholdRaisingArmor = 50;
             _healthThresholdRaisingDamage = 30;
+
+            _healthMultipleTreatments = new int[] { 70, 50, 30 };
         }
 
-        public override Warrior Clone() => new Paladin();
+        public override Warrior Clone()
+        {
+            return new Paladin();
+        }
 
         public override void Attack(Warrior enemy)
         {
             float coefficient = 1.5f;
+            float damage = Damage;
 
             if (IsHealthLess(_healthThresholdRaisingDamage))
             {
                 Console.WriteLine($"{Name}: Урон увеличен в {coefficient} раза.");
-                enemy.TakeDamage(Damage * coefficient);
+                damage *= coefficient;
             }
-            else
-            {
-                enemy.TakeDamage(Damage);
-            }
+
+            enemy.TakeDamage(damage);
         }
 
         public override void TakeDamage(float damage)
@@ -62,23 +61,16 @@ namespace _8_Gladiator_fights
 
             Armor -= bonusArmor;
 
-            TripleHealing();
+            MultipleHealing();
         }
 
-        private void TripleHealing()
+        private void MultipleHealing()
         {
-            if (IsHealthLess(_firstHealthThresholdTreatment))
+            for (int i = 0; i < _healthMultipleTreatments.Length; i++)
             {
-                DrinkHealingPotion();
-
-                if (IsHealthLess(_secondHealthThresholdTreatment))
+                if (IsHealthLess(_healthMultipleTreatments[i]))
                 {
-                    DrinkHealingPotion();
-
-                    if (IsHealthLess(_thirdHealthThresholdTreatment))
-                    {
-                        DrinkHealingPotion();
-                    }
+                    DrinkHealingPotions();
                 }
             }
         }

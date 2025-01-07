@@ -11,7 +11,10 @@
             _healthThresholdRaisingDamage = 10;
         }
 
-        public override Warrior Clone() => new Barbarian();
+        public override Warrior Clone()
+        {
+            return new Barbarian();
+        }
 
         public override void Attack(Warrior enemy)
         {
@@ -36,7 +39,7 @@
         {
             if (WasWhereCanse)
             {
-                DrinkHealingPotion();
+                DrinkHealingPotions();
             }
 
             base.TakeDamage(damage);
