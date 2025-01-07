@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\bin\Debug\_8_Gladiator_fights.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\bin\Debug\_8_Gladiator_fights.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\bin\Debug\_8_Gladiator_fights.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\obj\Debug\08_Gladiator fights.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\obj\Debug\08_Gladiator fights.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\obj\Debug\_8_Gladiator_fights.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\8_Gladiator fights\obj\Debug\_8_Gladiator_fights.pdb
