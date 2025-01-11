@@ -13,17 +13,14 @@ namespace _10_War
 
         public bool IsAlive => _solders.Count > 0;
 
+        public IReadOnlyList<Warrior> GetSolders() => _solders;
+
         public void Attack(IReadOnlyList<Warrior> solders)
         {
             for (int i = 0; i < _solders.Count; i++)
             {
                 _solders[i].Attack(solders);
             }
-        }
-
-        public IReadOnlyList<Warrior> GetSolders()
-        {
-            return _solders;
         }
 
         public void RemoveDeadSolders()

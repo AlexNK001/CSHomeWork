@@ -11,6 +11,7 @@ namespace _10_War
 
         private readonly int _cellWidth;
         private readonly Dictionary<Warrior, WarriorViewPosition> _solders;
+        private readonly Dictionary<SolderStatus, Config> _configs;
         private readonly Platoon _firstPlatoon;
         private readonly Platoon _secondPlatoon;
 
@@ -27,6 +28,7 @@ namespace _10_War
             AddSolders(_firstPlatoon, indentationByWidth);
             int left = _cellWidth + indentationByWidth + indentationByWidth;
             AddSolders(_secondPlatoon, left);
+            _configs = GetConfigs();
         }
 
         public void ShowBattleScreen()
@@ -106,22 +108,18 @@ namespace _10_War
 
         private void ShowSolderInfo(Warrior solder, SolderStatus status = SolderStatus.Alive)
         {
-            string name = solder.Name + GetStatusDisplay(status,
-                out ConsoleColor background,
-                out ConsoleColor foreground);
+            Config config = _configs[status];
+            WarriorViewPosition viewPosition = _solders[solder];
 
+            string name = solder.Name + config.Status;
             name = AlignNameWidth(name);
-
             string bar = GetBar(solder.GetShareHealth());
 
-            int left = _solders[solder].Left;
-            int top = _solders[solder].Top;
+            ChangeColor(config.Background, config.Foreground);
 
-            ChangeColor(background, foreground);
-
-            WriteLine(name, left, top);
-            top++;
-            WriteLine(bar, left, top);
+            WriteLine(name, viewPosition.Left, viewPosition.Top);
+            viewPosition.Top++;
+            WriteLine(bar, viewPosition.Left, viewPosition.Top);
 
             Console.ResetColor();
         }
@@ -130,40 +128,6 @@ namespace _10_War
         {
             Console.SetCursorPosition(left, top);
             Console.WriteLine(text);
-        }
-
-        private string GetStatusDisplay(
-            SolderStatus status,
-            out ConsoleColor background,
-            out ConsoleColor foreground)
-        {
-            switch (status)
-            {
-                case SolderStatus.Alive:
-                    foreground = ConsoleColor.DarkRed;
-                    background = ConsoleColor.Gray;
-                    return " Живой";
-
-                case SolderStatus.Attacking:
-                    foreground = ConsoleColor.Black;
-                    background = ConsoleColor.Green;
-                    return " Атакующий";
-
-                case SolderStatus.Attacked:
-                    foreground = ConsoleColor.Black;
-                    background = ConsoleColor.Yellow;
-                    return " Атакуемый";
-
-                case SolderStatus.Dead:
-                    foreground = ConsoleColor.DarkGray;
-                    background = ConsoleColor.Gray;
-                    return " Мертвый";
-
-                default:
-                    foreground = ConsoleColor.Black;
-                    background = ConsoleColor.Black;
-                    return string.Empty;
-            }
         }
 
         private string AlignNameWidth(string name)
@@ -195,6 +159,17 @@ namespace _10_War
             }
 
             return $"{startSymbol}{bar}{endSymbol}";
+        }
+
+        private Dictionary<SolderStatus, Config> GetConfigs()
+        {
+            return new Dictionary<SolderStatus, Config>
+            {
+                { SolderStatus.Alive, new Config(ConsoleColor.DarkRed, ConsoleColor.Gray, " Живой") },
+                { SolderStatus.Attacked, new Config(ConsoleColor.Black, ConsoleColor.Green, " Атакующий") },
+                { SolderStatus.Attacking, new Config(ConsoleColor.Black, ConsoleColor.DarkYellow, " Атакуемый") },
+                { SolderStatus.Dead, new Config(ConsoleColor.DarkGray, ConsoleColor.Gray, " Мертвый") }
+            };
         }
     }
 }

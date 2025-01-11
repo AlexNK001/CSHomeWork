@@ -21,8 +21,8 @@ namespace _10_War
             _armor = armor;
         }
 
-        public Action<Warrior> Attacked;
-        public Action<Warrior> ReceivedDamage;
+        public event Action<Warrior> Attacked;
+        public event Action<Warrior> ReceivedDamage;
 
         public string Name { get; }
         public bool IsALive => _currentHealth > 0;
