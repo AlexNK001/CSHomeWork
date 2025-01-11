@@ -4,21 +4,72 @@ using System.Threading;
 
 namespace _10_War
 {
-    public partial class TextStorage
+    public partial class DisplayBattlefield
     {
         private const int CellHeight = 2;
         private const int ThreadSleep = 10;
 
         private readonly int _cellWidth;
-        private readonly Dictionary<Warrior, SolderViewPosition> _solders;
+        private readonly Dictionary<Warrior, WarriorViewPosition> _solders;
+        private readonly Platoon _firstPlatoon;
+        private readonly Platoon _secondPlatoon;
 
-        public TextStorage(Platoon firstPlatoon, Platoon secondPlatoon, int cellWidth = 30, int indentationByWidth = 1)
+        public DisplayBattlefield(
+            Platoon firstPlatoon,
+            Platoon secondPlatoon,
+            int cellWidth = 30,
+            int indentationByWidth = 1)
         {
+            _firstPlatoon = firstPlatoon;
+            _secondPlatoon = secondPlatoon;
             _cellWidth = cellWidth;
-            _solders = new Dictionary<Warrior, SolderViewPosition>();
-            AddSolders(firstPlatoon, indentationByWidth);
+            _solders = new Dictionary<Warrior, WarriorViewPosition>();
+            AddSolders(_firstPlatoon, indentationByWidth);
             int left = _cellWidth + indentationByWidth + indentationByWidth;
-            AddSolders(secondPlatoon, left);
+            AddSolders(_secondPlatoon, left);
+        }
+
+        public void ShowBattleScreen()
+        {
+            Console.CursorVisible = false;
+
+            foreach (Warrior solder in _solders.Keys)
+            {
+                WarriorViewPosition viewPosition = _solders[solder];
+                Console.SetCursorPosition(viewPosition.Left, viewPosition.Top);
+                ShowSolderInfo(solder);
+            }
+        }
+
+        public void ShowEndScreen()
+        {
+            int left = 0;
+            int top = 0;
+            string finalMessage;
+
+            Console.Clear();
+            Console.SetCursorPosition(left, top);
+
+            if (_firstPlatoon.IsAlive == false && _secondPlatoon.IsAlive == false)
+            {
+                finalMessage = "Оба отряда мертвы. Ничья.";
+            }
+            else if (_firstPlatoon.IsAlive == false)
+            {
+                finalMessage = "Первый отряд пал. Второй победил!";
+            }
+            else
+            {
+                finalMessage = "Второй отряд пал. Первый победил!";
+            }
+
+            Console.WriteLine(finalMessage);
+
+            foreach (Warrior solder in _solders.Keys)
+            {
+                solder.Attacked -= OnUpdateAttackingSolderInfo;
+                solder.ReceivedDamage -= OnUpdateAttackedSolderInfo;
+            }
         }
 
         private void AddSolders(Platoon platoon, int left, int shiftDown = 1)
@@ -31,7 +82,7 @@ namespace _10_War
                 currentSolder.Attacked += OnUpdateAttackingSolderInfo;
                 currentSolder.ReceivedDamage += OnUpdateAttackedSolderInfo;
                 int top = i * (CellHeight + shiftDown);
-                _solders.Add(currentSolder, new SolderViewPosition(top, left));
+                _solders.Add(currentSolder, new WarriorViewPosition(top, left));
             }
         }
 
@@ -49,21 +100,11 @@ namespace _10_War
         {
             ShowSolderInfo(solder, status);
             Thread.Sleep(ThreadSleep);
-            status = solder.IsALive ? SolderStatus.None : SolderStatus.Dead;
+            status = solder.IsALive ? SolderStatus.Alive : SolderStatus.Dead;
             ShowSolderInfo(solder, status);
         }
 
-        public void ShowBattleScreen()
-        {
-            foreach (Warrior solder in _solders.Keys)
-            {
-                SolderViewPosition viewPosition = _solders[solder];
-                Console.SetCursorPosition(viewPosition.Left, viewPosition.Top);
-                ShowSolderInfo(solder);
-            }
-        }
-
-        public void ShowSolderInfo(Warrior solder, SolderStatus status = SolderStatus.None)
+        private void ShowSolderInfo(Warrior solder, SolderStatus status = SolderStatus.Alive)
         {
             string name = solder.Name + GetStatusDisplay(status,
                 out ConsoleColor background,
@@ -98,7 +139,7 @@ namespace _10_War
         {
             switch (status)
             {
-                case SolderStatus.None:
+                case SolderStatus.Alive:
                     foreground = ConsoleColor.DarkRed;
                     background = ConsoleColor.Gray;
                     return " Живой";
@@ -123,26 +164,6 @@ namespace _10_War
                     background = ConsoleColor.Black;
                     return string.Empty;
             }
-        }
-
-        public void ShowEndScreen(Platoon firstPlatoon, Platoon secondPlatoon)
-        {
-            string finalMessage;
-
-            if (firstPlatoon.IsAlive == false && secondPlatoon.IsAlive == false)
-            {
-                finalMessage = "Оба отряда мертвы. Ничья.";
-            }
-            else if (firstPlatoon.IsAlive == false)
-            {
-                finalMessage = "Первый отряд пал. Второй победил!";
-            }
-            else
-            {
-                finalMessage = "Второй отряд пал. Первый победил!";
-            }
-
-            Console.WriteLine(finalMessage);
         }
 
         private string AlignNameWidth(string name)

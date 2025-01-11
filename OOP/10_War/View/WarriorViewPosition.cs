@@ -1,8 +1,8 @@
 ﻿namespace _10_War
 {
-    public class SolderViewPosition
+    public class WarriorViewPosition
     {
-        public SolderViewPosition(int top, int left)
+        public WarriorViewPosition(int top, int left)
         {
             Top = top;
             Left = left;
