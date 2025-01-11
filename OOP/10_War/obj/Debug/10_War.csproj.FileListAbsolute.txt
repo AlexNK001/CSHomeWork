@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\bin\Debug\_10_War.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\bin\Debug\_10_War.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\bin\Debug\_10_War.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\obj\Debug\10_War.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\obj\Debug\10_War.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\obj\Debug\_10_War.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\10_War\obj\Debug\_10_War.pdb

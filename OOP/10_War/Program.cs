@@ -1,58 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _10_War
 {
     public class War
     {
-        static void Main()
+        private static void Main()
         {
-            List<Solder> firstSolders = new List<Solder>
+            //List<Test> tests = new List<Test> { new Test(1, 7, 3), new Test(4, 5, 6), new Test(7, 1, 9) };
+
+            ////tests = tests.OrderBy(t => t.Second).ToList();
+
+            //Test test = tests.OrderBy(t => t.Second).First();
+            //Console.WriteLine($"{test.First} {test.Second} {test.Third}");
+
+
+            //return;
+            Solder solder3 = new Solder("pl.1 - S.3");
+            Solder solder4 = new Solder("pl.2 - S.4");
+
+            List<Warrior> firstSolders = new List<Warrior>
             {
-                new BigGuy(),
-                new Strongman(),
-                new BigGuy(),
-                new Strongman(),
-                new ToughGuy(),
+                new Sniper("Sniper"),
+                new Grenadier("Grenadier"),
+                solder3,
+                new Solder("pl.1 - S.4"),
+                new Solder("pl.1 - S.5"),
             };
 
-            List<Solder> secondSolders = new List<Solder>
+            List<Warrior> secondSolders = new List<Warrior>
             {
-                new BigGuy(),
-                new Strongman(),
-                new ToughGuy(),
-                new Strongman(),
-                new ToughGuy(),
+                new MachineGunner("MachineGunner"),
+                new Solder("pl.2 - S.1"),
+                new Solder("pl.2 - S.2"),
+                new Solder("pl.2 - S.3"),
+                solder4,
             };
+
 
             Platoon firstPlatoon = new Platoon(firstSolders);
             Platoon secondPlatoon = new Platoon(secondSolders);
+            TextStorage textStorage = new TextStorage(firstPlatoon, secondPlatoon);
 
             Battlefield battlefield = new Battlefield(firstPlatoon, secondPlatoon);
+            textStorage.ShowBattleScreen();
 
             battlefield.StartBattle();
         }
     }
 
-    public class BigGuy : Solder
-    {
-        public BigGuy() : base("Здоровяк", health: 120) { }
-    }
-
-    public class Strongman : Solder
-    {
-        public Strongman() : base("Силач", minDamage: 14, maxDamage: 19) { }
-    }
-
-    public class ToughGuy : Solder
-    {
-        public ToughGuy() : base("Крепыш", armor: 10) { }
-    }
-
     public class Battlefield
     {
-        private Platoon _firstPlatoon;
-        private Platoon _secondPlatoon;
+        private readonly Platoon _firstPlatoon;
+        private readonly Platoon _secondPlatoon;
 
         public Battlefield(Platoon first, Platoon second)
         {
@@ -62,276 +63,92 @@ namespace _10_War
 
         public void StartBattle()
         {
-            while (_firstPlatoon.IsAlive() && _secondPlatoon.IsAlive())
+            while (_firstPlatoon.IsAlive && _secondPlatoon.IsAlive)
             {
-                ExchangeBlows(_firstPlatoon, _secondPlatoon);
-                ExchangeBlows(_secondPlatoon, _firstPlatoon);
+                _firstPlatoon.Attack(_secondPlatoon.GetSolders());
+                _secondPlatoon.Attack(_firstPlatoon.GetSolders());
+
+                _firstPlatoon.RemoveDeadSolders();
+                _secondPlatoon.RemoveDeadSolders();
             }
-
-            Console.Clear();
-
-            if (_firstPlatoon.IsAlive() == false && _secondPlatoon.IsAlive() == false)
-            {
-                Console.WriteLine("Оба отряда мертвы. Ничья.");
-            }
-            else if (_firstPlatoon.IsAlive() == false)
-            {
-                Console.WriteLine("Первый отряд пал. Второй победил!");
-            }
-            else
-            {
-                Console.WriteLine("Второй отряд пал. Первый победил!");
-            }
-
-            Console.ReadKey();
-        }
-
-        private void ExchangeBlows(Platoon first, Platoon second)
-        {
-            if (first.IsAlive())
-            {
-                first.Attack(second.GetAttacked());
-            }
-
-            ShowGameScreen();
-        }
-
-        private void ShowGameScreen()
-        {
-            int maxNumberOfSolders = GetMaxPlatoonSize();
-            int indentationLength = 7;
-            string indentation = new string(' ', indentationLength);
-
-            for (int i = 0; i < maxNumberOfSolders; i++)
-            {
-                _firstPlatoon.ShowNameByIndex(i);
-                Console.Write(indentation);
-                _secondPlatoon.ShowNameByIndex(i);
-                Console.WriteLine();
-
-                _firstPlatoon.ShowBarByIndex(i);
-                Console.Write(indentation);
-                _secondPlatoon.ShowBarByIndex(i);
-
-                Console.WriteLine("\n");
-            }
-
-            Console.ReadKey();
-            Console.Clear();
-        }
-
-        private int GetMaxPlatoonSize()
-        {
-            return _firstPlatoon.Count >= _secondPlatoon.Count ? _firstPlatoon.Count : _secondPlatoon.Count;
         }
     }
 
     public class Platoon
     {
-        private List<Solder> _solders;
+        private readonly List<Warrior> _solders;
 
-        public Platoon(List<Solder> solders)
+        public Platoon(List<Warrior> solders)
         {
             _solders = solders;
         }
 
-        private Solder Attacking { get; set; }
-        private Solder Attacked { get; set; }
-        private Solder LastSolder { get; set; }
-        public int Count => _solders.Count;
-        public int BarSize => 30;
-        private char EmptySymbol => ' ';
+        public bool IsAlive => _solders.Count > 0;
 
-        public void Attack(Solder enemy)
+        public void Attack(IReadOnlyList<Warrior> solders)
         {
-            Attacked = null;
-            Attacking = GetRandomSolder();
-            Attacking.Attack(enemy);
-        }
-
-        public Solder GetAttacked()
-        {
-            Attacking = null;
-            Attacked = GetRandomSolder();
-            return Attacked;
-        }
-
-        public void ShowNameByIndex(int index)
-        {
-            if (index < _solders.Count)
-            {
-                string name = _solders[index].Name;
-
-                if (_solders[index].IsALive == false)
-                {
-                    name = AlignNameWidth(name);
-                    ShowColoredText(name, ConsoleColor.White, ConsoleColor.Black);
-                }
-                else if (_solders[index] == Attacking)
-                {
-                    string attacking = " (атакующий)";
-                    name = AlignNameWidth(name, attacking);
-                    ShowColoredText(name, ConsoleColor.DarkRed, ConsoleColor.Black);
-                }
-                else if (_solders[index] == Attacked)
-                {
-                    string attacked = " (атакуемый)";
-                    name = AlignNameWidth(name, attacked);
-                    ShowColoredText(name, ConsoleColor.DarkBlue, ConsoleColor.White);
-                }
-                else
-                {
-                    name = AlignNameWidth(name);
-                    Console.Write(name);
-                }
-            }
-            else
-            {
-                Console.Write(new string(EmptySymbol, BarSize));
-            }
-        }
-
-        public void ShowBarByIndex(int index)
-        {
-            if (index < _solders.Count)
-            {
-                float health = _solders[index].Health;
-                float lastHealth = _solders[index].LastHealth;
-                string firstHalfBar = GetHalvesBar(health, lastHealth, out string secondHalfBar);
-
-                if (_solders[index].IsALive == false)
-                {
-                    string deadMessage = "Этот юнит мертв!";
-                    ShowColoredText(deadMessage, ConsoleColor.White, ConsoleColor.Black);
-                    Console.Write(new string(EmptySymbol, BarSize - deadMessage.Length));
-                }
-                else if (_solders[index] == Attacking)
-                {
-                    ShowColoredText(firstHalfBar, ConsoleColor.DarkRed, ConsoleColor.Black);
-                    ShowColoredText(secondHalfBar, ConsoleColor.DarkYellow, ConsoleColor.DarkYellow);
-                }
-                else if (_solders[index] == Attacked)
-                {
-                    ShowColoredText(firstHalfBar, ConsoleColor.DarkBlue, ConsoleColor.Black);
-                    ShowColoredText(secondHalfBar, ConsoleColor.DarkYellow, ConsoleColor.DarkYellow);
-                }
-                else
-                {
-                    ShowColoredText(firstHalfBar, ConsoleColor.Green, ConsoleColor.DarkGreen);
-                    ShowColoredText(secondHalfBar, ConsoleColor.DarkGray, ConsoleColor.Gray);
-                }
-            }
-            else
-            {
-                Console.Write(new string(EmptySymbol, BarSize));
-            }
-        }
-
-        public bool IsAlive()
-        {
-            int numberLivingSolders = 0;
-
-            foreach (Solder solder in _solders)
-            {
-                if (solder.IsALive)
-                {
-                    numberLivingSolders++;
-                }
-            }
-
-            return numberLivingSolders > 0;
-        }
-
-        private Solder GetRandomSolder()
-        {
-            List<Solder> liaveSolders = new List<Solder>();
-            int numberLastSolder = 1;
-
             for (int i = 0; i < _solders.Count; i++)
             {
-                if (_solders[i].IsALive)
-                {
-                    liaveSolders.Add(_solders[i]);
-                }
-            }
-
-            if (liaveSolders.Count <= numberLastSolder)
-            {
-                LastSolder = liaveSolders[0];
-                return LastSolder;
-            }
-            else
-            {
-                return liaveSolders[UserUtils.GenerateRandomNumber(liaveSolders.Count)];
+                _solders[i].Attack(solders);
             }
         }
 
-        private string GetHalvesBar(float health, float lastHealth, out string secondHalfBar)
+        public IReadOnlyList<Warrior> GetSolders()
         {
-            if (lastHealth < 0)
-            {
-                secondHalfBar = "\0";
-                return new string(EmptySymbol, BarSize);
-            }
-            else
-            {
-                float percent = lastHealth / health * BarSize;
-                secondHalfBar = new string(EmptySymbol, BarSize - (int)percent);
-                return new string(EmptySymbol, (int)percent);
-            }
+            return _solders;
         }
 
-        private void ShowColoredText(string message, ConsoleColor targetColor, ConsoleColor textColor)
+        public void RemoveDeadSolders()
         {
-            Console.BackgroundColor = targetColor;
-            Console.ForegroundColor = textColor;
-            Console.Write(message);
-            Console.ResetColor();
-        }
+            int solderCount = _solders.Count;
 
-        private string AlignNameWidth(string name, string additionalText = "\0")
-        {
-            name += additionalText;
-            name = name.Length < BarSize ? name.PadRight(BarSize) : name.Remove(BarSize);
-            return name;
+            for (int i = solderCount - 1; i >= 0; i--)
+            {
+                Warrior currentSolder = _solders[i];
+
+                if (currentSolder.IsALive == false)
+                    _solders.Remove(currentSolder);
+            }
         }
     }
 
-    public class Solder
+    public abstract class Warrior
     {
-        private readonly string _name;
-        private readonly float _health;
-        private float _lastHealth;
-        private int _minDamage;
-        private int _maxDamage;
-        private float _armor;
+        private readonly float _maxHealth;
+        private readonly float _armor;
+        private readonly int _minDamage;
+        private readonly int _maxDamage;
+        private float _currentHealth;
 
-        public Solder(
-            string name,
-            float health = 100,
-            int minDamage = 30,
-            int maxDamage = 45,
-            float armor = 7
-            )
+        public Warrior(string name = null, float health = 130, int minDamage = 30, int maxDamage = 45, float armor = 7)
         {
-            _name = name;
-            _health = health;
-            _lastHealth = _health;
+            Name = name ?? ToString();
+            _maxHealth = health;
+            _currentHealth = _maxHealth;
             _minDamage = minDamage;
             _maxDamage = maxDamage;
             _armor = armor;
         }
 
+        public Action<Warrior> Attacked;
+        public Action<Warrior> ReceivedDamage;
 
-        public string Name => _name;
-        public bool IsALive => _lastHealth > 0;
-        public float Health => _health;
-        public float LastHealth => _lastHealth;
-        public float Damage => UserUtils.GenerateRandomNumber(_minDamage, _maxDamage);
+        public string Name { get; }
+        public bool IsALive => _currentHealth > 0;
 
-        public void Attack(Solder enemy)
+        public void Attack(IReadOnlyList<Warrior> enemies)
         {
-            enemy.TakeDamage(Damage);
+            Attacked?.Invoke(this);
+
+            if (TrySelectTargets(enemies, out List<Warrior> selectableTargets))
+            {
+                ApplyAbility(selectableTargets);
+            }
+        }
+
+        public float GetShareHealth()
+        {
+            return _currentHealth / _maxHealth;
         }
 
         public void TakeDamage(float damage)
@@ -340,27 +157,199 @@ namespace _10_War
 
             if (damage > 0 && damage <= _armor)
             {
-                _lastHealth -= damage / coefficient;
+                _currentHealth -= damage / coefficient;
             }
             else if (damage > 0 && damage > _armor)
             {
-                _lastHealth -= _armor / coefficient + damage - _armor;
+                _currentHealth -= _armor / coefficient + damage - _armor;
+            }
+
+            ReceivedDamage?.Invoke(this);
+        }
+
+        protected abstract bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets);
+
+        protected abstract void ApplyAbility(List<Warrior> targets);
+
+        protected int GetDamage()
+        {
+            return UserUtils.GenerateRandomNumber(_minDamage, _maxDamage);
+        }
+    }
+
+    public class Solder : Warrior
+    {
+        public Solder(
+            string name = null,
+            float health = 130,
+            int minDamage = 30,
+            int maxDamage = 45,
+            float armor = 7)
+            : base(name,
+                  health,
+                  minDamage,
+                  maxDamage,
+                  armor)
+        { }
+
+        protected override void ApplyAbility(List<Warrior> targets)
+        {
+            targets.First().TakeDamage(GetDamage());
+        }
+
+        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        {
+            if (enemies.Any(enemy => enemy.IsALive))
+            {
+                int targetIndex = 0;
+                int minNumberTargets = 1;
+
+                selectableTargets = enemies.Where(enemy => enemy.IsALive).ToList();
+
+                if (selectableTargets.Count > minNumberTargets)
+                {
+                    targetIndex = UserUtils.GenerateRandomNumber(selectableTargets.Count);
+                }
+
+                Warrior target = selectableTargets[targetIndex];
+                selectableTargets.Clear();
+                selectableTargets.Add(target);
+                return true;
+            }
+            else
+            {
+                selectableTargets = null;
+                return false;
             }
         }
     }
 
-    public abstract class UserUtils
-    {
-        private static readonly Random s_random = new Random();
 
-        public static int GenerateRandomNumber(int min, int max)
+    public class Grenadier : Warrior
+    {
+        public Grenadier(
+            string name = null,
+            float health = 150,
+            int minDamage = 10,
+            int maxDamage = 15,
+            float armor = 8)
+            : base(name,
+                   health,
+                   minDamage,
+                   maxDamage,
+                   armor)
+        { }
+
+        protected override void ApplyAbility(List<Warrior> enemies)
         {
-            return s_random.Next(min, max);
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].TakeDamage(GetDamage());
+            }
         }
 
-        public static int GenerateRandomNumber(int max)
+        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
         {
-            return s_random.Next(max);
+            int maxTargetsCount = 4;
+            selectableTargets = new List<Warrior>(enemies);
+
+            while (selectableTargets.Count > maxTargetsCount)
+            {
+                selectableTargets.RemoveAt(UserUtils.GenerateRandomNumber(selectableTargets.Count));
+            }
+
+            return true;
+        }
+    }
+
+    public class MachineGunner : Warrior
+    {
+        public MachineGunner(
+            string name = null,
+            float health = 130,
+            int minDamage = 25,
+            int maxDamage = 50,
+            float armor = 7)
+            : base(name,
+                   health,
+                   minDamage,
+                   maxDamage,
+                   armor)
+        { }
+
+        protected override void ApplyAbility(List<Warrior> targets)
+        {
+            int singleTargetDamage = GetDamage() / targets.Count;
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                targets[i].TakeDamage(singleTargetDamage);
+            }
+        }
+
+        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        {
+            if (enemies.Any(solder => solder.IsALive))
+            {
+                int targetsCount = 4;
+
+                selectableTargets = enemies
+                    .Where(solder => solder.IsALive)
+                    .ToList();
+
+                while (targetsCount < selectableTargets.Count)
+                {
+                    selectableTargets.RemoveAt(UserUtils.GenerateRandomNumber(selectableTargets.Count));
+                }
+
+                return true;
+            }
+            else
+            {
+                selectableTargets = null;
+                return false;
+            }
+        }
+    }
+    public class Sniper : Warrior
+    {
+        public Sniper(
+            string name = null,
+            float health = 120,
+            int minDamage = 30,
+            int maxDamage = 45,
+            float armor = 5)
+            : base(name,
+                   health,
+                   minDamage,
+                   maxDamage,
+                   armor)
+        { }
+
+        protected override void ApplyAbility(List<Warrior> targets)
+        {
+            int damageMultiplier = 2;
+            int damage = GetDamage() * damageMultiplier;
+            targets.First().TakeDamage(damage);
+        }
+
+        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        {
+            if (enemies.Any(solder => solder.IsALive))
+            {
+                Warrior target = enemies
+                    .Where(solder => solder.IsALive)
+                    .OrderBy(healt => healt.GetShareHealth())
+                    .First();
+
+                selectableTargets = new List<Warrior> { target };
+                return true;
+            }
+            else
+            {
+                selectableTargets = null;
+                return false;
+            }
         }
     }
 }
