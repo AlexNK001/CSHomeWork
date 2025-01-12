@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace _10_War
 {
-    public class MachineGunner : Warrior
+    public class MachineGunner : Solder
     {
         public MachineGunner(
             string name = null,
@@ -18,12 +18,12 @@ namespace _10_War
                    armor)
         { }
 
-        public override Warrior Clone()
+        public override Solder Clone()
         {
             return new MachineGunner();
         }
 
-        protected override void ApplyAbility(List<Warrior> targets)
+        protected override void ApplyAbility(List<Solder> targets)
         {
             int singleTargetDamage = GetDamage() / targets.Count;
 
@@ -33,7 +33,7 @@ namespace _10_War
             }
         }
 
-        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        protected override bool TrySelectTargets(IReadOnlyList<Solder> enemies, out List<Solder> selectableTargets)
         {
             if (enemies.Any(solder => solder.IsALive))
             {

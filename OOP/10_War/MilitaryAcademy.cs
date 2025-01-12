@@ -4,11 +4,11 @@ namespace _10_War
 {
     public class MilitaryAcademy
     {
-        private readonly Warrior[] _warriors;
+        private readonly Solder[] _solders;
 
         public MilitaryAcademy()
         {
-            _warriors = new Warrior[]
+            _solders = new Solder[]
             {
                 new Solder(),
                 new Sniper(),
@@ -17,16 +17,16 @@ namespace _10_War
             };
         }
 
-        public List<Warrior> GetRandomWarriors(int count)
+        public List<Solder> GetRandomWarriors(int count)
         {
-            List<Warrior> warriors = new List<Warrior>(count);
+            List<Solder> solders = new List<Solder>(count);
 
             for (int i = 0; i < count; i++)
             {
-                warriors.Add(_warriors[UserUtils.GenerateRandomNumber(_warriors.Length)].Clone());
+                solders.Add(_solders[UserUtils.GenerateRandomNumber(_solders.Length)].Clone());
             }
 
-            return warriors;
+            return solders;
         }
     }
 }

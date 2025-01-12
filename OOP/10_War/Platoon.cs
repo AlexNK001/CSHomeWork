@@ -4,18 +4,17 @@ namespace _10_War
 {
     public class Platoon
     {
-        private readonly List<Warrior> _solders;
+        private readonly List<Solder> _solders;
 
-        public Platoon(List<Warrior> solders)
+        public Platoon(List<Solder> solders)
         {
             _solders = solders;
         }
 
         public bool IsAlive => _solders.Count > 0;
+        public IReadOnlyList<Solder> GetSolders() => _solders;
 
-        public IReadOnlyList<Warrior> GetSolders() => _solders;
-
-        public void Attack(IReadOnlyList<Warrior> solders)
+        public void Attack(IReadOnlyList<Solder> solders)
         {
             for (int i = 0; i < _solders.Count; i++)
             {
@@ -29,7 +28,7 @@ namespace _10_War
 
             for (int i = solderCount - 1; i >= 0; i--)
             {
-                Warrior currentSolder = _solders[i];
+                Solder currentSolder = _solders[i];
 
                 if (currentSolder.IsALive == false)
                     _solders.Remove(currentSolder);

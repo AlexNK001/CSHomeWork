@@ -57,7 +57,6 @@
     <Compile Include="View\WarriorViewPosition.cs" />
     <Compile Include="View\TextStorage.cs" />
     <Compile Include="UserUtils.cs" />
-    <Compile Include="Warriors\Warrior.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,5 @@
-﻿namespace _10_War
+﻿
+namespace _10_War
 {
     public class War
     {

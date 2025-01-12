@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace _10_War
 {
-    public class Sniper : Warrior
+    public class Sniper : Solder
     {
         public Sniper(
             string name = null,
@@ -18,28 +18,28 @@ namespace _10_War
                    armor)
         { }
 
-        public override Warrior Clone()
+        public override Solder Clone()
         {
             return new Sniper();
         }
 
-        protected override void ApplyAbility(List<Warrior> targets)
+        protected override void ApplyAbility(List<Solder> targets)
         {
             int damageMultiplier = 2;
             int damage = GetDamage() * damageMultiplier;
             targets.First().TakeDamage(damage);
         }
 
-        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        protected override bool TrySelectTargets(IReadOnlyList<Solder> enemies, out List<Solder> selectableTargets)
         {
             if (enemies.Any(solder => solder.IsALive))
             {
-                Warrior target = enemies
+                Solder target = enemies
                     .Where(solder => solder.IsALive)
-                    .OrderBy(healt => healt.GetShareHealth())
+                    .OrderBy(healt => healt.PercentageHealth())
                     .First();
 
-                selectableTargets = new List<Warrior> { target };
+                selectableTargets = new List<Solder> { target };
                 return true;
             }
             else

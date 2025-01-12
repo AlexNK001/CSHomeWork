@@ -2,7 +2,7 @@
 
 namespace _10_War
 {
-    public class Grenadier : Warrior
+    public class Grenadier : Solder
     {
         public Grenadier(
             string name = null,
@@ -17,12 +17,12 @@ namespace _10_War
                    armor)
         { }
 
-        public override Warrior Clone()
+        public override Solder Clone()
         {
             return new Grenadier();
         }
 
-        protected override void ApplyAbility(List<Warrior> enemies)
+        protected override void ApplyAbility(List<Solder> enemies)
         {
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -30,10 +30,10 @@ namespace _10_War
             }
         }
 
-        protected override bool TrySelectTargets(IReadOnlyList<Warrior> enemies, out List<Warrior> selectableTargets)
+        protected override bool TrySelectTargets(IReadOnlyList<Solder> enemies, out List<Solder> selectableTargets)
         {
             int maxTargetsCount = 4;
-            selectableTargets = new List<Warrior>(enemies);
+            selectableTargets = new List<Solder>(enemies);
 
             while (selectableTargets.Count > maxTargetsCount)
             {

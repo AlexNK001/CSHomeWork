@@ -10,7 +10,7 @@ namespace _10_War
         private const int ThreadSleep = 10;
 
         private readonly int _cellWidth;
-        private readonly Dictionary<Warrior, WarriorViewPosition> _solders;
+        private readonly Dictionary<Solder, WarriorViewPosition> _solders;
         private readonly Dictionary<SolderStatus, Config> _configs;
         private readonly Platoon _firstPlatoon;
         private readonly Platoon _secondPlatoon;
@@ -24,7 +24,7 @@ namespace _10_War
             _firstPlatoon = firstPlatoon;
             _secondPlatoon = secondPlatoon;
             _cellWidth = cellWidth;
-            _solders = new Dictionary<Warrior, WarriorViewPosition>();
+            _solders = new Dictionary<Solder, WarriorViewPosition>();
             AddSolders(_firstPlatoon, indentationByWidth);
             int left = _cellWidth + indentationByWidth + indentationByWidth;
             AddSolders(_secondPlatoon, left);
@@ -35,7 +35,7 @@ namespace _10_War
         {
             Console.CursorVisible = false;
 
-            foreach (Warrior solder in _solders.Keys)
+            foreach (Solder solder in _solders.Keys)
             {
                 WarriorViewPosition viewPosition = _solders[solder];
                 Console.SetCursorPosition(viewPosition.Left, viewPosition.Top);
@@ -67,7 +67,7 @@ namespace _10_War
 
             Console.WriteLine(finalMessage);
 
-            foreach (Warrior solder in _solders.Keys)
+            foreach (Solder solder in _solders.Keys)
             {
                 solder.Attacked -= OnUpdateAttackingSolderInfo;
                 solder.ReceivedDamage -= OnUpdateAttackedSolderInfo;
@@ -76,11 +76,11 @@ namespace _10_War
 
         private void AddSolders(Platoon platoon, int left, int shiftDown = 1)
         {
-            IReadOnlyList<Warrior> solders = platoon.GetSolders();
+            IReadOnlyList<Solder> solders = platoon.GetSolders();
 
             for (int i = 0; i < solders.Count; i++)
             {
-                Warrior currentSolder = solders[i];
+                Solder currentSolder = solders[i];
                 currentSolder.Attacked += OnUpdateAttackingSolderInfo;
                 currentSolder.ReceivedDamage += OnUpdateAttackedSolderInfo;
                 int top = i * (CellHeight + shiftDown);
@@ -88,17 +88,17 @@ namespace _10_War
             }
         }
 
-        private void OnUpdateAttackingSolderInfo(Warrior solder)
+        private void OnUpdateAttackingSolderInfo(Solder solder)
         {
             UpdateSolderInfo(solder, SolderStatus.Attacking);
         }
 
-        private void OnUpdateAttackedSolderInfo(Warrior solder)
+        private void OnUpdateAttackedSolderInfo(Solder solder)
         {
             UpdateSolderInfo(solder, SolderStatus.Attacked);
         }
 
-        private void UpdateSolderInfo(Warrior solder, SolderStatus status)
+        private void UpdateSolderInfo(Solder solder, SolderStatus status)
         {
             ShowSolderInfo(solder, status);
             Thread.Sleep(ThreadSleep);
@@ -106,14 +106,14 @@ namespace _10_War
             ShowSolderInfo(solder, status);
         }
 
-        private void ShowSolderInfo(Warrior solder, SolderStatus status = SolderStatus.Alive)
+        private void ShowSolderInfo(Solder solder, SolderStatus status = SolderStatus.Alive)
         {
             Config config = _configs[status];
             WarriorViewPosition viewPosition = _solders[solder];
 
             string name = solder.Name + config.Status;
             name = AlignNameWidth(name);
-            string bar = GetBar(solder.GetShareHealth());
+            string bar = GetBar(solder.PercentageHealth());
 
             ChangeColor(config.Background, config.Foreground);
 
