@@ -5,13 +5,13 @@ namespace _11_Aquarium
 {
     public class Program
     {
-        static void Main()
+        private static void Main()
         {
             int time = 12;
+            int fishCount = 5;
             FishCreator creator = new FishCreator();
-            List<Fish> fishes = creator.GiveStartingFishes(time);
+            List<Fish> fishes = creator.GiveStartingFishes(fishCount, time);
             Aquarium aquarium = new Aquarium(fishes, creator.GetMaxNameLength(), time);
-
             Terrarium terrarium = new Terrarium(time, creator, aquarium);
             terrarium.InteractAquarium();
         }
@@ -20,8 +20,8 @@ namespace _11_Aquarium
     public class Terrarium
     {
         private int _time;
-        private FishCreator _fishCreator;
-        private Aquarium _aquarium;
+        private readonly FishCreator _fishCreator;
+        private readonly Aquarium _aquarium;
 
         public Terrarium(int time, FishCreator fishCreator, Aquarium aquarium)
         {
@@ -98,7 +98,7 @@ namespace _11_Aquarium
 
     public class Fish
     {
-        private int _timeBirth;
+        private readonly int _timeBirth;
 
         public Fish(string name, int maxAge, int time = 0)
         {
@@ -128,9 +128,9 @@ namespace _11_Aquarium
 
     public class Aquarium
     {
-        private List<Fish> _fishes;
-        private int _maxCount;
-        private int _nameLength;
+        private readonly List<Fish> _fishes;
+        private readonly int _maxCount;
+        private readonly int _nameLength;
 
         public Aquarium(List<Fish> fishes, int nameLength, int maxCount = 20)
         {
@@ -200,7 +200,7 @@ namespace _11_Aquarium
 
     public class FishCreator
     {
-        private List<Fish> _fishes;
+        private readonly List<Fish> _fishes;
 
         public FishCreator()
         {
@@ -236,15 +236,14 @@ namespace _11_Aquarium
             return length;
         }
 
-        public List<Fish> GiveStartingFishes(int time)
+        public List<Fish> GiveStartingFishes(int count, int time)
         {
-            List<Fish> fishes = new List<Fish>
+            List<Fish> fishes = new List<Fish>();
+
+            for (int i = 0; i < count; i++)
             {
-                new Fish("Петушок", 10, time),
-                new Fish("Гуппи", 14, time),
-                new Fish("Дискус", 19, time),
-                new Fish("Лабео", 10, time)
-            };
+                fishes.Add(_fishes[UserUtils.GenerateRandomNumber(_fishes.Count)].Clone(time));
+            }
 
             return fishes;
         }
@@ -280,7 +279,9 @@ namespace _11_Aquarium
 
     public static class UserUtils
     {
-        static public int GetNumberFromRange(int min, int max)
+        private static readonly Random s_random = new Random();
+
+        public static int GetNumberFromRange(int min, int max)
         {
             bool isLookingResult = true;
             int result = 0;
@@ -305,6 +306,11 @@ namespace _11_Aquarium
             }
 
             return result;
+        }
+
+        public static int GenerateRandomNumber(int max)
+        {
+            return s_random.Next(max);
         }
     }
 }

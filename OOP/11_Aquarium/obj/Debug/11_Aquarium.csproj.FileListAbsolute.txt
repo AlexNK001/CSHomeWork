@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\obj\Debug\11_Aquarium.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\obj\Debug\11_Aquarium.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\bin\Debug\_11_Aquarium.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\bin\Debug\_11_Aquarium.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\bin\Debug\_11_Aquarium.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\obj\Debug\_11_Aquarium.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\11_Aquarium\obj\Debug\_11_Aquarium.pdb
