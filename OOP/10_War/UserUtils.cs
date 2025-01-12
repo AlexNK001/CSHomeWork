@@ -2,8 +2,6 @@
 
 namespace _10_War
 {
-    
-
     public static class UserUtils
     {
         private static readonly Random s_random = new Random();

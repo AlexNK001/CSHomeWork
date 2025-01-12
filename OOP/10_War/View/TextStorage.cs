@@ -118,8 +118,9 @@ namespace _10_War
             ChangeColor(config.Background, config.Foreground);
 
             WriteLine(name, viewPosition.Left, viewPosition.Top);
-            viewPosition.Top++;
-            WriteLine(bar, viewPosition.Left, viewPosition.Top);
+            int top = viewPosition.Top;
+            top++;
+            WriteLine(bar, viewPosition.Left, top);
 
             Console.ResetColor();
         }
