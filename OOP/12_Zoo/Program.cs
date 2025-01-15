@@ -21,7 +21,7 @@ namespace _12_Zoo
 
     public class Zoo
     {
-        private List<Aviary> _enclosures;
+        private readonly List<Aviary> _enclosures;
 
         public Zoo(List<Aviary> aviaries)
         {
@@ -32,18 +32,17 @@ namespace _12_Zoo
         {
             bool isOpen = true;
             int exitNumber = 0;
-            //int minNumber = 1;
 
             while (isOpen)
             {
-                UserUtils.ShowMainMenu(_enclosures, exitNumber);
+                ShowMainMenu(_enclosures, exitNumber);
 
                 if (int.TryParse(Console.ReadLine(), out int value))
                 {
                     if (value > 0 && value <= _enclosures.Count)
                     {
                         value--;
-                        UserUtils.ShowAviaryInfo(_enclosures[value]);
+                        ShowAviaryInfo(_enclosures[value]);
                     }
                     else if (value == exitNumber)
                     {
@@ -62,6 +61,31 @@ namespace _12_Zoo
                 Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        private void ShowMainMenu(IReadOnlyList<Aviary> aviaries, int exitNumber)
+        {
+            int numberToConvertIndex = 1;
+            string finalText = $"Выберите вольер\n";
+            finalText += $"Для выхода нажмите {exitNumber}\n";
+
+            for (int i = 0; i < aviaries.Count; i++)
+            {
+                finalText += $"{i + numberToConvertIndex}) {aviaries[i].Name}\n";
+            }
+
+            Console.WriteLine(finalText);
+        }
+
+        private void ShowAviaryInfo(Aviary aviary)
+        {
+            string finalText = $"Вольер: {aviary.Name}";
+            finalText += $"Всего животных: {aviary.CountMale + aviary.CountFemale}\n";
+            finalText += $"Самок: {aviary.CountFemale}\n";
+            finalText += $"Самцов: {aviary.CountMale}\n";
+            finalText += $"Звук который они издают: {aviary.Sound}";
+
+            Console.WriteLine(finalText);
         }
     }
 
@@ -91,8 +115,8 @@ namespace _12_Zoo
 
     public struct Config
     {
-        public AnimalConfig AnimalConfig;
-        public AviaryConfig AviaryConfig;
+        public readonly AnimalConfig AnimalConfig;
+        public readonly AviaryConfig AviaryConfig;
 
         public Config(string animalName, string animalSound, string nameSign)
         {
@@ -112,10 +136,18 @@ namespace _12_Zoo
 
             for (int i = 0; i < animalCount; i++)
             {
-                animals.Add(new Animal(config, UserUtils.GetRandomGender()));
+                animals.Add(new Animal(config, GetRandomGender()));
             }
 
             return animals;
+        }
+
+        private Gender GetRandomGender()
+        {
+            int percent = 100;
+            int percentageChoice = 50;
+            int result = UserUtils.GenerateRandomNumber(percent);
+            return result >= percentageChoice ? Gender.Male : Gender.Female;
         }
     }
 
@@ -135,14 +167,14 @@ namespace _12_Zoo
 
     public struct AnimalConfig
     {
-        public string Name;
-        public string Sound;
-
         public AnimalConfig(string name, string sound)
         {
             Name = name;
             Sound = sound;
         }
+
+        public string Name { get; }
+        public string Sound { get; }
     }
 
     public class CageFactory
@@ -198,12 +230,12 @@ namespace _12_Zoo
 
     public struct AviaryConfig
     {
-        public string NameSign;
-
         public AviaryConfig(string nameSign)
         {
             NameSign = nameSign;
         }
+
+        public string NameSign { get; }
     }
 
     public enum Gender
@@ -216,31 +248,6 @@ namespace _12_Zoo
     {
         private static readonly Random s_random = new Random();
 
-        public static void ShowMainMenu(IReadOnlyList<Aviary> aviaries, int exitNumber)
-        {
-            int numberToConvertIndex = 1;
-            string finalText = $"Выберите вольер\n";
-            finalText += $"Для выхода нажмите {exitNumber}\n";
-
-            for (int i = 0; i < aviaries.Count; i++)
-            {
-                finalText += $"{i + numberToConvertIndex}) {aviaries[i].Name}\n";
-            }
-
-            Console.WriteLine(finalText);
-        }
-
-        public static void ShowAviaryInfo(Aviary aviary)
-        {
-            string finalText = $"Вольер: {aviary.Name}";
-            finalText += $"Всего животных: {aviary.CountMale + aviary.CountFemale}\n";
-            finalText += $"Самок: {aviary.CountFemale}\n";
-            finalText += $"Самцов: {aviary.CountMale}\n";
-            finalText += $"Звук который они издают: {aviary.Sound}";
-
-            Console.WriteLine(finalText);
-        }
-
         public static int GenerateRandomNumber(int min, int max)
         {
             return s_random.Next(min, max);
@@ -249,14 +256,6 @@ namespace _12_Zoo
         public static int GenerateRandomNumber(int max)
         {
             return s_random.Next(max);
-        }
-
-        public static Gender GetRandomGender()
-        {
-            int percent = 100;
-            int percentageChoice = 50;
-            int result = s_random.Next(percent);
-            return result >= percentageChoice ? Gender.Male : Gender.Female;
         }
     }
 }
