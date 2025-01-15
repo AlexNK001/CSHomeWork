@@ -5,43 +5,45 @@ namespace _12_Zoo
 {
     public class ZooHomeWork
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Zoo zoopark = new Zoo();
-            zoopark.ShowEnclosures();
+            ConfigsStorage animalList = new ConfigsStorage();
+
+            Farm animalCreator = new Farm();
+            CageFactory aviaryCreator = new CageFactory();
+
+            List<Aviary> aviaries = aviaryCreator.Create(animalList, animalCreator);
+            Zoo zoo = new Zoo(aviaries);
+
+            zoo.ShowEnclosures();
         }
     }
 
     public class Zoo
     {
-        private List<Animal> _animals;
-        private Dictionary<Type, string> _sings;
         private List<Aviary> _enclosures;
 
-        public Zoo()
+        public Zoo(List<Aviary> aviaries)
         {
-            _animals = GetAnimals();
-            _sings = GetSings();
-            _enclosures = DistributeAnimals(_animals);
+            _enclosures = aviaries;
         }
 
         public void ShowEnclosures()
         {
             bool isOpen = true;
             int exitNumber = 0;
-            int minNumber = 1;
+            //int minNumber = 1;
 
             while (isOpen)
             {
-                Console.WriteLine($"Выберите вольер от {minNumber} до {_enclosures.Count}");
-                Console.WriteLine($"Для выхода нажмите {exitNumber}");
+                UserUtils.ShowMainMenu(_enclosures, exitNumber);
 
                 if (int.TryParse(Console.ReadLine(), out int value))
                 {
                     if (value > 0 && value <= _enclosures.Count)
                     {
                         value--;
-                        _enclosures[value].ShowInfo();
+                        UserUtils.ShowAviaryInfo(_enclosures[value]);
                     }
                     else if (value == exitNumber)
                     {
@@ -61,194 +63,200 @@ namespace _12_Zoo
                 Console.Clear();
             }
         }
+    }
 
-        private List<Aviary> DistributeAnimals(List<Animal> animals)
+    public class ConfigsStorage
+    {
+        private readonly List<Config> _configs;
+
+        public ConfigsStorage()
+        {
+            _configs = Initialize();
+        }
+
+        public Config this[int index] => _configs[index];
+        public int AnimalCount => _configs.Count;
+
+        private List<Config> Initialize()
+        {
+            return new List<Config>
+            {
+                { new Config("Барсук","ААААррррхххх!!!", "В этом вольере проживают Барсуки.") },
+                { new Config("Медведь","Аррррр", "В этом вольере проживают Медведи.") },
+                { new Config("Скунс","пук-пук","В этом вольере проживают Скунсы.") },
+                { new Config("Бобёр","Уаааа", "В этом вольере проживают Бобры.") }
+            };
+        }
+    }
+
+    public struct Config
+    {
+        public AnimalConfig AnimalConfig;
+        public AviaryConfig AviaryConfig;
+
+        public Config(string animalName, string animalSound, string nameSign)
+        {
+            AnimalConfig = new AnimalConfig(animalName, animalSound);
+            AviaryConfig = new AviaryConfig(nameSign);
+        }
+    }
+
+    public class Farm
+    {
+        public List<Animal> Create(AnimalConfig config)
+        {
+            int min = 10;
+            int max = 20;
+            List<Animal> animals = new List<Animal>();
+            int animalCount = UserUtils.GenerateRandomNumber(min, max);
+
+            for (int i = 0; i < animalCount; i++)
+            {
+                animals.Add(new Animal(config, UserUtils.GetRandomGender()));
+            }
+
+            return animals;
+        }
+    }
+
+    public class Animal
+    {
+        public Animal(AnimalConfig config, Gender gender)
+        {
+            Name = config.Name;
+            Sound = config.Sound;
+            Gender = gender;
+        }
+
+        public string Name { get; }
+        public string Sound { get; }
+        public Gender Gender { get; }
+    }
+
+    public struct AnimalConfig
+    {
+        public string Name;
+        public string Sound;
+
+        public AnimalConfig(string name, string sound)
+        {
+            Name = name;
+            Sound = sound;
+        }
+    }
+
+    public class CageFactory
+    {
+        public List<Aviary> Create(ConfigsStorage configsStorage, Farm farm)
         {
             List<Aviary> aviaries = new List<Aviary>();
-            bool isWork = true;
 
-            while (isWork)
+            for (int i = 0; i < configsStorage.AnimalCount; i++)
             {
-                if (animals.Count > 0)
-                {
-                    List<Animal> selectedAnimals = DivideAnimals();
-                    aviaries.Add(FillEnclosure(selectedAnimals));
-                }
-                else
-                {
-                    isWork = false;
-                }
+                Config config = configsStorage[i];
+                Aviary aviary = new Aviary(config.AviaryConfig, farm.Create(config.AnimalConfig));
+                aviaries.Add(aviary);
             }
 
             return aviaries;
-        }
-
-        private Aviary FillEnclosure(List<Animal> animals)
-        {
-            string name;
-            Type type = animals[0].GetType();
-
-            if (_sings.ContainsKey(type))
-            {
-                name = _sings[type];
-            }
-            else
-            {
-                name = "Табличка для данного вольёра времено отсутсвует.";
-            }
-
-            Aviary aviary = new Aviary(name, animals);
-
-            return aviary;
-        }
-
-        private List<Animal> DivideAnimals()
-        {
-            List<Animal> finalAnimals = new List<Animal>();
-            Animal currentAnimal = _animals[_animals.Count - 1];
-
-            for (int i = _animals.Count - 1; i >= 0; i--)
-            {
-                if (_animals[i].GetType() == currentAnimal.GetType())
-                {
-                    finalAnimals.Add(_animals[i]);
-                    _animals.Remove(_animals[i]);
-                }
-            }
-
-            _animals.Remove(currentAnimal);
-
-            return finalAnimals;
-        }
-
-        private Dictionary<Type, string> GetSings()
-        {
-            Dictionary<Type, string> sings = new Dictionary<Type, string>
-            {
-                { typeof(Badger), "В этом вольере проживают Барсуки." },
-                { typeof(Bear), "В этом вольере проживают Медведи." },
-                { typeof(Skunk), "В этом вольере проживают Скунсы." },
-                { typeof(Beaver), "В этом вольере проживают Бобры." }
-            };
-
-            return sings;
-        }
-
-        private List<Animal> GetAnimals()
-        {
-            List<Animal> list = new List<Animal>
-            {
-                new Badger(Gender.Male),
-                new Badger(Gender.Female),
-                new Bear(Gender.Female),
-                new Bear(Gender.Male),
-                new Skunk(Gender.Male),
-                new Skunk(Gender.Female),
-                new Beaver(Gender.Female),
-                new Beaver(Gender.Male),
-                new Badger(Gender.Male),
-                new Bear(Gender.Female),
-                new Skunk(Gender.Male),
-                new Beaver(Gender.Female),
-                new Badger(Gender.Male),
-                new Bear(Gender.Female),
-                new Skunk(Gender.Male),
-                new Beaver(Gender.Female),
-                new Badger(Gender.Male),
-                new Bear(Gender.Female),
-                new Skunk(Gender.Male),
-                new Beaver(Gender.Female),
-            };
-
-            return list;
         }
     }
 
     public class Aviary
     {
-        private string _name;
-        private List<Animal> _animals;
+        private readonly List<Animal> _animals;
 
-        public Aviary(string name, List<Animal> animals)
+        public Aviary(AviaryConfig aviaryConfig, List<Animal> animals)
         {
-            _name = name;
+            Name = aviaryConfig.NameSign;
             _animals = animals;
+            CountAnimalsByGender();
         }
 
-        public void ShowInfo()
+        public string Name { get; }
+        public int CountMale { get; private set; }
+        public int CountFemale { get; private set; }
+        public string Sound => _animals[0].Sound;
+
+        private void CountAnimalsByGender()
         {
-            int countMale = GetNumberMale();
-            int countFemale = _animals.Count - countMale;
-
-            Console.WriteLine($"Вольер: {_name}");
-            Console.WriteLine($"Всего животных: {_animals.Count}");
-            Console.WriteLine($"Самок: {countFemale}");
-            Console.WriteLine($"Самцов: {_animals.Count - countFemale}");
-            Console.WriteLine($"Звук который они издают: {_animals[0].Sound}\n");
-        }
-
-        private int GetNumberMale()
-        {
-            int countMale = 0;
-
-            foreach (Animal animal in _animals)
+            foreach (var item in _animals)
             {
-                if (animal.Gender == Gender.Male)
+                switch (item.Gender)
                 {
-                    countMale++;
+                    case Gender.Male:
+                        CountMale++;
+                        break;
+
+                    case Gender.Female:
+                        CountFemale++;
+                        break;
                 }
             }
-
-            return countMale;
         }
     }
 
-    public abstract class Animal
+    public struct AviaryConfig
     {
-        private Gender _gender;
-        private string _sound;
+        public string NameSign;
 
-        public Animal(Gender gender, string sound)
+        public AviaryConfig(string nameSign)
         {
-            _gender = gender;
-            _sound = sound;
+            NameSign = nameSign;
         }
-
-        public Gender Gender => _gender;
-        public string Sound => _sound;
-    }
-
-    public class Badger : Animal
-    {
-        public Badger(
-            Gender gender,
-            string sound = "ААААррррхххх!!!") : base(gender, sound) { }
-    }
-
-    public class Bear : Animal
-    {
-        public Bear(
-            Gender gender,
-            string sound = "Аррррр") : base(gender, sound) { }
-    }
-
-    public class Skunk : Animal
-    {
-        public Skunk(
-            Gender gender,
-            string sound = "пук-пук") : base(gender, sound) { }
-    }
-
-    public class Beaver : Animal
-    {
-        public Beaver(
-            Gender gender,
-            string sound = "Уаааа") : base(gender, sound) { }
     }
 
     public enum Gender
     {
         Male,
         Female
+    }
+
+    public static class UserUtils
+    {
+        private static readonly Random s_random = new Random();
+
+        public static void ShowMainMenu(IReadOnlyList<Aviary> aviaries, int exitNumber)
+        {
+            int numberToConvertIndex = 1;
+            string finalText = $"Выберите вольер\n";
+            finalText += $"Для выхода нажмите {exitNumber}\n";
+
+            for (int i = 0; i < aviaries.Count; i++)
+            {
+                finalText += $"{i + numberToConvertIndex}) {aviaries[i].Name}\n";
+            }
+
+            Console.WriteLine(finalText);
+        }
+
+        public static void ShowAviaryInfo(Aviary aviary)
+        {
+            string finalText = $"Вольер: {aviary.Name}";
+            finalText += $"Всего животных: {aviary.CountMale + aviary.CountFemale}\n";
+            finalText += $"Самок: {aviary.CountFemale}\n";
+            finalText += $"Самцов: {aviary.CountMale}\n";
+            finalText += $"Звук который они издают: {aviary.Sound}";
+
+            Console.WriteLine(finalText);
+        }
+
+        public static int GenerateRandomNumber(int min, int max)
+        {
+            return s_random.Next(min, max);
+        }
+
+        public static int GenerateRandomNumber(int max)
+        {
+            return s_random.Next(max);
+        }
+
+        public static Gender GetRandomGender()
+        {
+            int percent = 100;
+            int percentageChoice = 50;
+            int result = s_random.Next(percent);
+            return result >= percentageChoice ? Gender.Male : Gender.Female;
+        }
     }
 }

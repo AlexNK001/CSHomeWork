@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\bin\Debug\_12_Zoo.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\bin\Debug\_12_Zoo.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\bin\Debug\_12_Zoo.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\obj\Debug\12_Zoo.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\obj\Debug\12_Zoo.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\obj\Debug\_12_Zoo.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\12_Zoo\obj\Debug\_12_Zoo.pdb
