@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\bin\Debug\_13_Car_service.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\bin\Debug\_13_Car_service.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\bin\Debug\_13_Car_service.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\obj\Debug\13_Car service.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\obj\Debug\13_Car service.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\obj\Debug\_13_Car_service.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\OOP\13_Car service\obj\Debug\_13_Car_service.pdb

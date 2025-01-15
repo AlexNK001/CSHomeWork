@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _13_Car_service
 {
     public class Programm
     {
-        static void Main()
+        private static void Main()
         {
-            CarFactory creator = new CarFactory();
-            Service service = new Service(10000, 100, creator.CreateCars(20));
+            DetailFactory detailFactory = new DetailFactory();
+            CarFactory creator = new CarFactory(detailFactory);
+            Warehouse warehouse = new Warehouse(detailFactory);
+            Service service = new Service(money: 10000, penaltyRefusal: 100, creator.CreateCars(20), detailFactory, warehouse);
             service.Work();
             Console.ReadKey();
         }
@@ -19,14 +18,18 @@ namespace _13_Car_service
 
     public class Service
     {
+        private readonly int _penaltyRefusal;
+        private readonly Queue<Car> _cars;
+        private readonly Dictionary<string, DetailInfo> _detailsInfo;
+        private readonly DetailFactory _detailFactory;
+        private readonly Warehouse _warehouse;
         private int _money;
-        private List<Cell> _cells;
-        private int _penaltyRefusal;
-        private Queue<Car> _cars;
 
-        public Service(int money, int penaltyRefusal, Queue<Car> cars)
+        public Service(int money, int penaltyRefusal, Queue<Car> cars, DetailFactory detailFactory, Warehouse warehouse)
         {
-            _cells = GetCells();
+            _warehouse = warehouse;
+            _detailFactory = detailFactory;
+            _detailsInfo = InitializeDetailsInformation();
             _money = money;
             _penaltyRefusal = penaltyRefusal;
             _cars = cars;
@@ -66,19 +69,20 @@ namespace _13_Car_service
         private void RepairCar(Car car, int index)
         {
             index--;
-            Cell cell = _cells[index];
 
-            if (cell.TryGiveDetail(out Detail detail))
+            DetailInfo detailInfo = _detailsInfo[_detailFactory[index].Name];
+
+            if (_warehouse.TryGiveDetail(_detailFactory[index].Name, out Detail detail))
             {
                 if (car.TryReplaceDetail(detail))
                 {
-                    _money += cell.Price;
-                    _money += cell.ReplacementPrice;
+                    _money += detailInfo.Price;
+                    _money += detailInfo.ReplacementPrice;
                 }
                 else
                 {
-                    _money -= cell.Price;
-                    Console.WriteLine($"Вы заменили работающую деталь. Штраф: {cell.Price}");
+                    _money -= detailInfo.Price;
+                    Console.WriteLine($"Вы заменили работающую деталь. Штраф: {detailInfo.Price}");
                 }
             }
             else
@@ -91,21 +95,21 @@ namespace _13_Car_service
         private void ShowStateCar(Car car)
         {
             Console.WriteLine($"Автомобиль: {car.Name}");
-            Dictionary<string, bool> condition = car.GetConditionDetails();
+            IReadOnlyList<Detail> details = car.Details;
             string line;
             char symbol = '|';
-            string detail = "Деталь автомобиля";
+            string detailCar = "Деталь автомобиля";
             string state = "Состояние";
             string goodDetail = "Исправна";
             string brokenDetail = "Сломана";
-            int longestName = FindLongestName(condition, detail);
+            int longestName = 20;
 
-            Console.WriteLine(detail + symbol + state + "\n");
+            Console.WriteLine(detailCar + symbol + state + "\n");
 
-            foreach (string name in condition.Keys)
+            foreach (var detail in details)
             {
-                line = name.PadRight(longestName) + symbol;
-                line += condition[name] ? goodDetail : brokenDetail;
+                line = detail.Name.PadRight(longestName) + symbol;
+                line += detail.IsBroken ? goodDetail : brokenDetail;
                 Console.WriteLine(line);
             }
 
@@ -123,7 +127,7 @@ namespace _13_Car_service
             string repairCost = "Стоимость ремонта";
             string fineAmount = "Размер штрафа";
             string count = "Количество";
-            int longestName = FindLongestName(detail);
+            int longestName = 20;
 
             string line = new string(' ', numberLength) + symbol;
             line += detail.PadRight(longestName) + symbol;
@@ -131,14 +135,16 @@ namespace _13_Car_service
             line += fineAmount + symbol + count + symbol;
             Console.WriteLine(line);
 
-            foreach (Cell cell in _cells)
+            foreach (var cell in _detailsInfo.Keys)
             {
+                DetailInfo detailInfo = _detailsInfo[cell];
+
                 line = number.ToString().PadRight(numberLength) + symbol;
-                line += cell.DetailName.PadRight(longestName);
-                line += symbol + cell.Price.ToString().PadLeft(price.Length);
-                line += symbol + cell.ReplacementPrice.ToString().PadLeft(repairCost.Length);
-                line += symbol + cell.Fine.ToString().PadLeft(fineAmount.Length) + symbol;
-                line += cell.Count.ToString().PadLeft(count.Length) + symbol;
+                line += cell.PadRight(longestName);
+                line += symbol + detailInfo.Price.ToString().PadLeft(price.Length);
+                line += symbol + detailInfo.ReplacementPrice.ToString().PadLeft(repairCost.Length);
+                line += symbol + detailInfo.Fine.ToString().PadLeft(fineAmount.Length) + symbol;
+                line += _warehouse.CountCurrentDetail(cell).ToString().PadLeft(count.Length) + symbol;
                 Console.WriteLine(line);
 
                 number++;
@@ -147,37 +153,11 @@ namespace _13_Car_service
             Console.WriteLine($"Для отказа клиенту нажмите {refusalNumber}. Размер штрафа: {_penaltyRefusal}");
         }
 
-        private int FindLongestName(Dictionary<string, bool> condition, string text)
-        {
-            int number = text.Length;
-
-            foreach (string name in condition.Keys)
-            {
-                if (name.Length > number)
-                    number = name.Length;
-            }
-
-            return number;
-        }
-
-        private int FindLongestName(string text)
-        {
-            int number = text.Length;
-
-            foreach (Cell detail in _cells)
-            {
-                if (detail.DetailName.Length > number)
-                    number = detail.DetailName.Length;
-            }
-
-            return number;
-        }
-
         private bool TrySelectAction(out int index)
         {
             if (int.TryParse(Console.ReadLine(), out index))
             {
-                if (index >= 0 && index <= _cells.Count)
+                if (index >= 0 && index <= _detailFactory.DetailsCount)
                 {
                     return true;
                 }
@@ -194,39 +174,85 @@ namespace _13_Car_service
             return false;
         }
 
-        private List<Cell> GetCells()
+        private Dictionary<string, DetailInfo> InitializeDetailsInformation()
         {
-            List<Cell> cell = new List<Cell>
-            {
-                new Cell(new Engine(), 1500, 600, 1600, 1),
-                new Cell(new Gearbox(), 750, 500, 900, 1),
-                new Cell(new Generator(), 200, 50, 250, 1),
-                new Cell(new CoolingSystem(), 360, 250, 410, 1),
-                new Cell(new AirSystem(), 120, 80, 190, 1)
-            };
+            int[] pricies = new int[] { 1500, 750, 200, 360, 120 };
+            int[] repairs = new int[] { 600, 500, 50, 250, 80 };
+            int[] fines = new int[] { 1600, 900, 250, 410, 190 };
 
-            return cell;
+            Dictionary<string, DetailInfo> detailsInfo = new Dictionary<string, DetailInfo>();
+
+            for (int i = 0; i < _detailFactory.DetailsCount; i++)
+            {
+                string name = _detailFactory[i].Name;
+                detailsInfo.Add(name, new DetailInfo(name, pricies[i], repairs[i], fines[i]));
+            }
+
+            return detailsInfo;
         }
     }
 
-    public class Cell
+    public class Warehouse
     {
-        private Detail _detail;
+        private readonly Dictionary<string, Cell> _details;
 
-        public Cell(Detail detail, int price, int repair, int fine, int count)
+        public Warehouse(DetailFactory detailFactory)
         {
-            _detail = detail;
+            int minNumber = 10;
+            int maxNUmber = 20;
+            _details = new Dictionary<string, Cell>();
+
+            for (int i = 0; i < detailFactory.DetailsCount; i++)
+            {
+                string name = detailFactory[i].Name;
+                _details.Add(name, new Cell(detailFactory[i], UserUtils.GenerateRandomNumber(minNumber, maxNUmber)));
+            }
+        }
+
+        public int CountCurrentDetail(string nameDetail)
+        {
+            return _details.ContainsKey(nameDetail) ? _details[nameDetail].Count : -1;
+        }
+
+        public bool TryGiveDetail(string detailName, out Detail detail)
+        {
+            if (_details.ContainsKey(detailName))
+            {
+                return _details[detailName].TryGiveDetail(out detail);
+            }
+
+            detail = null;
+            return false;
+        }
+    }
+
+    public class DetailInfo
+    {
+        public DetailInfo(string detailName, int price, int repair, int fine)
+        {
+            DetailName = detailName;
             Price = price;
             ReplacementPrice = repair;
             Fine = fine;
-            Count = count;
         }
 
         public int Price { get; }
         public int ReplacementPrice { get; }
         public int Fine { get; }
+        public string DetailName { get; }
+    }
+
+    public class Cell
+    {
+        private readonly Detail _detail;
+
+        public Cell(Detail detail, int count)
+        {
+            _detail = detail;
+            Count = count;
+        }
+
         public int Count { get; private set; }
-        public string DetailName => _detail.Name;
 
         public bool TryGiveDetail(out Detail detail)
         {
@@ -249,7 +275,7 @@ namespace _13_Car_service
 
     public class Car
     {
-        private List<Detail> _details;
+        private readonly List<Detail> _details;
 
         public Car(string name, List<Detail> details)
         {
@@ -258,6 +284,7 @@ namespace _13_Car_service
         }
 
         public string Name { get; }
+        public IReadOnlyList<Detail> Details => _details;
 
         public bool TryReplaceDetail(Detail detail)
         {
@@ -267,7 +294,7 @@ namespace _13_Car_service
                 {
                     _details[i] = detail.Clone();
 
-                    return IsWorking();
+                    return HaveBrokenParts();
                 }
             }
 
@@ -275,21 +302,11 @@ namespace _13_Car_service
             return false;
         }
 
-        public Dictionary<string, bool> GetConditionDetails()
-        {
-            Dictionary<string, bool> condition = new Dictionary<string, bool>();
-
-            foreach (Detail detail in _details)
-                condition.Add(detail.Name, detail.IsWorks);
-
-            return condition;
-        }
-
-        private bool IsWorking()
+        private bool HaveBrokenParts()
         {
             foreach (Detail detail in _details)
             {
-                if (detail.IsWorks == false)
+                if (detail.IsBroken == false)
                     return false;
             }
 
@@ -299,13 +316,13 @@ namespace _13_Car_service
 
     public class CarFactory
     {
-        private List<Detail> _details;
-        private List<string> _brands;
+        private readonly DetailFactory _detailFactory;
+        private readonly List<string> _brands;
 
-        public CarFactory()
+        public CarFactory(DetailFactory detailFactory)
         {
-            _details = GetDetails();
-            _brands = GetBrands();
+            _detailFactory = detailFactory;
+            _brands = CreateBrands();
         }
 
         public Queue<Car> CreateCars(int count)
@@ -316,39 +333,13 @@ namespace _13_Car_service
             for (int i = 0; i < count; i++)
             {
                 brand = _brands[UserUtils.GenerateRandomNumber(_brands.Count)];
-                cars.Enqueue(new Car(brand, GetBreakDetails()));
+                cars.Enqueue(new Car(brand, _detailFactory.CreateBreakDetails()));
             }
 
             return cars;
         }
 
-        private List<Detail> GetBreakDetails()
-        {
-            int number = UserUtils.GenerateRandomNumber(_details.Count);
-
-            List<Detail> details = new List<Detail>();
-
-            for (int i = 0; i < _details.Count; i++)
-                details.Add(_details[i].Clone(i != number));
-
-            return details;
-        }
-
-        private List<Detail> GetDetails()
-        {
-            List<Detail> details = new List<Detail>
-            {
-                new Engine(),
-                new Gearbox(),
-                new Generator(),
-                new CoolingSystem(),
-                new AirSystem()
-            };
-
-            return details;
-        }
-
-        private List<string> GetBrands()
+        private List<string> CreateBrands()
         {
             List<string> brands = new List<string>
             {
@@ -364,60 +355,74 @@ namespace _13_Car_service
         }
     }
 
-    public abstract class Detail
+    public class DetailFactory
     {
-        public Detail(string name, bool isWorks = true)
+        private readonly List<Detail> _details;
+
+        public DetailFactory()
+        {
+            _details = Initialize();
+        }
+
+        public Detail this[int detailNumber] => _details[detailNumber];
+        public int DetailsCount => _details.Count;
+
+        public List<Detail> CreateBreakDetails()
+        {
+            int number = UserUtils.GenerateRandomNumber(_details.Count);
+
+            List<Detail> details = new List<Detail>();
+
+            for (int i = 0; i < _details.Count; i++)
+                details.Add(_details[i].Clone(i != number));
+
+            return details;
+        }
+
+        private List<Detail> Initialize()
+        {
+            List<Detail> details = new List<Detail>
+            {
+                new Detail("Engine"),
+                new Detail("Gearbox"),
+                new Detail("Generator"),
+                new Detail("CoolingSystem"),
+                new Detail("AirSystem")
+            };
+
+            return details;
+        }
+    }
+
+    public class Detail
+    {
+        public Detail(string name, bool IsBroken = true)
         {
             Name = name;
-            IsWorks = isWorks;
+            this.IsBroken = IsBroken;
         }
 
         public string Name { get; private set; }
-        public bool IsWorks { get; protected set; }
+        public bool IsBroken { get; protected set; }
 
-        public abstract Detail Clone(bool isWorks = true);
-    }
-
-    public class Engine : Detail
-    {
-        public Engine(string name = "Engine", bool isWorks = true) : base(name, isWorks) { }
-
-        public override Detail Clone(bool isWorks = true) => new Engine(Name, isWorks);
-    }
-
-    public class Gearbox : Detail
-    {
-        public Gearbox(string name = "Gearbox", bool isWorks = true) : base(name, isWorks) { }
-
-        public override Detail Clone(bool isWorks = true) => new Gearbox(Name, isWorks);
-    }
-
-    public class Generator : Detail
-    {
-        public Generator(string name = "Generator", bool isWorks = true) : base(name, isWorks) { }
-
-        public override Detail Clone(bool isWorks = true) => new Generator(Name, isWorks);
-    }
-
-    public class CoolingSystem : Detail
-    {
-        public CoolingSystem(string name = "Cooling System", bool isWorks = true) : base(name, isWorks) { }
-
-        public override Detail Clone(bool isWorks = true) => new CoolingSystem(Name, isWorks);
-    }
-
-    public class AirSystem : Detail
-    {
-        public AirSystem(string name = "Air System", bool isWorks = true) : base(name, isWorks) { }
-
-        public override Detail Clone(bool isWorks = true) => new AirSystem(Name, isWorks);
+        public Detail Clone(bool IsBroken = true)
+        {
+            return new Detail(Name, IsBroken);
+        }
     }
 
     public static class UserUtils
     {
         private static readonly Random s_random = new Random();
 
-        public static int GenerateRandomNumber(int max) => s_random.Next(max);
-        public static int GenerateRandomNumber(int min, int max) => s_random.Next(min, max);
+        public static int GenerateRandomNumber(int min, int max)
+        {
+            return s_random.Next(min, max);
+        }
+
+        public static int GenerateRandomNumber(int max)
+        {
+            return s_random.Next(max);
+        }
     }
 }
