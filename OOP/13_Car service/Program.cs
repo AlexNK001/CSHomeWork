@@ -403,11 +403,11 @@ namespace _13_Car_service
         }
 
         public string Name { get; private set; }
-        public bool IsBroken { get; protected set; }
+        public bool IsBroken { get; private set; }
 
-        public Detail Clone(bool IsBroken = true)
+        public Detail Clone(bool isBroken = true)
         {
-            return new Detail(Name, IsBroken);
+            return new Detail(Name, isBroken);
         }
     }
 
