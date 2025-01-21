@@ -10,7 +10,7 @@ namespace Definition_of_overdue
         {
             int srewCount = 30;
             MeatProcessingPlant meatProcessingPlant = new MeatProcessingPlant();
-            FoodWarehouse foodWarehouse = new FoodWarehouse(meatProcessingPlant.GetSrews(srewCount));
+            FoodWarehouse foodWarehouse = new FoodWarehouse(meatProcessingPlant.CreateSrews(srewCount));
             foodWarehouse.ShowExpiredStew();
         }
     }
@@ -26,9 +26,7 @@ namespace Definition_of_overdue
 
         public void ShowExpiredStew()
         {
-            int maxNameLength = _srews.Max(srew => srew.Name.Length);
             int numeration = 1;
-            string line = string.Empty;
             string exitWord = "exit";
             string userInput = string.Empty;
 
@@ -40,15 +38,7 @@ namespace Definition_of_overdue
 
                 if (int.TryParse(userInput, out int currentData))
                 {
-                    var selected = _srews.Where(p => p.YearOfProduction + p.ExpirationDate < currentData);
-
-                    Console.WriteLine(_srews.Count);
-
-                    foreach (var item in selected)
-                    {
-                        Console.WriteLine($"{numeration}){item.Name.PadRight(maxNameLength)} {item.YearOfProduction} {item.ExpirationDate}");
-                        numeration++;
-                    }
+                    ShowSelectedScrews(numeration, currentData);
                 }
                 else
                 {
@@ -59,11 +49,30 @@ namespace Definition_of_overdue
                 Console.Clear();
             }
         }
+
+        private void ShowSelectedScrews(int numeration, int currentData)
+        {
+            int maxNameLength = _srews.Max(srew => srew.Name.Length);
+            var selected = _srews.Where(srew => srew.YearOfProduction + srew.ExpirationDate < currentData);
+
+            Console.WriteLine(_srews.Count);
+
+            foreach (var srew in selected)
+            {
+                string informationalText = $"{numeration})" +
+                    $"{srew.Name.PadRight(maxNameLength)} " +
+                    $"{srew.YearOfProduction} " +
+                    $"{srew.ExpirationDate}";
+
+                Console.WriteLine(informationalText);
+                numeration++;
+            }
+        }
     }
 
     public class MeatProcessingPlant
     {
-        public List<Srew> GetSrews(int count)
+        public List<Srew> CreateSrews(int count)
         {
             List<Srew> srews = new List<Srew>();
 

@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\bin\Debug\Definition of overdue.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\bin\Debug\Definition of overdue.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\bin\Debug\Definition of overdue.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\obj\Debug\Definition of overdue.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\obj\Debug\Definition of overdue.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\obj\Debug\Definition of overdue.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Definition of overdue\obj\Debug\Definition of overdue.pdb
