@@ -119,11 +119,6 @@ namespace Amnesty
                 Console.WriteLine($"{Name} {Crime}");
             }
         }
-
-        public void ShowInfo()
-        {
-            Console.WriteLine($"{Name} {Crime}");
-        }
     }
 
     public class Creator

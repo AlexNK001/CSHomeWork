@@ -107,7 +107,7 @@ namespace Search_for_the_criminal
             string arrested = "арестован";
             string free = "свободен";
 
-            var sortedCriminals = from Criminal criminal
+            var filteredCriminals = from Criminal criminal
                                   in _criminals
                                   where
                                   criminal.Height == desiredHeight &&
@@ -119,9 +119,9 @@ namespace Search_for_the_criminal
             int fullNameLength = _criminals.Max(criminal => criminal.FullName.Length);
             int nationalityLength = _criminals.Max(criminal => criminal.Nationality.Length);
 
-            if (sortedCriminals.Count() > 0)
+            if (filteredCriminals.Count() > 0)
             {
-                foreach (var item in sortedCriminals)
+                foreach (var item in filteredCriminals)
                 {
                     string line = item.FullName.PadRight(fullNameLength) + Space;
                     line += item.Nationality.PadRight(nationalityLength) + Space;
