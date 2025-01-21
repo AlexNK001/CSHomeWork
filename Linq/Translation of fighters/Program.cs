@@ -22,16 +22,14 @@ namespace Translation_of_fighters
 
         public MilitaryBase()
         {
-            _firstSquads = GetSolders();
-            _secondSquads = GetSolders();
+            _firstSquads = CreateSolders();
+            _secondSquads = CreateSolders();
         }
 
         public void ShowSquads()
         {
-            Console.WriteLine("Первый отряд:");
-            _firstSquads.ForEach(solder => Console.WriteLine(solder.Name));
-            Console.WriteLine("Второй отряд:");
-            _secondSquads.ForEach(solder => Console.WriteLine(solder.Name));
+            ShowSquad("Первый отряд:", _firstSquads);
+            ShowSquad("Второй отряд:", _secondSquads);
         }
 
         public void TransferSolders()
@@ -42,7 +40,13 @@ namespace Translation_of_fighters
             _firstSquads = _firstSquads.Except(tempSolders).ToList();
         }
 
-        private List<Solder> GetSolders()
+        private void ShowSquad(string squadName, List<Solder> solders)
+        {
+            Console.WriteLine(squadName);
+            solders.ForEach(solder => Console.WriteLine(solder.Name));
+        }
+
+        private List<Solder> CreateSolders()
         {
             char space = ' ';
             int soldersCount = 10;
