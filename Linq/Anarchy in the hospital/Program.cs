@@ -27,9 +27,7 @@ namespace Anarchy_in_the_hospital
         {
             _patients = patients;
         }
-
-        public int MaxNameLength => _patients.Max(patient => patient.FullName.Length);
-
+        
         public void ViewPatients()
         {
             bool isWork = true;
@@ -108,8 +106,13 @@ namespace Anarchy_in_the_hospital
         {
             foreach (Patient patient in patients)
             {
-                Console.WriteLine($"{patient.FullName.PadRight(MaxNameLength)} {patient.Age}");
+                Console.WriteLine($"{patient.FullName.PadRight(GetMaxNameLength())} {patient.Age}");
             }
+        }
+
+        private int GetMaxNameLength()
+        {
+            return _patients.Max(patient => patient.FullName.Length);
         }
     }
 
