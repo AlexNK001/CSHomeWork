@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LINQ_1
+namespace Search_for_the_criminal
 {
-    internal class Programm
+    public class Programm
     {
-        static void Main()
+        private static void Main()
         {
             int countCriminals = 550;
             Creator creator = new Creator();
@@ -17,8 +17,8 @@ namespace LINQ_1
 
     class SearhEngine
     {
-        private List<string> _nationalites;
-        private List<Criminal> _criminals;
+        private readonly List<string> _nationalites;
+        private readonly List<Criminal> _criminals;
 
         public SearhEngine(List<string> nationalites, List<Criminal> criminals)
         {
@@ -158,10 +158,10 @@ namespace LINQ_1
 
     class Creator
     {
-        private List<string> _surnames;
-        private List<string> _names;
-        private List<string> _middleNames;
-        private List<string> _nationalitys;
+        private readonly List<string> _surnames;
+        private readonly List<string> _names;
+        private readonly List<string> _middleNames;
+        private readonly List<string> _nationalitys;
 
         public Creator()
         {
