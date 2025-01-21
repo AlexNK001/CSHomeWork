@@ -8,41 +8,39 @@ namespace Anarchy_in_the_hospital
     {
         private static void Main()
         {
-            int countPatients = 50;
             Creator creator = new Creator();
-            Hospital hospital = new Hospital(creator.GetPatients(countPatients));
+            Hospital hospital = new Hospital(creator.CreatePatients());
             hospital.ViewPatients();
         }
     }
 
     public class Hospital
     {
+        private const string CommandSortName = "1";
+        private const string CommandSortAge = "2";
+        private const string CommandShowDisease = "3";
+        private const string CommandExit = "4";
+
         private readonly List<Patient> _patients;
-        private readonly Dictionary<int, string> _ageLimits;
 
         public Hospital(List<Patient> patients)
         {
             _patients = patients;
-            _ageLimits = GetAgeLimits();
         }
 
         public int MaxNameLength => _patients.Max(patient => patient.FullName.Length);
 
         public void ViewPatients()
         {
-            const string CommandSortName = "1";
-            const string CommandSortAge = "2";
-            const string CommandShowDisease = "3";
-            const string CommandExit = "4";
-
             bool isWork = true;
 
             while (isWork)
             {
-                Console.WriteLine($"{CommandSortName} - Отсортировать всех больных по фио");
-                Console.WriteLine($"{CommandSortAge} - Отсортировать всех больных по возрасту");
-                Console.WriteLine($"{CommandShowDisease} - Вывести больных с определенным заболеванием");
-                Console.WriteLine($"{CommandExit} - Выход");
+                string displayMenu = $"{CommandSortName} - Отсортировать всех больных по фио";
+                displayMenu += $"{CommandSortAge} - Отсортировать всех больных по возрасту\n";
+                displayMenu += $"{CommandShowDisease} - Вывести больных с определенным заболеванием\n";
+                displayMenu += $"{CommandExit} - Выход";
+                Console.WriteLine(displayMenu);
 
                 switch (Console.ReadLine())
                 {
@@ -74,47 +72,18 @@ namespace Anarchy_in_the_hospital
 
         private void ShowSortedPatientsByName()
         {
-            char symbol = '\0';
             var triagedPatients = _patients.
                 OrderBy(patient => patient.FullName);
 
-            foreach (Patient patient in triagedPatients)
-            {
-                char firstSymbol = patient.FullName.First();
-
-                if (firstSymbol != symbol)
-                {
-                    symbol = firstSymbol;
-                    Console.WriteLine($"{firstSymbol}");
-                }
-
-                Console.WriteLine($"{patient.FullName.PadRight(MaxNameLength)} {patient.Age} {patient.Disease}");
-            }
+            ShowPatients(triagedPatients);
         }
 
         private void ShowSorteredPatientsByAge()
         {
-            int firstValue = int.MinValue;
-
-            foreach (int age in _ageLimits.Keys)
-            {
-                Console.WriteLine(_ageLimits[age]);
-                ShowAgeGroup(firstValue, age);
-                firstValue = age;
-                Console.WriteLine();
-            }
-        }
-
-        private void ShowAgeGroup(int minAge, int maxAge)
-        {
             var triagedPatients = _patients.
-                Where(patient => minAge < patient.Age && patient.Age <= maxAge).
-                OrderBy(patient => patient.Age);
+               OrderBy(patient => patient.Age);
 
-            foreach (Patient patient in triagedPatients)
-            {
-                Console.WriteLine($"{patient.FullName.PadRight(MaxNameLength)} {patient.Age} {patient.Disease}");
-            }
+            ShowPatients(triagedPatients);
         }
 
         private void ShowPatientsByDisease()
@@ -122,25 +91,25 @@ namespace Anarchy_in_the_hospital
             Console.Write("Введите название заболевания:");
             string desiredDisease = Console.ReadLine();
 
-            var selectedPatients = _patients.
-                Where(patient => patient.Disease.ToLower() == desiredDisease.ToLower());
-
-            foreach (Patient patient in selectedPatients)
+            if (_patients.Any(patient => patient.Disease.ToLower() == desiredDisease.ToLower()))
             {
-                Console.WriteLine($"{patient.FullName.PadRight(MaxNameLength)} {patient.Age}");
+                var selectedPatients = _patients.
+                    Where(patient => patient.Disease.ToLower() == desiredDisease.ToLower());
+
+                ShowPatients(selectedPatients);
+            }
+            else
+            {
+                Console.WriteLine("пациент с таким заболеванием не найден");
             }
         }
 
-        private Dictionary<int, string> GetAgeLimits()
+        private void ShowPatients(IEnumerable<Patient> patients)
         {
-            Dictionary<int, string> ageLimits = new Dictionary<int, string>
+            foreach (Patient patient in patients)
             {
-                { 30, "Пациенты молодого возраста:" },
-                { 60, "Пациенты среднего возраста:" },
-                { int.MaxValue, "Пациенты пожилого возраста:" }
-            };
-
-            return ageLimits;
+                Console.WriteLine($"{patient.FullName.PadRight(MaxNameLength)} {patient.Age}");
+            }
         }
     }
 
@@ -160,52 +129,31 @@ namespace Anarchy_in_the_hospital
 
     public class Creator
     {
-        private readonly List<string> _names;
-        private readonly List<string> _surnames;
-        private readonly List<string> _middleNames;
-        private readonly List<string> _disease;
-
-        public Creator()
+        public List<Patient> CreatePatients()
         {
-            _names = GetNames();
-            _surnames = GetSurnames();
-            _middleNames = GetMiddleNames();
-            _disease = GetDiseases();
-        }
-
-        public List<Patient> GetPatients(int count)
-        {
+            char symbol = ' ';
+            int minAge = 18;
+            int maxAge = 88;
             List<Patient> patients = new List<Patient>();
 
-            for (int i = 0; i < count; i++)
+            List<string> names = GetNames();
+            List<string> surnames = GetSurnames();
+            List<string> middleNames = GetMiddleNames();
+            List<string> disease = GetDiseases();
+
+            for (int i = 0; i < names.Count; i++)
             {
-                patients.Add(GivePatient());
+                string fullName = surnames[i] + symbol + names[i] + symbol + middleNames[i];
+                int age = UserUtils.GenerateRandomNumber(minAge, maxAge);
+                patients.Add(new Patient(fullName, age, disease[i]));
             }
 
             return patients;
         }
 
-        private Patient GivePatient()
-        {
-            char symbol = ' ';
-            int minAge = 18;
-            int maxAge = 88;
-
-            string surname = _surnames[UserUtils.GenerateRandomNumber(_surnames.Count)];
-            string name = _names[UserUtils.GenerateRandomNumber(_names.Count)]; ;
-            string middleName = _middleNames[UserUtils.GenerateRandomNumber(_middleNames.Count)];
-            string fullName = surname + symbol + name + symbol + middleName;
-
-            int age = UserUtils.GenerateRandomNumber(minAge, maxAge);
-
-            string disease = _disease[UserUtils.GenerateRandomNumber(_disease.Count)];
-
-            return new Patient(fullName, age, disease);
-        }
-
         private List<string> GetNames()
         {
-            List<string> names = new List<string>
+            return new List<string>
             {
                 "Александр",
                 "Михаил",
@@ -213,15 +161,16 @@ namespace Anarchy_in_the_hospital
                 "Николай",
                 "Иван",
                 "Денис",
-                "Антон"
+                "Антон",
+                "Пётр",
+                "Алексей",
+                "Евгений"
             };
-
-            return names;
         }
 
         private List<string> GetSurnames()
         {
-            List<string> surnames = new List<string>
+            return new List<string>
             {
                 "Иванов",
                 "Петров",
@@ -229,15 +178,16 @@ namespace Anarchy_in_the_hospital
                 "Попов",
                 "Смирнов",
                 "Кузнецов",
-                "Соколов"
+                "Соколов",
+                "Коздов",
+                "Рыбаков",
+                "Гуляков"
             };
-
-            return surnames;
         }
 
         private List<string> GetMiddleNames()
         {
-            List<string> midlleNames = new List<string>
+            return new List<string>
             {
                 "Александрович",
                 "Игоревич",
@@ -245,15 +195,16 @@ namespace Anarchy_in_the_hospital
                 "Геннадьевич",
                 "Дмитриевич",
                 "Никитич",
-                "Ильич"
+                "Ильич",
+                "Иванович",
+                "Петрович",
+                "Евгенивич"
             };
-
-            return midlleNames;
         }
 
         private List<string> GetDiseases()
         {
-            List<string> disease = new List<string>
+            return new List<string>
             {
                 "Гастрит",
                 "Язва желудка",
@@ -261,21 +212,17 @@ namespace Anarchy_in_the_hospital
                 "Геморрой",
                 "Гломерулонефрит",
                 "Пиелонефрит",
-                "Бронхит"
+                "Бронхит",
+                "Халера",
+                "Чума",
+                "Оспа"
             };
-
-            return disease;
         }
     }
 
     public static class UserUtils
     {
         private static readonly Random s_random = new Random();
-
-        public static int GenerateRandomNumber(int max)
-        {
-            return s_random.Next(max);
-        }
 
         public static int GenerateRandomNumber(int min, int max)
         {

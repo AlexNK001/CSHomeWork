@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\bin\Debug\Anarchy in the hospital.exe.config
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\bin\Debug\Anarchy in the hospital.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\bin\Debug\Anarchy in the hospital.pdb
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\obj\Debug\Anarchy in the hospital.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\obj\Debug\Anarchy in the hospital.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\obj\Debug\Anarchy in the hospital.exe
+C:\Users\admin\source\repos\CS Junior Home Work\CSHomeWork\Linq\Anarchy in the hospital\obj\Debug\Anarchy in the hospital.pdb
